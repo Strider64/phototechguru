@@ -210,7 +210,7 @@ body {
   position: relative;
   width: 100%;
   height: 3.700em;
-  background-color: #54905c;
+  background-color: #2E2E2E;
   border-bottom: 1px solid #e6e6e6; }
 
 .nav-title {
@@ -310,13 +310,18 @@ body {
 
 /* Form Styling */
 form {
-  background-color: #7eb384;
-  padding: 0.938em; }
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
+  background-color: #F1F1F1;
+  width: 40%;
+  height: 15.5em;
+  padding: 1.250em;
+  margin: 1.250em auto; }
   form img {
     width: 37.000em;
     height: 25.000em; }
   form label {
-    color: #F5F5F5; }
+    color: #2E2E2E; }
   form input[type=text], form input[type=tel], form input[type=email], form input[type="password"], form select, form textarea {
     width: 100%;
     padding: 0.750em;
@@ -334,8 +339,9 @@ form {
     resize: none;
     height: 12.50em; }
   form input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
+    float: right;
+    background-color: #cccccc;
+    color: #2E2E2E;
     text-transform: capitalize;
     border: none;
     border-radius: 0.250em;
@@ -343,7 +349,7 @@ form {
     padding: 0.750em 1.250em;
     margin-top: 0.625em; }
   form input[type=submit]:hover {
-    background-color: #45a049; }
+    background-color: #a6a6a6; }
   form button, form a {
     outline: none;
     color: #fff;

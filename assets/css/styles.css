@@ -165,6 +165,295 @@ td,
 th {
   padding: 0; }
 
+/* Trivia Game */
+.displayStatus {
+  background-color: #F5F5F5;
+  color: black;
+  padding: 1.250em; }
+  .displayStatus h4 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.4em;
+    line-height: 0;
+    font-weight: 500; }
+  .displayStatus p {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.0em;
+    line-height: 1.5; }
+  .displayStatus #customBtn {
+    display: block;
+    height: 1.420em;
+    border: none;
+    transition: background-color 0.5s ease;
+    background-color: #c7ccbe;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #F5F5F5;
+    text-align: center;
+    text-decoration: none;
+    padding: 0.938em 1.875em; }
+    .displayStatus #customBtn:hover {
+      background-color: #bec3b3; }
+
+.triviaContainer {
+  background-color: #8ebd94; }
+
+#mainGame {
+  padding: 1.250em; }
+
+#mainGame::after {
+  content: ' ';
+  display: block;
+  clear: both; }
+
+#headerStyle {
+  display: block;
+  background-color: #fff;
+  padding: 1.250em; }
+
+#score {
+  background-color: #00b28d;
+  padding: 0.625em; }
+
+#percent {
+  background-color: #4CAF50;
+  padding: 0.625em; }
+
+#current {
+  background-color: #63846D;
+  color: #fff;
+  padding: 0.625em; }
+
+.gauge {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 250px;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.250em;
+  color: #004033; }
+
+.gauge__body {
+  width: 100%;
+  height: 0;
+  padding-bottom: 50%;
+  background: #b4c0be;
+  position: relative;
+  border-top-left-radius: 100% 200%;
+  border-top-right-radius: 100% 200%;
+  overflow: hidden; }
+
+.gauge__fill {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: inherit;
+  height: 100%;
+  background: #009578;
+  transform-origin: center top;
+  transform: rotate(0.25turn);
+  transition: transform 0.2s ease-out; }
+
+.gauge__cover {
+  width: 75%;
+  height: 150%;
+  background: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25%;
+  box-sizing: border-box; }
+
+#next {
+  float: right;
+  outline: none;
+  color: #fff;
+  border: none;
+  background-color: #4CAF50;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+  width: 6.25em;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding: 0.313em;
+  margin: 0.625em 0;
+  transition: background-color .5s; }
+  #next:hover, #next:active {
+    background-color: #2e6b31; }
+
+#finalResult {
+  padding: 1.250em; }
+  #finalResult h2 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.8em;
+    color: #1c301e; }
+  #finalResult p {
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: #1c301e; }
+
+.btn1 {
+  outline: none;
+  color: #fff;
+  border: none;
+  background-color: #4CAF50;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+  width: 6.25em;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding: 0.313em;
+  margin: 0.625em;
+  transition: background-color .5s; }
+  .btn1:hover, .btn1:active {
+    background-color: #2e6b31; }
+
+#mainGame #headerStyle h2 #clock {
+  opacity: 0;
+  font-size: 1.4em; }
+
+#mainGame #headerStyle h2 #currentQuestion {
+  font-size: 1.2em;
+  margin-left: 2em; }
+
+#mainGame #headerStyle h2 #totalQuestions {
+  font-size: 1.2em; }
+
+#mainGame #triviaSection {
+  margin: 0; }
+
+#mainGame #triviaSection #questionBox {
+  background-color: #F5F5F5;
+  padding: 0.125em 0.625em; }
+
+#mainGame #triviaSection #questionBox h2 {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1.4em;
+  line-height: 1.5;
+  color: #38603D;
+  font-weight: 400; }
+
+#mainGame #triviaSection #buttonContainer {
+  background-color: #A6BDB7;
+  margin-bottom: 0.625em; }
+
+#mainGame #triviaSection #buttonContainer .answerButton {
+  display: block;
+  width: 100%;
+  height: 3.125em;
+  border: 2px solid #F5F5F5;
+  outline: none;
+  cursor: pointer;
+  background-color: rgba(56, 96, 61, 0.6);
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  color: #F5F5F5;
+  text-transform: capitalize;
+  text-align: left;
+  padding-left: 0.625em;
+  margin: 0; }
+
+#mainGame #playerStats {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 40px; }
+
+#mainGame #playerStats #score {
+  position: absolute;
+  top: 0;
+  left: 0.313em;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  color: #F5F5F5;
+  line-height: 0.938em; }
+
+#mainGame #playerStats #percent {
+  position: absolute;
+  top: 0;
+  right: 0.125em;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  color: #F5F5F5;
+  line-height: 0.938em; }
+
+#mainGame #nextStyle {
+  position: relative;
+  top: 2.125em;
+  right: 0;
+  width: 74%;
+  height: 3.125em; }
+
+#mainGame #nextStyle #next {
+  position: absolute;
+  top: -35px;
+  right: 20px;
+  border: none;
+  outline: none;
+  display: block;
+  width: 100%;
+  max-width: 5.375em;
+  height: 2.000em;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  background-color: #4b8051;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  color: #fff;
+  text-transform: capitalize; }
+  #mainGame #nextStyle #next:hover {
+    background-color: #38603D; }
+
+a.qBtn {
+  float: right;
+  font-size: 1.0em;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: #555;
+  border: 1px solid #555;
+  padding: 2px 7px;
+  margin-right: 5.000em;
+  margin-bottom: 3.125em;
+  transition: background-color .5s; }
+
+a.qBtn:visited, a.qBtn:active {
+  background-color: #555; }
+
+a.qBtn:hover {
+  color: #555;
+  background-color: rgba(0, 0, 0, 0.3); }
+
+.disableClick {
+  pointer-events: none; }
+
+#remote {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.4em;
+  text-align: center;
+  align-items: baseline;
+  background-color: #38603D; }
+  #remote #ePrev {
+    flex: 25%;
+    padding: 0.625em;
+    color: #fff;
+    text-decoration: none; }
+  #remote #status {
+    color: #fff;
+    padding: 0.625em; }
+  #remote #eNext {
+    flex: 25%;
+    padding: 0.625em;
+    color: #fff;
+    text-decoration: none; }
+
 /* Accessibility */
 #skip a {
   position: absolute;

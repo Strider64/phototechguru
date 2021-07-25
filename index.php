@@ -1,7 +1,14 @@
 <?php
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
-
+/*
+ * The Photo Tech Guru
+ * Created by John R. Pepp
+ * Date Created: July, 12, 2021
+ * Last Revision: July 25, 2021
+ * Version: 1.50 ßeta
+ *
+ */
 use PhotoTech\CMS;
 use PhotoTech\Pagination;
 

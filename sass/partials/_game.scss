@@ -1,0 +1,347 @@
+/* Trivia Game */
+
+.displayStatus {
+  background-color: $color-light-01;
+  color: darken($color-really-dark-02, 35%);
+  padding: 1.250em;
+
+  h4 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.4em;
+    line-height: 0;
+    font-weight: 500;
+  }
+
+  p {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.0em;
+    line-height: 1.5;
+  }
+
+  #customBtn {
+    display: block;
+    height: 1.420em;
+    border: none;
+    transition: background-color 0.5s ease;
+    background-color: darken($color-medium-01, 8%);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: $color-light-01;
+    text-align: center;
+    text-decoration: none;
+    padding: 0.938em 1.875em;
+
+    &:hover {
+      background-color: darken($color-medium-01, 12%);
+    }
+  }
+
+}
+
+.triviaContainer {
+  background-color: lighten($color-really-dark-02, 35%);
+}
+
+#mainGame {
+  padding: 1.250em;
+}
+
+#mainGame::after {
+  content: ' ';
+  display: block;
+  clear: both;
+}
+
+#headerStyle {
+  display: block;
+  background-color: #fff;
+  padding: 1.250em;
+}
+#score {
+  background-color: #00b28d;
+  padding: 0.625em;
+}
+#percent {
+  background-color: #4CAF50;
+  padding: 0.625em
+}
+
+#current {
+  background-color: #63846D;
+  color: #fff;
+  padding: 0.625em;
+}
+
+.gauge {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 250px;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.250em;
+  color: #004033;
+}
+
+.gauge__body {
+  width: 100%;
+  height: 0;
+  padding-bottom: 50%;
+  background: #b4c0be;
+  position: relative;
+  border-top-left-radius: 100% 200%;
+  border-top-right-radius: 100% 200%;
+  overflow: hidden;
+}
+
+.gauge__fill {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: inherit;
+  height: 100%;
+  background: #009578;
+  transform-origin: center top;
+  transform: rotate(0.25turn);
+  transition: transform 0.2s ease-out;
+}
+
+.gauge__cover {
+  width: 75%;
+  height: 150%;
+  background: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* Text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25%;
+  box-sizing: border-box;
+}
+
+#next {
+  float: right;
+  outline: none;
+  color: #fff;
+  border: none;
+  background-color: #4CAF50;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+  width: 6.25em;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding: 0.313em;
+  margin: 0.625em 0;
+  transition: background-color .5s;
+
+  &:hover, &:active {
+    background-color: darken(#45a049, 15%);
+  }
+}
+
+#finalResult {
+  padding: 1.250em;
+  h2 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.8em;
+    color: darken($color-really-dark-02, 15%);
+  }
+  p {
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: darken($color-really-dark-02, 15%);
+  }
+}
+
+.btn1 {
+  outline: none;
+  color: #fff;
+  border: none;
+  background-color: #4CAF50;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+  width: 6.25em;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding: 0.313em;
+  margin: 0.625em;
+  transition: background-color .5s;
+
+  &:hover, &:active {
+    background-color: darken(#45a049, 15%);
+  }
+}
+
+#mainGame #headerStyle h2 #clock {
+  opacity: 0;
+  font-size: 1.4em;
+}
+
+#mainGame #headerStyle h2 #currentQuestion {
+  font-size: 1.2em;
+  margin-left: 2em;
+}
+
+#mainGame #headerStyle h2 #totalQuestions {
+  font-size: 1.2em;
+}
+
+#mainGame #triviaSection {
+  margin: 0;
+}
+
+#mainGame #triviaSection #questionBox {
+  background-color: $color-light-01;
+  padding: 0.125em 0.625em;
+}
+
+#mainGame #triviaSection #questionBox h2 {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1.4em;
+  line-height: 1.5;
+  color: $color-really-dark-02;
+  font-weight: 400;
+}
+
+#mainGame #triviaSection #buttonContainer {
+  background-color: $color-dark-01;
+  margin-bottom: 0.625em;
+}
+
+#mainGame #triviaSection #buttonContainer .answerButton {
+  display: block;
+  width: 100%;
+  height: 3.125em;
+  border: 2px solid $color-light-01;
+  outline: none;
+  cursor: pointer;
+  background-color: rgba($color-really-dark-02, 0.6);
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  color: $color-light-01;
+  text-transform: capitalize;
+  text-align: left;
+  padding-left: 0.625em;
+  margin: 0;
+}
+
+#mainGame #playerStats {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+
+#mainGame #playerStats #score {
+  position: absolute;
+  top: 0;
+  left: 0.313em;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  color: $color-light-01;
+  line-height: 0.938em;
+}
+
+#mainGame #playerStats #percent {
+  position: absolute;
+  top: 0;
+  right: 0.125em;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  color: $color-light-01;
+  line-height: 0.938em;
+}
+
+#mainGame #nextStyle {
+  position: relative;
+  top: 2.125em;
+  right: 0;
+  width: 74%;
+  height: 3.125em;
+}
+
+#mainGame #nextStyle #next {
+  position: absolute;
+  top: -35px;
+  right: 20px;
+  border: none;
+  outline: none;
+  display: block;
+  width: 100%;
+  max-width: 5.375em;
+  height: 2.000em;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  background-color: lighten($color-really-dark-02, 10%);
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  color: #fff;
+  text-transform: capitalize;
+
+  &:hover {
+    background-color: $color-really-dark-02;
+  }
+}
+
+a.qBtn {
+  float: right;
+  font-size: 1.0em;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: #555;
+  border: 1px solid #555;
+  padding: 2px 7px;
+  margin-right: 5.000em;
+  margin-bottom: 3.125em;
+  transition: background-color .5s;
+}
+
+a.qBtn:visited, a.qBtn:active {
+  background-color: #555;
+}
+
+a.qBtn:hover {
+  color: #555;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.disableClick {
+  pointer-events: none;
+}
+
+
+#remote {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.4em;
+  text-align: center;
+  align-items: baseline;
+  background-color: $color-really-dark-02;
+
+  #ePrev {
+    flex: 25%;
+    padding: 0.625em;
+    color: #fff;
+    text-decoration: none;
+
+  }
+
+  #status {
+    color: #fff;
+    padding: 0.625em;
+
+  }
+
+  #eNext {
+    flex: 25%;
+    padding: 0.625em;
+    color: #fff;
+    text-decoration: none;
+  }
+}
