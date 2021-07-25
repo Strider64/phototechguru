@@ -49,13 +49,13 @@ require_once "vendor/autoload.php";
         <label class="textareaLabel" for="comments">Comments Length:<span id="length"></span></label>
         <textarea name="comments" id="comments" spellcheck="true" placeholder="Enter Message Here..." tabindex="6"
                   required="required"></textarea>
-
+        <button id="submitForm" type="submit" name="submit" value="Submit" tabindex="7" data-response="">Submit</button>
         <!-- Use a data callback function that Google provides -->
         <div id="recaptcha" class="g-recaptcha" data-sitekey="6Le0QrobAAAAAGDacgiAr1UbkPmj0i-LFyWXocfg"
              data-callback="correctCaptcha"></div>
 
 
-        <button id="submitForm" type="submit" name="submit" value="Submit" tabindex="7" data-response="">Submit</button>
+
     </form>
 </main>
 

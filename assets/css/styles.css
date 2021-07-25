@@ -336,11 +336,14 @@ body {
     color: #38603D; }
 
 form {
-  background-color: #4d4d4d;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
+  background-color: #F1F1F1;
+  width: 60%;
   padding: 0.938em;
-  margin-top: -1.250em; }
+  margin: 0 auto; }
   form label {
-    color: #F1F1F1; }
+    color: #2E2E2E; }
   form input[type=text], form input[type=tel], form input[type=email], form input[type="password"], form select, form textarea {
     width: 100%;
     padding: 0.750em;
@@ -369,10 +372,11 @@ form {
   form input[type=submit]:hover {
     background-color: #45a049; }
   form button, form a {
+    float: right;
     outline: none;
-    color: #fff;
+    color: #2E2E2E;
     border: none;
-    background-color: #4CAF50;
+    background-color: #ccc;
     box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
     width: 6.25em;
     font-family: 'Rubik', sans-serif;
@@ -383,7 +387,7 @@ form {
     margin: 0.625em;
     transition: background-color .5s; }
     form button:hover, form button:active, form a:hover, form a:active {
-      background-color: #2e6b31; }
+      background-color: #a6a6a6; }
 
 .sidebar {
   display: block;
@@ -396,7 +400,8 @@ form {
   font-family: 'Rubik', sans-serif;
   color: #F5F5F5;
   text-align: center;
-  background-color: #2E2E2E; }
+  background-color: #2E2E2E;
+  margin-top: 1.250em; }
 
 /* Approximately the size of an iPad 768px */
 @supports (grid-area: auto) {
