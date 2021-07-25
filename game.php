@@ -22,28 +22,45 @@ if (isset($_SESSION['id'])) {
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>Photography Trivia</title>
-    <link rel="stylesheet" media="all" href="assets/css/styles.css">
+    <link rel="stylesheet" media="all" href="assets/css/game.css">
     <script src="assets/js/game.js" defer></script>
 </head>
 <body class="site">
 <div id="skip"><a href="#content">Skip to Main Content</a></div>
-<header class="masthead">
-    <div class="username">
-        <h1><?= $username ?></h1>
-    </div>
-</header>
 
-<?php include_once "assets/includes/inc.nav.php"; ?>
+<div class="nav">
+    <input type="checkbox" id="nav-check">
+
+    <h3 class="nav-title">
+
+    </h3>
+
+    <div class="nav-btn">
+        <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+    </div>
+
+    <div class="nav-links">
+        <a href="index.php">Home</a>
+        <a href="blog.php">Blog</a>
+        <a href="/admin/index.php">Login</a>
+        <a href="#">Quiz</a>
+        <a href="contact.php">Contact</a>
+    </div>
+</div>
 
 <main id="content" class="main">
     <div class="displayStatus">
         <span id="clock"></span>
-        <h4 class="displayTitle">Welcome to Photography Trivia</h4>
-        <p class="triviaInfo">The Miniature Photographer Trivia game has been improved to include
+        <h4 class="displayTitle">Photography Trivia</h4>
+        <p class="triviaInfo">The Photo Tech Guru Trivia game has been improved to include
             a high score table of the top 5 players for that day. Eventually the top winner that day will be
             allowed to add his/her own question with answers regarding <b>photography</b>. A player can
             play as long as he or she doesn't get more than 3 questions wrong. In order to win the daily
-            competition you must be registered and login to be eligible; otherwise, a <i>Guest</i>username
+            competition you must be registered and login to be eligible; otherwise, a <i>Guest</i> username
             will be used and won't be factored into the high scores table. (Winning that is)</p>
         <p>I am still updating this trivia game and I hope to have it finished by the end the week. There might
             be modifications to the gameplay (rules) and I am always open to constructive critiques
@@ -107,7 +124,7 @@ if (isset($_SESSION['id'])) {
     </div>
     <?php if (!isset($_SESSION['id'])) { ?>
         <div class="info">
-            <form class="login" method="post" action="admin/login.php">
+            <form id="gameForm" class="login" method="post" action="admin/login.php">
                 <label class="text_username" for="username">Username</label>
                 <input id="username" class="io_username" type="text" name="user[username]" value="" required>
                 <label class="text_password" for="password">Password</label>

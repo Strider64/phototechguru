@@ -165,7 +165,57 @@ td,
 th {
   padding: 0; }
 
+/* High Score Table */
+.styled-table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); }
+
+.styled-table thead tr.tableTitle {
+  background-color: #fff; }
+
+.styled-table thead tr.tableTitle th {
+  text-align: center; }
+
+.styled-table thead tr.subTitle {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: center; }
+
+.styled-table th,
+.styled-table td {
+  text-align: left;
+  padding: 12px 15px; }
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd; }
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: silver; }
+
+.styled-table tbody tr:nth-of-type(odd) {
+  background-color: #fff; }
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879; }
+
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #00b28d; }
+
+#totals h2 {
+  color: #fff; }
+
+#totals p {
+  color: #fff;
+  line-height: 0.6; }
+
 /* Trivia Game */
+#gameForm {
+  display: none; }
+
 .displayStatus {
   background-color: #F5F5F5;
   color: black;
@@ -330,15 +380,17 @@ th {
   margin: 0; }
 
 #mainGame #triviaSection #questionBox {
+  width: 60%;
   background-color: #F5F5F5;
-  padding: 0.125em 0.625em; }
+  margin: 0 auto; }
 
 #mainGame #triviaSection #questionBox h2 {
   font-family: 'Work Sans', sans-serif;
   font-size: 1.4em;
   line-height: 1.5;
   color: #38603D;
-  font-weight: 400; }
+  font-weight: 400;
+  padding: 1.250em; }
 
 #mainGame #triviaSection #buttonContainer {
   background-color: #A6BDB7;
@@ -346,7 +398,7 @@ th {
 
 #mainGame #triviaSection #buttonContainer .answerButton {
   display: block;
-  width: 100%;
+  width: 60%;
   height: 3.125em;
   border: 2px solid #F5F5F5;
   outline: none;
@@ -358,7 +410,7 @@ th {
   text-transform: capitalize;
   text-align: left;
   padding-left: 0.625em;
-  margin: 0; }
+  margin: 0 auto; }
 
 #mainGame #playerStats {
   position: relative;

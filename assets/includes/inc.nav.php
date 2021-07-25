@@ -17,7 +17,7 @@
         <a href="index.php">Home</a>
         <a href="blog.php">Blog</a>
         <a href="/admin/index.php">Login</a>
-        <a href="#">Quiz</a>
+        <a href="game.php">Quiz</a>
         <a href="contact.php">Contact</a>
     </div>
 </div>
