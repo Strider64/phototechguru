@@ -132,28 +132,29 @@
              * User answered correctly
              */
             if (userAnswer === correct && userAnswer === parseInt(answer.getAttribute('data-correct'))) {
-                answer.style["background-color"] = myGreen;
-                answer.style['color'] = '#f1f1f1';
+
+                answer.textContent = answer.textContent.substring(2);
+                answer.textContent = "📸 " + answer.textContent;
             }
 
             /*
              * User answered incorrectly
              */
             if (userAnswer !== correct && userAnswer === parseInt(answer.getAttribute('data-correct'))) {
-                answer.style['background-color'] = myRed;
-                answer.style['color'] = '#f1f1f1';
+                answer.textContent = answer.textContent.substring(2);
+                answer.textContent = "😥 " + answer.textContent;
             }
             if (userAnswer !== correct && correct === parseInt(answer.getAttribute('data-correct'))) {
-                answer.style['background-color'] = myGreen;
-                answer.style['color'] = '#f1f1f1';
+                answer.textContent = answer.textContent.substring(2);
+                answer.textContent = "📸 " + answer.textContent;
             }
 
             /*
              * User let timer run out
              */
             if (userAnswer === 5) {
-                answer.style['background-color'] = myRed;
-                answer.style['color'] = '#f1f1f1';
+                answer.textContent = answer.textContent.substring(2);
+                answer.textContent = "😥 " + answer.textContent;
             }
         });
     };
@@ -409,7 +410,7 @@
              * Don't Show Answers that have a Blank Field
              */
             if (value !== "") {
-                gameButton.appendChild(d.createTextNode(value));
+                gameButton.appendChild(d.createTextNode("📷 " + value));
             } else {
                 gameButton.appendChild(d.createTextNode(" "));
                 gameButton.style.pointerEvents = "none"; // Disable Click on Empty Field

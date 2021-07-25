@@ -47,7 +47,7 @@ if (isset($_SESSION['id'])) {
         <a href="index.php">Home</a>
         <a href="blog.php">Blog</a>
         <a href="/admin/index.php">Login</a>
-        <a href="#">Quiz</a>
+        <a href="game.php">Quiz</a>
         <a href="contact.php">Contact</a>
     </div>
 </div>
@@ -138,7 +138,7 @@ if (isset($_SESSION['id'])) {
 </div>
 
 <footer class="colophon">
-    <p>&copy; <?php echo date("Y") ?> The Miniature Photographer</p>
+    <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
 <script>
     const gaugeElement = document.querySelector(".gauge");
