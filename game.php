@@ -11,7 +11,7 @@ try {
 if (isset($_SESSION['id'])) {
     $username = Login::username();
 } else {
-    $username = "Guest";
+    $username = "Guest Player";
 }
 
 ?>
@@ -32,7 +32,7 @@ if (isset($_SESSION['id'])) {
     <input type="checkbox" id="nav-check">
 
     <h3 class="nav-title">
-
+      <?= $username ?>
     </h3>
 
     <div class="nav-btn">
@@ -46,9 +46,14 @@ if (isset($_SESSION['id'])) {
     <div class="nav-links">
         <a href="index.php">Home</a>
         <a href="blog.php">Blog</a>
-        <a href="/admin/index.php">Login</a>
+        <a href="/admin/index.php">Admin</a>
         <a href="game.php">Quiz</a>
         <a href="contact.php">Contact</a>
+        <?php
+        if (isset($_SESSION['id'])) {
+            echo '<a href="/admin/logout.php">Logout</a>';
+        }
+        ?>
     </div>
 </div>
 
@@ -57,12 +62,11 @@ if (isset($_SESSION['id'])) {
         <span id="clock"></span>
         <h4 class="displayTitle">Photography Trivia</h4>
         <p class="triviaInfo">The Photo Tech Guru Trivia game has been improved to include
-            a high score table of the top 5 players for that day. Eventually the top winner that day will be
-            allowed to add his/her own question with answers regarding <b>photography</b>. A player can
-            play as long as he or she doesn't get more than 3 questions wrong. In order to win the daily
-            competition you must be registered and login to be eligible; otherwise, a <i>Guest</i> username
-            will be used and won't be factored into the high scores table. (Winning that is)</p>
-        <p>I am still updating this trivia game and I hope to have it finished by the end the week. There might
+            a high score table of the top 5 players for that day. The person can only get 3 wrong or he or she
+        will not be able to continue on and the game will end. Obviously the player will have to know something
+        about photography and its history in order to go far into the game. The game is written in Vanilla JavaScript
+        using Fetch to pull the questions and answers from the database table.</p>
+        <p>I am still updating this trivia game. There might
             be modifications to the gameplay (rules) and I am always open to constructive critiques
             to the game.</p>
         <div id="startBtn">

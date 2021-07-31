@@ -8,15 +8,9 @@ use PhotoTech\Login;
 
 Login::is_login($_SESSION['last_login']);
 
-$user = Login::securityCheck();
+Login::securityCheck();
 
-/*
- * Only Sysop privileges are allowed.
- */
-if ($user['security'] === 'member') {
-    header("Location: index.php");
-    exit();
-}
+
 
 $result = false;
 $id = (int)htmlspecialchars($_GET['id'] ?? null);

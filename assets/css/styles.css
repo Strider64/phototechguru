@@ -822,6 +822,10 @@ form {
 
     .main {
       grid-area: main;
-      font-size: 1.2em; } } }
+      font-size: 1.2em; }
+
+    .sidebar {
+      grid-area: sidebar;
+      justify-content: center; } } }
 
 /*# sourceMappingURL=styles.css.map */

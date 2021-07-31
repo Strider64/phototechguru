@@ -177,7 +177,7 @@ th {
   font-size: 1.2em;
   line-height: 0.5;
   color: #fff;
-  padding-left: 0.625em; }
+  padding-left: 1.250em; }
 
 .nav > .nav-btn {
   display: none; }
@@ -258,13 +258,75 @@ th {
     width: auto;
     height: auto; }
 
+.success {
+  background-color: #F1F1F1;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-weight: normal;
+  padding: 1.250em; }
+
+form.registerStyle {
+  background-color: #2E2E2E;
+  padding: 0.938em; }
+  form.registerStyle label {
+    color: #F5F5F5; }
+  form.registerStyle p, form.registerStyle a, form.registerStyle label, form.registerStyle textarea {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+    line-height: 1.5;
+    font-weight: normal; }
+  form.registerStyle input[type=text], form.registerStyle input[type=tel], form.registerStyle input[type=email], form.registerStyle input[type="password"], form.registerStyle select, form.registerStyle textarea {
+    width: 100%;
+    padding: 0.750em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 0.375em;
+    margin-bottom: 1em;
+    resize: vertical; }
+  form.registerStyle .emailLabel .emailError {
+    display: none; }
+  form.registerStyle .text_username .error {
+    display: none; }
+  form.registerStyle textarea {
+    resize: none;
+    height: 12.50em; }
+  form.registerStyle input[type=submit] {
+    background-color: #2E2E2E;
+    color: white;
+    text-transform: capitalize;
+    border: none;
+    border-radius: 0.250em;
+    cursor: pointer;
+    padding: 0.750em 1.250em;
+    margin-top: 0.625em; }
+  form.registerStyle input[type=submit]:hover {
+    background-color: #545454; }
+  form.registerStyle button, form.registerStyle a {
+    outline: none;
+    color: #fff;
+    border: none;
+    background-color: #6e6e6e;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+    width: 6.25em;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 0.313em;
+    margin: 0.625em;
+    transition: background-color .5s; }
+    form.registerStyle button:hover, form.registerStyle button:active, form.registerStyle a:hover, form.registerStyle a:active {
+      background-color: #545454; }
+
 .addTriviaInfo {
   margin: 0 auto; }
 
 /* High Score Table */
 .styled-table {
   border-collapse: collapse;
-  width: 25.5em;
+  width: 26.5em;
   font-size: 0.9em;
   font-family: sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); }
@@ -276,7 +338,7 @@ th {
   text-align: center; }
 
 .styled-table thead tr.subTitle {
-  background-color: #009879;
+  background-color: #2E2E2E;
   color: #ffffff;
   text-align: center; }
 
@@ -294,9 +356,6 @@ th {
 .styled-table tbody tr:nth-of-type(odd) {
   background-color: #fff; }
 
-.styled-table tbody tr:last-of-type {
-  border-bottom: 2px solid #009879; }
-
 .styled-table tbody tr.active-row {
   font-weight: bold;
   color: #00b28d; }
@@ -308,10 +367,45 @@ th {
   color: #fff;
   line-height: 0.6; }
 
-/* Trivia Game */
-#gameForm {
-  display: none; }
+/* Quiz Login Styling */
+.info {
+  display: block;
+  height: auto;
+  background-color: #fff;
+  padding: 0.625em;
+  margin-bottom: 1.250em; }
+  .info .login {
+    background-color: #2E2E2E;
+    padding: 0.938em; }
+    .info .login label {
+      color: #F1F1F1; }
+    .info .login input[type="text"], .info .login input[type="password"] {
+      width: 100%;
+      padding: 0.750em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 0.375em;
+      margin-bottom: 1em;
+      resize: vertical; }
+    .info .login button, .info .login a {
+      outline: none;
+      color: #fff;
+      border: none;
+      background-color: #4d4d4d;
+      box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+      width: 6.25em;
+      font-family: 'Rubik', sans-serif;
+      font-size: 1.2em;
+      text-transform: capitalize;
+      text-decoration: none;
+      padding: 0.313em;
+      margin: 0.625em;
+      transition: background-color .5s; }
+      .info .login button:hover, .info .login button:active, .info .login a:hover, .info .login a:active {
+        background-color: #666666; }
 
+/* Trivia Game */
 .displayStatus {
   background-color: #F5F5F5;
   color: black;
@@ -323,14 +417,14 @@ th {
     font-weight: 500; }
   .displayStatus p {
     font-family: 'Rubik', sans-serif;
-    font-size: 1.0em;
+    font-size: 1.2em;
     line-height: 1.5; }
   .displayStatus #customBtn {
     display: block;
     height: 1.420em;
     border: none;
     transition: background-color 0.5s ease;
-    background-color: #c7ccbe;
+    background-color: #2E2E2E;
     font-family: 'Work Sans', sans-serif;
     font-size: 1.6em;
     font-weight: bold;
@@ -339,7 +433,7 @@ th {
     text-decoration: none;
     padding: 0.938em 1.875em; }
     .displayStatus #customBtn:hover {
-      background-color: #bec3b3; }
+      background-color: #4d4d4d; }
 
 .triviaContainer {
   margin: 0 auto; }
@@ -580,6 +674,15 @@ a.qBtn:hover {
 .disableClick {
   pointer-events: none; }
 
+.colophon {
+  display: block;
+  height: auto;
+  font-family: 'Rubik', sans-serif;
+  color: #F5F5F5;
+  text-align: center;
+  background-color: #2E2E2E;
+  margin-top: 1.250em; }
+
 @supports (grid-area: auto) {
   @media screen and (min-width: 78em) {
     .site {
@@ -595,8 +698,16 @@ a.qBtn:hover {
 
     .sidebar {
       grid-area: sidebar;
-      display: flex;
+      display: grid;
+      grid-template-columns: 12.50em 12.50em;
+      grid-template-rows: fit-content(6.25em);
+      grid-auto-rows: auto;
+      grid-template-areas: "highscore highscore" "info info";
       justify-content: center; }
+      .sidebar .addTriviaInfo {
+        grid-area: highscore; }
+      .sidebar .info {
+        grid-area: info; }
 
     .main {
       grid-area: main; }
@@ -607,6 +718,40 @@ a.qBtn:hover {
         justify-content: center;
         padding: 0;
         margin: 0 auto; }
+      .main .registerStyle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "email email" "first last" "screenName telephone" "password1 password2" "birthday submitForm";
+        justify-content: center; }
+      .main .first {
+        grid-area: first;
+        margin: 0 0.625em; }
+      .main .last {
+        grid-area: last;
+        margin: 0 0.625em; }
+      .main .screenName {
+        grid-area: screenName;
+        margin: 0 0.625em; }
+      .main .telephone {
+        grid-area: telephone;
+        margin: 0 0.625em; }
+      .main .emailStyle {
+        grid-area: email;
+        margin: 0 0.625em; }
+      .main .password1 {
+        grid-area: password1;
+        margin: 0.3125em 0.625em; }
+      .main .password2 {
+        grid-area: password2;
+        margin: 0.3125em 0.625em; }
+      .main .birthday {
+        grid-area: birthday;
+        text-transform: capitalize;
+        margin: 0.3125em 0.625em; }
+      .main .submitForm {
+        grid-area: submitForm; }
+        .main .submitForm button {
+          float: right; }
 
     .colophon {
       grid-area: footer; } } }

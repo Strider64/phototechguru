@@ -1,9 +1,119 @@
+@import "partials/_reset";
+@import "partials/color_theme_1";
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;1,500&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,500;1,600&display=swap');
+@import "partials/navigation";
+
+/* Accessibility */
+#skip a {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+
+  &:focus {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+}
+
+.success {
+  background-color: #F1F1F1;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-weight: normal;
+  padding: 1.250em;
+}
+
+form.registerStyle {
+  background-color: #2E2E2E;
+  padding: 0.938em;
+  label {
+    color: #F5F5F5;
+  }
+  p, a, label, textarea {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+    line-height: 1.5;
+    font-weight: normal;
+  }
+  input[type=text], input[type=tel], input[type=email], input[type="password"], select, textarea {
+    width: 100%;
+    padding: 0.750em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 0.375em;
+    margin-bottom: 1em;
+    resize: vertical;
+  }
+
+  .emailLabel {
+    .emailError {
+      display: none;
+    }
+  }
+
+  .text_username {
+    .error {
+      display: none;
+    }
+  }
+
+  textarea {
+    resize: none;
+    height: 12.50em;
+  }
+
+  input[type=submit] {
+    background-color: #2E2E2E;
+    color: white;
+    text-transform: capitalize;
+    border: none;
+    border-radius: 0.250em;
+    cursor: pointer;
+    padding: 0.750em 1.250em;
+    margin-top: 0.625em;
+  }
+
+  input[type=submit]:hover {
+    background-color: lighten(#2e2e2e, 15%);
+  }
+
+  button, a {
+    outline: none;
+    color: #fff;
+    border: none;
+    background-color: lighten(#2E2E2E, 25%);
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+    width: 6.25em;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 0.313em;
+    margin: 0.625em;
+    transition: background-color .5s;
+
+    &:hover, &:active {
+      background-color: lighten(#2E2E2E, 15%);
+    }
+  }
+}
+
+.addTriviaInfo {
+  margin: 0 auto;
+}
 /* High Score Table */
 .styled-table {
   border-collapse: collapse;
+  width: 26.5em;
   font-size: 0.9em;
   font-family: sans-serif;
-  min-width: 100%;
+
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -16,7 +126,7 @@
 }
 
 .styled-table thead tr.subTitle {
-  background-color: #009879;
+  background-color: #2E2E2E;
   color: #ffffff;
   text-align: center;
 }
@@ -40,7 +150,7 @@
 }
 
 .styled-table tbody tr:last-of-type {
-  border-bottom: 2px solid #009879;
+
 }
 
 .styled-table tbody tr.active-row {
@@ -56,12 +166,52 @@
   color: #fff;
   line-height: 0.6;
 }
+/* Quiz Login Styling */
+.info{
+  display: block;
+  height: auto;
+  background-color: #fff;
+  padding: 0.625em;
+  margin-bottom: 1.250em;
+  .login {
+    background-color: #2E2E2E;
+    padding: 0.938em;
+    label {
+      color: #F1F1F1;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.750em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 0.375em;
+      margin-bottom: 1em;
+      resize: vertical;
+    }
+    button, a {
+      outline: none;
+      color: #fff;
+      border: none;
+      background-color: lighten(#2E2E2E, 12%);
+      box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+      width: 6.25em;
+      font-family: 'Rubik', sans-serif;
+      font-size: 1.2em;
+      text-transform: capitalize;
+      text-decoration: none;
+      padding: 0.313em;
+      margin: 0.625em;
+      transition: background-color .5s;
+      &:hover, &:active {
+        background-color: lighten(#2E2E2E, 22%);
+      }
+    }
+  }
+}
+
 
 /* Trivia Game */
-
-#gameForm {
-  display: none;
-}
 
 .displayStatus {
   background-color: $color-light-01;
@@ -77,7 +227,7 @@
 
   p {
     font-family: 'Rubik', sans-serif;
-    font-size: 1.0em;
+    font-size: 1.2em;
     line-height: 1.5;
   }
 
@@ -86,7 +236,7 @@
     height: 1.420em;
     border: none;
     transition: background-color 0.5s ease;
-    background-color: darken($color-medium-01, 8%);
+    background-color: #2E2E2E;
     font-family: 'Work Sans', sans-serif;
     font-size: 1.6em;
     font-weight: bold;
@@ -96,14 +246,14 @@
     padding: 0.938em 1.875em;
 
     &:hover {
-      background-color: darken($color-medium-01, 12%);
+      background-color: lighten(#2E2E2E, 12%);
     }
   }
 
 }
 
 .triviaContainer {
-  background-color: lighten($color-really-dark-02, 35%);
+  margin: 0 auto;
 }
 
 #mainGame {
@@ -131,8 +281,8 @@
 }
 
 #current {
-  background-color: #63846D;
-  color: #fff;
+  background-color: #F1F1F1;
+  color: #2E2E2E;
   padding: 0.625em;
 }
 
@@ -260,7 +410,6 @@
 }
 
 #mainGame #triviaSection #questionBox {
-  width: 60%;
   background-color: $color-light-01;
   margin: 0 auto;
 }
@@ -269,7 +418,7 @@
   font-family: 'Work Sans', sans-serif;
   font-size: 1.4em;
   line-height: 1.5;
-  color: $color-really-dark-02;
+  color: #2E2E2E;
   font-weight: 400;
   padding: 1.250em;
 }
@@ -281,15 +430,15 @@
 
 #mainGame #triviaSection #buttonContainer .answerButton {
   display: block;
-  width: 60%;
+  width: 100%;
   height: 3.125em;
-  border: 2px solid $color-light-01;
+  border: 2px solid #ccc;
   outline: none;
   cursor: pointer;
-  background-color: rgba($color-really-dark-02, 0.6);
+  background-color: #F5F5F5;
   font-family: 'Rubik', sans-serif;
   font-size: 1.2em;
-  color: $color-light-01;
+  color: #2E2E2E;
   text-transform: capitalize;
   text-align: left;
   padding-left: 0.625em;
@@ -380,33 +529,130 @@ a.qBtn:hover {
   pointer-events: none;
 }
 
-
-#remote {
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 1.4em;
+.colophon {
+  display: block;
+  height: auto;
+  font-family: 'Rubik', sans-serif;
+  color: #F5F5F5;
   text-align: center;
-  align-items: baseline;
-  background-color: $color-really-dark-02;
-
-  #ePrev {
-    flex: 25%;
-    padding: 0.625em;
-    color: #fff;
-    text-decoration: none;
-
-  }
-
-  #status {
-    color: #fff;
-    padding: 0.625em;
-
-  }
-
-  #eNext {
-    flex: 25%;
-    padding: 0.625em;
-    color: #fff;
-    text-decoration: none;
-  }
+  background-color: #2E2E2E;
+  margin-top: 1.250em;
 }
+
+@supports (grid-area: auto) {
+
+  @media screen and (min-width: 78em) {
+    .site {
+      display: grid;
+      grid-template-columns:  minmax(12.50em, 25.00em) 1fr;
+      grid-template-areas:
+				"nav nav"
+				"sidebar main"
+                "footer footer";
+      justify-content: center;
+      width: 75em;
+      margin: 0 auto;
+    }
+
+    .nav {
+      grid-area: nav;
+    }
+
+    .sidebar {
+      grid-area: sidebar;
+      display: grid;
+      grid-template-columns: 12.50em 12.50em;
+      grid-template-rows: fit-content(6.25em);
+      grid-auto-rows: auto;
+      grid-template-areas: "highscore highscore" "info info";
+      justify-content: center;
+      .addTriviaInfo {
+        grid-area: highscore;
+      }
+      .info {
+        grid-area: info;
+      }
+    }
+
+    .main {
+      grid-area: main;
+      #mainGame {
+        display: grid;
+        grid-template-columns:  48.00em;
+        grid-template-areas:
+				"current"
+				"trivia"
+                "scoring";
+        justify-content: center;
+        padding: 0;
+        margin: 0 auto;
+      }
+      .registerStyle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+              "email email"
+              "first last"
+              "screenName telephone"
+              "password1 password2"
+              "birthday submitForm";
+        justify-content: center;
+      }
+
+      .first {
+        grid-area: first;
+        margin: 0 0.625em;
+      }
+
+      .last {
+        grid-area: last;
+        margin: 0 0.625em;
+      }
+
+      .screenName {
+        grid-area: screenName;
+        margin: 0 0.625em;
+      }
+
+      .telephone {
+        grid-area: telephone;
+        margin: 0 0.625em;
+      }
+
+      .emailStyle {
+        grid-area: email;
+        margin: 0 0.625em;
+      }
+
+      .password1 {
+        grid-area: password1;
+        margin: 0.3125em 0.625em;
+      }
+
+      .password2 {
+        grid-area: password2;
+        margin: 0.3125em 0.625em;
+      }
+
+      .birthday {
+        grid-area: birthday;
+        text-transform: capitalize;
+        margin: 0.3125em 0.625em;
+      }
+
+      .submitForm {
+        grid-area: submitForm;
+
+        button {
+          float: right;
+        }
+      }
+    }
+
+    .colophon {
+      grid-area: footer;
+    }
+
+
+  } // End of Screen Size
+} // End of Last Grid Area

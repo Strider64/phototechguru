@@ -10,15 +10,7 @@ use PhotoTech\Login;
 
 Login::is_login($_SESSION['last_login']);
 
-$user = Login::securityCheck();
-
-/*
- * Only Sysop privileges are allowed.
- */
-if ($user['security'] === 'member') {
-    header("Location: index.php");
-    exit();
-}
+Login::securityCheck();
 
 $save_result = false;
 
@@ -163,7 +155,9 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
         <a href="logout.php">Logout</a>
     </div>
 </div>
+<div class="sidebar">
 
+</div>
 <main id="content" class="main">
     <form id="formData" class="form_classes" action="create.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="cms[user_id]" value="3">

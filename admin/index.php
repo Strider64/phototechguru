@@ -8,6 +8,8 @@ use PhotoTech\Login;
 Login::is_login($_SESSION['last_login']);
 
 
+
+
 if (isset($_POST['submit'])) {
     $_SESSION['page'] = $_POST['page'];
 } else {
@@ -62,7 +64,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     </div>
 
     <div class="nav-links">
-        <a href="index.php">home</a>
+        <a href="../index.php">home</a>
         <a href="create.php">create</a>
         <a href="logout.php">logout</a>
     </div>

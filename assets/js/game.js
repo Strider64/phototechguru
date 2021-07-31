@@ -1,8 +1,8 @@
 /*
- *  The Photography Quiz 5.80 using FETCH/JSON
+ *  The Photography Quiz 6.00 using FETCH/JSON
  *  by John R. Pepp
  *  Started: January 14, 2020
- *  Revised: February 26, 2021 @ 5:45pm
+ *  Revised: July 25, 2021 @ 5:45pm
  */
 
 'use strict';

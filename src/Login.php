@@ -30,13 +30,15 @@ class Login extends DatabaseObject
         $this->password = htmlspecialchars($args['hashed_password']);
     }
 
-    public static function username() {
+    public static function username()
+    {
         static::$searchItem = 'id';
         static::$searchValue = $_SESSION['id'];
         $sql = "SELECT username FROM " . static::$table . " WHERE id = :id LIMIT 1";
         $user = static::fetch_by_column_name($sql);
         return $user['username'];
     }
+
     public static function full_name(): string
     {
         static::$searchItem = 'id';
@@ -52,7 +54,14 @@ class Login extends DatabaseObject
         static::$searchItem = "id";
         static::$searchValue = $_SESSION['id'];
         $sql = "SELECT security FROM " . static::$table . " WHERE id=:id LIMIT 1";
-        return static::fetch_by_column_name($sql);
+        $result =  static::fetch_by_column_name($sql);
+        /*
+         * Only Sysop privileges are allowed.
+         */
+        if ($result['security'] !== 'sysop') {
+            header("Location: ../game.php");
+            exit();
+        }
 
     }
 
