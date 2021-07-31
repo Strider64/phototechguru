@@ -53,7 +53,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
 
 <?php include_once "assets/includes/inc.nav.php"; ?>
 
-<main class="content" class="main">
+<main  class="content">
     <div class="container">
         <?php foreach ($cms as $record) { ?>
             <article class="cms">
