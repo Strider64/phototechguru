@@ -12,6 +12,8 @@ require_once "vendor/autoload.php";
 use PhotoTech\CMS;
 use PhotoTech\Pagination;
 
+
+$displayFormat = ["gallery-container w-3 h-2", 'gallery-container w-3','gallery-container','gallery-container','gallery-container','gallery-container h-3 w-4"','gallery-container','gallery-container','gallery-container','gallery-container','gallery-container','gallery-container'];
 /*
  * Using pagination in order to have a nice looking
  * website page.
@@ -23,7 +25,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
     $current_page = 1;
 }
 
-$per_page = 6; // Total number of records to be displayed:
+$per_page = 12; // Total number of records to be displayed:
 $total_count = CMS::countAllPage('blog'); // Total Records in the db table:
 
 
@@ -50,34 +52,76 @@ $cms = CMS::page($per_page, $offset,'blog');
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>The Photo Tech Guru</title>
-    <link rel="stylesheet" media="all" href="assets/css/styles.css">
+    <link rel="stylesheet" media="all" href="assets/css/gallery.css">
 </head>
 <body class="site">
 <header class="masthead">
 
 </header>
-<?php include_once "assets/includes/inc.nav.php"; ?>
-<main class="content">
-    <div class="gallery">
+<div class="nav">
+    <input type="checkbox" id="nav-check">
 
+    <h3 class="nav-title">
+        Click on any image below
+    </h3>
+
+    <div class="nav-btn">
+        <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+    </div>
+
+    <div class="nav-links">
+        <a href="index.php">Home</a>
+        <a href="blog.php">Blog</a>
+        <a href="/admin/index.php">Admin</a>
+        <a href="game.php">Quiz</a>
+        <a href="contact.php">Contact</a>
         <?php
-        foreach ($cms as $record) {
-            echo "<article>\n";
-            echo '<img src="' . $record['image_path'] . '" alt="testing">';
-            echo '<div class="text">';
-            echo '<h3>' . $record['heading'] . '</h3>';
-            echo '<ul class="cameraData">';
-            echo "<li>Shutter Speed " . $record['ExposureTime'] . '</li>';
-            echo '<li>Aperture ' . $record['Aperture'] .'</li>';
-            echo '<li>' . $record['ISO'] . '</li>';
-            echo '<li>Focal Length ' . $record['FocalLength'] . '</li>';
-            echo '</ul>';
-            echo "<button>" . $record['Model'] . "</button>";
-            echo '</div>';
-            echo "</article>\n";
+        if (isset($_SESSION['id'])) {
+            echo '<a href="/admin/logout.php">Logout</a>';
         }
         ?>
     </div>
+</div>
+<main class="content">
+    <div class="container">
+
+        <?php
+        $count = 0;
+        foreach ($cms as $record) {
+            echo '<div class="' . $displayFormat[$count] . '">';
+            echo '<div class="gallery-item">';
+            echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1">';
+            echo '</div>';
+            $count++;
+            echo '<div class="title">' . $record['heading'] . '</div>';
+            echo '</div>';
+            echo '</div>';
+
+        }
+        ?>
+
+    </div>
+
+<!--        foreach ($cms as $record) {-->
+<!--            echo "<article>\n";-->
+<!--            echo '<img src="' . $record['image_path'] . '" alt="testing">';-->
+<!--            echo '<div class="text">';-->
+<!--            echo '<h3>' . $record['heading'] . '</h3>';-->
+<!--            echo '<ul class="cameraData">';-->
+<!--            echo "<li>Shutter Speed " . $record['ExposureTime'] . '</li>';-->
+<!--            echo '<li>Aperture ' . $record['Aperture'] .'</li>';-->
+<!--            echo '<li>' . $record['ISO'] . '</li>';-->
+<!--            echo '<li>Focal Length ' . $record['FocalLength'] . '</li>';-->
+<!--            echo '</ul>';-->
+<!--            echo "<button>" . $record['Model'] . "</button>";-->
+<!--            echo '</div>';-->
+<!--            echo "</article>\n";-->
+<!--        }-->
+
 </main>
 <aside class="sidebar">
     <?php
@@ -88,5 +132,6 @@ $cms = CMS::page($per_page, $offset,'blog');
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
+<script src="assets/js/lightbox.js"></script>
 </body>
 </html>

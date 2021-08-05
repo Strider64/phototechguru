@@ -10,13 +10,11 @@ use PhotoTech\Pagination;
  * website page.
  */
 
-if (isset($_GET['page']) && !empty($_GET['page'])) {
-    $current_page = urldecode($_GET['page']);
-} else {
-    $current_page = 1;
-}
 
-$per_page = 4; // Total number of records to be displayed:
+$current_page = $_GET['page'] ?? 1;
+
+
+$per_page = 2; // Total number of records to be displayed:
 $total_count = CMS::countAllPage('blog'); // Total Records in the db table:
 
 
