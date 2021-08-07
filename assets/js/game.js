@@ -420,10 +420,12 @@
 
     /* Success function utilizing FETCH */
     const quizUISuccess = (parsedData) => {
+
         mainGame.style.display = 'grid';
         d.getElementById('content').scrollIntoView();
         //console.log(parsedData);
         gameData = parsedData;
+        //console.log(gameData);
         //gameData = parsedData.sort(() => Math.random() - .5); // randomize questions:
         totalQuestions = parseInt(gameData.length);
         createQuiz(gameData[gameIndex]);
@@ -433,6 +435,19 @@
     /* If Database Table fails to load then answer a few hard coded Q&A */
     const quizUIError = (error) => {
         console.log("Database Table did not load", error);
+        let temp = {
+            "id": 110,
+            "user_id": 1,
+            "hidden": "no",
+            "question": "[Blank] is the length of time when the film or digital sensor inside the camera is exposed to light, also when a camera's shutter is open when taking a photograph. The amount of light that reaches the film or image sensor is proportional to the [Blank].",
+            "category": "photography",
+            "answers": [
+                "Shutter Speed or Exposure Time",
+                "ISO",
+                "",
+                ""
+            ]
+        }
     };
 
     /* create FETCH request */

@@ -65,15 +65,15 @@ $cms = CMS::page($per_page, $offset, 'blog');
                 <p><?= nl2br($record['content']) ?></p>
             </article>
         <?php } ?>
-        <?php
-        $url = 'blog.php';
-        echo $pagination->new_page_links($url);
-        ?>
+
     </div>
 </main>
 
 <div class="sidebar">
-
+    <?php
+    $url = 'blog.php';
+    echo $pagination->new_page_links($url);
+    ?>
 </div>
 
 <footer class="colophon">

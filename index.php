@@ -55,9 +55,6 @@ $cms = CMS::page($per_page, $offset,'blog');
     <link rel="stylesheet" media="all" href="assets/css/gallery.css">
 </head>
 <body class="site">
-<header class="masthead">
-
-</header>
 <div class="nav">
     <input type="checkbox" id="nav-check">
 
@@ -94,10 +91,10 @@ $cms = CMS::page($per_page, $offset,'blog');
         foreach ($cms as $record) {
             echo '<div class="' . $displayFormat[$count] . '">';
             echo '<div class="gallery-item">';
-            echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1">';
+            echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1" data-exif="' . $record['Model'] . ' ' . $record['ExposureTime'] .' ' . $record['Aperture'] . ' ' . $record['ISO'] . ' ' . $record['FocalLength'] .'">';
             echo '</div>';
             $count++;
-            echo '<div class="title">' . $record['heading'] . '</div>';
+            echo '<div class="title">' . '<h1 class="pictureHeading">' . $record['heading'] .'</h1>' . '<span class="exifInfo">' . $record['Model'] . '</span>' . '</div>';
             echo '</div>';
             echo '</div>';
 
