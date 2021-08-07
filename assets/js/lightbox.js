@@ -1,12 +1,13 @@
 const lightbox = document.createElement('div')
-lightbox.id = 'lightbox'
+lightbox.id = 'lightbox';
+
 document.body.appendChild(lightbox)
 
 const images = document.querySelectorAll('img')
 images.forEach(image => {
     image.addEventListener('click', () => {
         lightbox.classList.add('active')
-        const img = document.createElement('img')
+        const img = document.createElement('img');
         const exif = document.createElement('p');
         exif.textContent = image.getAttribute('data-exif');
         exif.classList.add('displayInfo');
@@ -20,7 +21,8 @@ images.forEach(image => {
     })
 })
 
-lightbox.addEventListener('click', e => {
-    if (e.target !== e.currentTarget) return
-    lightbox.classList.remove('active')
+lightbox.addEventListener('click', () => {
+    if (lightbox.hasChildNodes()) {
+        lightbox.classList.remove('active');
+    }
 })
