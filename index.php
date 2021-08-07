@@ -1,6 +1,7 @@
 <?php
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
+
 /*
  * The Photo Tech Guru
  * Created by John R. Pepp
@@ -9,11 +10,12 @@ require_once "vendor/autoload.php";
  * Version: 1.50 ßeta
  *
  */
+
 use PhotoTech\CMS;
 use PhotoTech\Pagination;
 
 
-$displayFormat = ["gallery-container w-3 h-2", 'gallery-container w-3','gallery-container','gallery-container','gallery-container','gallery-container h-3 w-4"','gallery-container','gallery-container','gallery-container','gallery-container','gallery-container','gallery-container'];
+$displayFormat = ["gallery-container w-3 h-2", 'gallery-container w-3', 'gallery-container', 'gallery-container', 'gallery-container', 'gallery-container h-3 w-4"', 'gallery-container', 'gallery-container', 'gallery-container', 'gallery-container', 'gallery-container', 'gallery-container'];
 /*
  * Using pagination in order to have a nice looking
  * website page.
@@ -41,7 +43,7 @@ $offset = $pagination->offset();
  * Grab the data from the CMS class method *static*
  * and put the data into an array variable.
  */
-$cms = CMS::page($per_page, $offset,'blog');
+$cms = CMS::page($per_page, $offset, 'blog');
 
 ?>
 <!doctype html>
@@ -91,10 +93,10 @@ $cms = CMS::page($per_page, $offset,'blog');
         foreach ($cms as $record) {
             echo '<div class="' . $displayFormat[$count] . '">';
             echo '<div class="gallery-item">';
-            echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1" data-exif="' . $record['Model'] . ' ' . $record['ExposureTime'] .' ' . $record['Aperture'] . ' ' . $record['ISO'] . ' ' . $record['FocalLength'] .'">';
+            echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1" data-exif="' . $record['Model'] . ' ' . $record['ExposureTime'] . ' ' . $record['Aperture'] . ' ' . $record['ISO'] . ' ' . $record['FocalLength'] . '">';
             echo '</div>';
             $count++;
-            echo '<div class="title">' . '<h1 class="pictureHeading">' . $record['heading'] .'</h1>' . '<span class="exifInfo">' . $record['Model'] . '</span>' . '</div>';
+            echo '<div class="title">' . '<h1 class="pictureHeading">' . $record['heading'] . '</h1>' . '<span class="exifInfo">' . $record['Model'] . '</span>' . '</div>';
             echo '</div>';
             echo '</div>';
 
@@ -102,22 +104,6 @@ $cms = CMS::page($per_page, $offset,'blog');
         ?>
 
     </div>
-
-<!--        foreach ($cms as $record) {-->
-<!--            echo "<article>\n";-->
-<!--            echo '<img src="' . $record['image_path'] . '" alt="testing">';-->
-<!--            echo '<div class="text">';-->
-<!--            echo '<h3>' . $record['heading'] . '</h3>';-->
-<!--            echo '<ul class="cameraData">';-->
-<!--            echo "<li>Shutter Speed " . $record['ExposureTime'] . '</li>';-->
-<!--            echo '<li>Aperture ' . $record['Aperture'] .'</li>';-->
-<!--            echo '<li>' . $record['ISO'] . '</li>';-->
-<!--            echo '<li>Focal Length ' . $record['FocalLength'] . '</li>';-->
-<!--            echo '</ul>';-->
-<!--            echo "<button>" . $record['Model'] . "</button>";-->
-<!--            echo '</div>';-->
-<!--            echo "</article>\n";-->
-<!--        }-->
 
 </main>
 <aside class="sidebar">
