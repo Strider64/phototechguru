@@ -1,48 +1,18 @@
 /*
- *  The Photography Quiz 6.00 using FETCH/JSON
+ *  The Photography Quiz 6.50 using FETCH/JSON
  *  by John R. Pepp
  *  Started: January 14, 2020
- *  Revised: July 25, 2021 @ 5:45pm
+ *  Revised: August 7, 2021 @ 9:30 am
  */
 
 'use strict';
 (function () {
-    /* Convert RGBa to HEX  */
-    const rgba2hex = (orig) => {
-        let a,
-            rgb = orig.replace(/\s/g, '').match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
-            alpha = (rgb && rgb[4] || "").trim(),
-            hex = rgb ?
-                (rgb[1] | 1 << 8).toString(16).slice(1) +
-                (rgb[2] | 1 << 8).toString(16).slice(1) +
-                (rgb[3] | 1 << 8).toString(16).slice(1) : orig;
-
-        if (alpha !== "") {
-            a = alpha;
-        } else {
-            a = "01";
-        }
-        // multiply before convert to HEX
-        a = ((a * 255) | 1 << 8).toString(16).slice(1);
-        hex = hex + a;
-
-        return hex;
-    };
-
-    const myColor = (colorcode) => {
-        let hexColor = rgba2hex(colorcode);
-        return '#' + hexColor;
-    };
-
     /*
      * Constants & Variables Initialization Section.
      */
-    const myGreen = myColor("rgba(29, 100, 31, 0.70)"); /* Green with 70% transparency */
-    const myRed = myColor("rgba(255, 51, 51, 0.70)"); /* Red with 70% transparency */
-//const myRed = myColor("rgba(84, 0, 30, 0.70)"); /* Red with 70% transparency */
 
     const quizUrl = 'trivia_questions.php?'; // PHP database script
-    const d = document; // Shorten docoment function::
+    const d = document; // Shorten document function::
     d.querySelector('#photography');
     d.querySelector('.gameTitle');
     const buttonContainer = d.querySelector('#buttonContainer');
@@ -52,8 +22,9 @@
     const scoreText = d.querySelector('#score');
     let percent = d.querySelector('#percent');
     const dSec = 20; // Countdown Clock for questions:
-
+    let failed = false;
     let gameIndex = 0,
+        myRed = '#ff0000',
         gameData = null, // Array of Objects (id, questions and answers):
         timer = null,
         score = 0,
@@ -62,8 +33,6 @@
         answeredWrong = 0,
         totalQuestions = 0,
         shotsRemaining = 3,
-
-        choose = d.querySelector('#selectCat'),
         username = d.querySelector('.displayMessage').getAttribute('data-username'),
         finalResult = d.querySelector('#finalResult'),
         hs_table = {};
@@ -71,12 +40,12 @@
     let responseAns = {};
     setGaugeValue(gaugeElement, shotsRemaining / 3);
     finalResult.style.display = "none";
-    const buttons = d.querySelectorAll(".answerButton");
+    //const buttons = d.querySelectorAll(".answerButton");
     const mainGame = d.querySelector('#mainGame');
     next.style.display = "none";
 
     /*
-     * Start and Stop Functions for Countdown Timer For Triva Game
+     * Start and Stop Functions for Countdown Timer For Trivia Game
      */
     const startTimer = (dSec) => {
         let seconds = dSec;
@@ -201,38 +170,35 @@
 
     /* Success function utilizing FETCH */
     const checkUISuccess = function (parsedData) {
-        //console.log(parsedData);
-        let correct = parseInt(parsedData.correct);
+        if (failed !== true) {
+            let correct = parseInt(parsedData.correct);
+            let userAnswer = parseInt(d.querySelector('#headerStyle').getAttribute('data-user'));
+            scoringFcn(userAnswer, correct);
+            calcPercent(answeredRight, total);
+            highlightFCN(userAnswer, correct);
+
+            disableListeners();
+            next.style.display = "block";
+            next.addEventListener('click', removeQuiz, false);
+        }
+    };
+
+    /* If Database Table fails to load then hard code the correct answers */
+    const checkUIError = function (error) {
+
+        console.log("Database Table did not load", error);
+        failed = true;
         let userAnswer = parseInt(d.querySelector('#headerStyle').getAttribute('data-user'));
+        let response = [1, 4];
+        let x = parseInt(gameData[gameIndex].id) - 1;
+
+        let correct = response[x];
         scoringFcn(userAnswer, correct);
         calcPercent(answeredRight, total);
         highlightFCN(userAnswer, correct);
 
         disableListeners();
         next.style.display = "block";
-        next.addEventListener('click', removeQuiz, false);
-    };
-
-    /* If Database Table fails to load then hard code the correct answers */
-    const checkUIError = function (error) {
-        let correct;
-        console.log("Database Table did not load", error);
-        switch (gameData[gameIndex].id) {
-            case 1:
-                correct = gameData[gameIndex].correct;
-                break;
-            case 55:
-                correct = gameData[gameIndex].correct;
-                break;
-            case 9:
-                correct = gameData[gameIndex].correct;
-        }
-        let userAnswer = parseInt(d.querySelector('#headerStyle').getAttribute('data-user'));
-        scoringFcn(userAnswer, correct);
-        calcPercent(answeredRight, total);
-        highlightFCN(userAnswer, correct);
-
-        disableListeners();
         next.addEventListener('click', removeQuiz, false);
 
     };
@@ -404,7 +370,7 @@
             let gameButton = buttonContainer.appendChild(d.createElement('button'));
             gameButton.id = 'answer' + (index + 1);
             gameButton.className = 'answerButton';
-            gameButton.setAttribute('data-correct', (index + 1));
+            gameButton.setAttribute('data-correct', (index + 1).toString());
             gameButton.addEventListener('click', clickHandler, false);
             /*
              * Don't Show Answers that have a Blank Field
@@ -423,9 +389,9 @@
 
         mainGame.style.display = 'grid';
         d.getElementById('content').scrollIntoView();
-        //console.log(parsedData);
+
         gameData = parsedData;
-        //console.log(gameData);
+
         //gameData = parsedData.sort(() => Math.random() - .5); // randomize questions:
         totalQuestions = parseInt(gameData.length);
         createQuiz(gameData[gameIndex]);
@@ -434,9 +400,16 @@
 
     /* If Database Table fails to load then answer a few hard coded Q&A */
     const quizUIError = (error) => {
+        /*
+         * If game database table fails to load then give a few questions
+         * and answers, so that the game will still work properly.
+         */
+        failed = true;
+        mainGame.style.display = 'grid';
+        d.getElementById('content').scrollIntoView();
         console.log("Database Table did not load", error);
-        let temp = {
-            "id": 110,
+        gameData = [{
+            "id": 1,
             "user_id": 1,
             "hidden": "no",
             "question": "[Blank] is the length of time when the film or digital sensor inside the camera is exposed to light, also when a camera's shutter is open when taking a photograph. The amount of light that reaches the film or image sensor is proportional to the [Blank].",
@@ -447,7 +420,24 @@
                 "",
                 ""
             ]
-        }
+        },
+            {
+                "id": 2,
+                "user_id": 1,
+                "hidden": "no",
+                "question": "[Blank] was one of the earliest photographers in American history, best known for his scenes of the Civil War. He studied under inventor Samuel F. B. Morse, who pioneered the daguerreotype technique in America. [Blank] opened his own studio in New York in 1844, and photographed Andrew Jackson, John Quincy Adams, and Abraham Lincoln, among other public figures.",
+                "category": "photography",
+                "answers": [
+                    "Robert Capa",
+                    "Steve McCurry",
+                    "Ansel Adams",
+                    "Matthew Brady"
+                ]
+            }
+        ]
+        totalQuestions = gameData.length;
+        //console.log(gameData[gameIndex]);
+        createQuiz(gameData[gameIndex]);
     };
 
     /* create FETCH request */
