@@ -97,7 +97,7 @@ class Login extends DatabaseObject
     #[NoReturn] public static function logout(): void
     {
         unset($_SESSION['last_login'], $_SESSION['id']);
-        header("Location: ../index.php");
+        header("Location: ../photogallery.php");
         exit();
     }
 }

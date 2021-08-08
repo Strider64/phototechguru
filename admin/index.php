@@ -64,7 +64,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     </div>
 
     <div class="nav-links">
-        <a href="../index.php">home</a>
+        <a href="../photogallery.php">home</a>
         <a href="create.php">create</a>
         <a href="logout.php">logout</a>
     </div>
@@ -87,7 +87,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
             </article>
 
         <?php }
-        $url = 'index.php';
+        $url = 'photogallery.php';
         echo $pagination->new_page_links($url);
         ?>
     </div>

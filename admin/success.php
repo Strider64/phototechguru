@@ -35,7 +35,7 @@ require_once "../vendor/autoload.php";
     </div>
 
     <div class="nav-links">
-        <a href="../index.php">Home</a>
+        <a href="../photogallery.php">Home</a>
     </div>
 </div>
 

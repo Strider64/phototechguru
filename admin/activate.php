@@ -59,7 +59,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
     </div>
 
     <div class="nav-links">
-        <a href="../index.php">Home</a>
+        <a href="../photogallery.php">Home</a>
     </div>
 </div>
 

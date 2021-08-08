@@ -142,7 +142,7 @@ if (isset($_POST['submit'])) {
     $cms = new CMS($record);
     $_SESSION['old_image'] = $cms->image_path;
 } else {
-    header("Location: index.php");
+    header("Location: photogallery.php");
     exit();
 }
 

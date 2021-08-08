@@ -45,7 +45,7 @@ if (isset($_SESSION['id'])) {
 
     <div class="nav-links">
         <a href="index.php">Home</a>
-        <a href="blog.php">Blog</a>
+        <a href="photogallery.php">Gallery</a>
         <a href="/admin/index.php">Admin</a>
         <a href="game.php">Quiz</a>
         <a href="contact.php">Contact</a>
