@@ -709,48 +709,48 @@ a.qBtn:hover {
       .sidebar .info {
         grid-area: info; }
 
-    .main {
+    .checkStyle {
       grid-area: main; }
-      .main #mainGame {
+      .checkStyle #mainGame {
         display: grid;
         grid-template-columns: 48.00em;
         grid-template-areas: "current" "trivia" "scoring";
         justify-content: center;
         padding: 0;
         margin: 0 auto; }
-      .main .registerStyle {
+      .checkStyle .registerStyle {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas: "email email" "first last" "screenName telephone" "password1 password2" "birthday submitForm";
         justify-content: center; }
-      .main .first {
+      .checkStyle .first {
         grid-area: first;
         margin: 0 0.625em; }
-      .main .last {
+      .checkStyle .last {
         grid-area: last;
         margin: 0 0.625em; }
-      .main .screenName {
+      .checkStyle .screenName {
         grid-area: screenName;
         margin: 0 0.625em; }
-      .main .telephone {
+      .checkStyle .telephone {
         grid-area: telephone;
         margin: 0 0.625em; }
-      .main .emailStyle {
+      .checkStyle .emailStyle {
         grid-area: email;
         margin: 0 0.625em; }
-      .main .password1 {
+      .checkStyle .password1 {
         grid-area: password1;
         margin: 0.3125em 0.625em; }
-      .main .password2 {
+      .checkStyle .password2 {
         grid-area: password2;
         margin: 0.3125em 0.625em; }
-      .main .birthday {
+      .checkStyle .birthday {
         grid-area: birthday;
         text-transform: capitalize;
         margin: 0.3125em 0.625em; }
-      .main .submitForm {
+      .checkStyle .submitForm {
         grid-area: submitForm; }
-        .main .submitForm button {
+        .checkStyle .submitForm button {
           float: right; }
 
     .colophon {

@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
  * website page.
  */
 $current_page = $_GET['page'] ?? 1; // Current Page
-$per_page = 4; // Total number of records to be displayed:
+$per_page = 2; // Total number of records to be displayed:
 $total_count = CMS::countAllPage($_SESSION['page']); // Total Records in the db table:
 
 /* Send the 3 variables to the Pagination class to be processed */
@@ -66,12 +66,13 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     <div class="nav-links">
         <a href="../photogallery.php">home</a>
         <a href="create.php">create</a>
+        <a href="addQuiz.php">Quiz Maintenance</a>
         <a href="logout.php">logout</a>
     </div>
 </div>
 
 
-<main id="content" class="main">
+<main id="content" class="checkStyle">
     <div class="container">
         <?php foreach ($cms as $record) { ?>
             <article class="cms">
@@ -93,6 +94,8 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     </div>
 
 </main>
-
+<footer class="colophon">
+    <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
+</footer>
 </body>
 </html>

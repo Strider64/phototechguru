@@ -138,7 +138,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
     <input type="checkbox" id="nav-check">
 
     <h3 class="nav-title">
-        The Miniature Photographer
+        The Photo Tech Guru
     </h3>
 
     <div class="nav-btn">
@@ -152,35 +152,48 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
     <div class="nav-links">
         <a href="index.php">Home</a>
         <a href="create.php">Create</a>
+        <a href="addQuiz.php">Add Questions</a>
         <a href="logout.php">Logout</a>
     </div>
 </div>
 <div class="sidebar">
 
 </div>
-<main id="content" class="main">
-    <form id="formData" class="form_classes" action="create.php" method="post" enctype="multipart/form-data">
+
+    <form id="formData" class="checkStyle" action="create.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="cms[user_id]" value="3">
         <input type="hidden" name="cms[author]" value="<?= Login::full_name() ?>">
         <input type="hidden" name="action" value="upload">
-        <input class="form_image_upload_style" type="file" name="image">
-        <br>
-        <br>
-        <label for="message-type">What Page?</label>
-        <select id="message-type" name="cms[page]">
-            <option value="index">Home</option>
-            <option value="blog" selected>Blog</option>
-            <option value="about">About</option>
-        </select>
-        <label class="heading_label_style" for="heading">Heading</label>
-        <input class="enter_input_style" id="heading" type="text" name="cms[heading]" value="" tabindex="1" required
-               autofocus>
-        <label class="text_label_style" for="content">Content</label>
-        <textarea class="text_input_style" id="content" name="cms[content]" tabindex="2"></textarea>
-        <button class="form_button" type="submit" name="submit" value="enter">submit</button>
+        <div class="file-style">
+            <input id="file" class="file-input-style" type="file" name="image">
+            <label for="file">Select file</label>
+        </div>
+
+
+
+                <select class="select-css" name="cms[page]">
+                    <option value="index">Home</option>
+                    <option value="blog" selected>Blog</option>
+                    <option value="about">About</option>
+                </select>
+
+
+        <div class="heading-style">
+            <label class="heading_label_style" for="heading">Heading</label>
+            <input class="enter_input_style" id="heading" type="text" name="cms[heading]" value="" tabindex="1" required autofocus>
+        </div>
+        <div class="content-style">
+            <label class="text_label_style" for="content">Content</label>
+            <textarea class="text_input_style" id="content" name="cms[content]" tabindex="2"></textarea>
+        </div>
+        <div class="submit-button">
+            <button class="form-button" type="submit" name="submit" value="enter">submit</button>
+        </div>
     </form>
 
-</main>
+<footer class="colophon">
+    <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
+</footer>
 
 </body>
 </html>

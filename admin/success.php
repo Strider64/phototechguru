@@ -39,7 +39,7 @@ require_once "../vendor/autoload.php";
     </div>
 </div>
 
-<main id="content" class="main">
+<main id="content" class="checkStyle">
     <h2>Thank You for Registering!</h2>
     <p>There was an email sent to your email address that you need to activate your account in order to be granted full privileges. Please check you junk or spam folder if you haven't received it. I look forward in you visiting the new improved Miniature Photographer website.</p>
 </main>

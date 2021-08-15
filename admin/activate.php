@@ -69,7 +69,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
         <p>I'm current implementing a registration system, so please don't try to register at this time as it's still in development. You can, but the account will probably end up being deleted. I will let everyone know with the registration system is complete.</p>
     </div>
 </div>
-<main id="content" class="main">
+<main id="content" class="checkStyle">
     <form class="verify" method="post" action="activate.php">
         <input type="hidden" name="user[validation]" value="<?= $data['validation'] ?>">
         <label class="text_username" for="username">Username</label>

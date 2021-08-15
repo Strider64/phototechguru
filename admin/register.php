@@ -89,7 +89,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
         <p>Feel Free to register, but accounts may be deleted from time to time as this is still in development.</p>
     </div>
 </div>
-<main id="content" class="main">
+<main id="content" class="checkStyle">
     <form class="registerStyle" action="register.php" method="post">
 
         <div class="first">
@@ -109,7 +109,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
 
         <div class="telephone">
             <label for="phone">Phone (Optional)</label>
-            <input id="phone" type="tel" name="user[phone]" value="" placeholder="Example : 555-555-5555 optional" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" tabindex="5">
+            <input id="phone" type="tel" name="user[phone]" value="" placeholder="555-555-5555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" tabindex="5">
 
         </div>
 

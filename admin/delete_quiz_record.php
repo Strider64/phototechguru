@@ -1,23 +1,20 @@
 <?php
 require_once "../assets/config/config.php";
 require_once "../vendor/autoload.php";
-use PhotoTech\CMS;
+
+use PhotoTech\Trivia;
 use PhotoTech\Login;
 
 Login::is_login($_SESSION['last_login']);
-Login::securityCheck();
+$user = Login::securityCheck();
 
-$delete = new CMS();
+$delete = new Trivia();
 
 $id = $_GET['id'] ?? null;
 
 if (!empty($id)) {
-    $data = CMS::fetch_by_id($id);
-    /*
-     * Delete the images from the directories
-     */
-    unlink("../" . $data['thumb_path']);
-    unlink("../" . $data['image_path']);
+    $data = Trivia::fetch_by_id($id);
+
     /*
      * Delete the record from the Database Table
      */
@@ -25,9 +22,9 @@ if (!empty($id)) {
     /*
      * Redirect to the Administrator's Home page
      */
-    header("Location: photogallery.php");
+    header("Location: editQuiz.php");
     exit();
 }
 
-header("Location: index.php");
+header("Location: editQuiz.php");
 exit();

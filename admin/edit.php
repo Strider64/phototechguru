@@ -11,7 +11,6 @@ Login::is_login($_SESSION['last_login']);
 Login::securityCheck();
 
 
-
 $result = false;
 $id = (int)htmlspecialchars($_GET['id'] ?? null);
 try {
@@ -88,7 +87,6 @@ if (isset($_POST['submit'])) {
             $newCMS['ISO'] = null;
             $newCMS['FocalLength'] = null;
         }
-
 
 
         $extensions = array("jpeg", "jpg", "png");
@@ -176,11 +174,12 @@ if (isset($_POST['submit'])) {
     <div class="nav-links">
         <a href="index.php">home</a>
         <a href="create.php">create</a>
+        <a href="addQuiz.php">Add Questions</a>
         <a href="logout.php">logout</a>
     </div>
 </div>
 
-<main id="content" class="main">
+<main id="content" class="checkStyle">
     <form id="formData" class="form_classes" action="edit.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="cms[id]" value="<?= $id ?>">
         <input type="hidden" name="cms[user_id]" value="<?= $_SESSION['id'] ?>">
@@ -190,18 +189,30 @@ if (isset($_POST['submit'])) {
         <input type="hidden" name="cms[image_path_name]" value="<?= $cms->image_path ?>">
         <img src="<?= "../" . $_SESSION['old_image'] ?>" alt="current image">
         <br>
-        <label for="image_input">Replace Image?</label><br>
-        <input id="image_input" class="form_image_upload_style" type="file" name="image">
-        <br><br>
-        <label class="heading_label_style" for="heading">Heading</label>
-        <input class="enter_input_style" id="heading" type="text" name="cms[heading]" value="<?= $cms->heading ?>"
-               tabindex="1" required autofocus>
-        <label class="text_label_style" for="content">Content</label>
-        <textarea class="text_input_style" id="content" name="cms[content]" tabindex="2"><?= $cms->content ?></textarea>
-        <button class="form_button" formaction="delete.php?id=<?= $id ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
-        <button class="form_button" type="submit" name="submit" value="enter">submit</button>
+        <div class="file-style">
+            <input id="file" class="file-input-style" type="file" name="image" value="<?= $cms->image_path ?>">
+            <label for="file">Select file</label>
+        </div>
+        <div class="heading-style">
+            <label class="heading_label_style" for="heading">Heading</label>
+            <input class="enter_input_style" id="heading" type="text" name="cms[heading]" value="<?= $cms->heading ?>"
+                   tabindex="1" required autofocus>
+        </div>
+        <div class="content-style">
+            <label class="text_label_style" for="content">Content</label>
+            <textarea class="text_input_style" id="content" name="cms[content]"
+                      tabindex="2"><?= $cms->content ?></textarea>
+        </div>
+        <div class="submit-button">
+            <button class="form-button" type="submit" name="submit" value="enter">submit</button>
+            <button class="form-button" formaction="delete.php?id=<?= $id ?>"
+                    onclick="return confirm('Are you sure you want to delete this item?');">Delete
+            </button>
+        </div>
     </form>
 </main>
-
+<footer class="colophon">
+    <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
+</footer>
 </body>
 </html>

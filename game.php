@@ -57,7 +57,7 @@ if (isset($_SESSION['id'])) {
     </div>
 </div>
 
-<main id="content" class="main">
+<main id="content" class="checkStyle">
     <div class="displayStatus">
         <span id="clock"></span>
         <h4 class="displayTitle">Photography Trivia</h4>

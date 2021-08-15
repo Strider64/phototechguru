@@ -20,7 +20,7 @@ require_once "vendor/autoload.php";
 
 <?php include_once "assets/includes/inc.nav.php"; ?>
 
-<main id="content" class="main">
+<main id="content" class="checkStyle">
     <div id="message">
         <h2 id="notice">Form Notification</h2>
     </div>

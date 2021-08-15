@@ -4,11 +4,11 @@ require_once "../vendor/autoload.php";
 
 
 use PhotoTech\Login;
+
 if (isset($_SESSION['last_login'])) {
     header("Location: index.php");
     exit();
 }
-
 
 
 if (isset($_POST['submit'])) {
@@ -50,15 +50,20 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 
-<main id="content" class="main">
-    <form class="login" method="post" action="login.php">
+
+<form class="checkStyle" method="post" action="login.php">
+    <div class="screenName">
         <label class="text_username" for="username">Username</label>
         <input id="username" class="io_username" type="text" name="user[username]" value="" required>
-        <label class="text_password" for="password">Password</label>
-        <input id="password" class="io_password" type="password" name="user[hashed_password]" required>
-        <input class="login_button" type="submit" name="submit" value="login">
-    </form>
-</main>
+    </div>
+
+    <label class="text_password" for="password">Password</label>
+    <input id="password" class="io_password" type="password" name="user[hashed_password]" required>
+
+    <div class="submitForm">
+        <button class="submitBtn" id="submitForm" type="submit" name="submit" value="login">Login</button>
+    </div>
+</form>
 
 
 </body>
