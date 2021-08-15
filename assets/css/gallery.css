@@ -411,23 +411,27 @@ p, a, label, textarea {
       justify-content: center;
       align-items: center; }
 
-    #lightbox img {
+    #lightbox .boxStyle {
+      position: relative;
       width: 128em;
       max-width: 75%;
-      padding: 2px;
-      background-color: gray;
-      border: 3px solid black; }
+      padding: 2px; }
 
-    #lightbox .displayInfo {
+    #lightbox p.displayInfo {
+      position: absolute;
+      left: 1.250em;
+      bottom: 1.250em;
+      background-color: rgba(0, 0, 0, 0.45);
       color: #fff;
-      z-index: 20000; }
+      z-index: 20000;
+      padding: 1.250em; }
 
     .colophon {
       grid-area: footer; } } }
 /* Approximately the size of a 1248px large display monitor */
 @supports (grid-area: auto) {
   @media screen and (min-width: 78em) {
-    #lightbox img {
+    .boxStyle {
       max-width: 85%;
       max-height: 85%; } } }
 /* animation instructions for move-down in text */

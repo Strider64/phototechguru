@@ -92,7 +92,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
 
     $resize = new Resize("../" . $new_file_name);
     $resize->resizeImage(IMAGE_WIDTH, IMAGE_HEIGHT, 'landscape');
-    $resize->saveImage("../" . $new_file_name, 80);
+    $resize->saveImage("../" . $new_file_name, 100);
     /*
      * Set path information for database table.
      */

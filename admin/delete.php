@@ -25,7 +25,7 @@ if (!empty($id)) {
     /*
      * Redirect to the Administrator's Home page
      */
-    header("Location: photogallery.php");
+    header("Location: index.php");
     exit();
 }
 

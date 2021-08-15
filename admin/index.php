@@ -88,7 +88,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
             </article>
 
         <?php }
-        $url = 'photogallery.php';
+        $url = 'index.php';
         echo $pagination->new_page_links($url);
         ?>
     </div>
