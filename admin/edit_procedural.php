@@ -1,7 +1,9 @@
 <?php
 require_once '../assets/config/config.php';
 require_once "../vendor/autoload.php";
+require_once "../assets/functions/procedural_database_functions.php";
 
+use PhotoTech\Database;
 use PhotoTech\Resize;
 use PhotoTech\CMS;
 use PhotoTech\Login;
@@ -10,6 +12,7 @@ Login::is_login($_SESSION['last_login']);
 
 Login::securityCheck();
 
+$pdo = Database::pdo(); // My PDO connection string
 
 $result = false;
 $id = (int)htmlspecialchars($_GET['id'] ?? null);
@@ -120,9 +123,11 @@ if (isset($_POST['submit'])) {
         $newCMS['image_path'] = $new_file_name;
 
         $updateImagePath = new CMS($newCMS);
-        $result = $updateImagePath->update();
+        $result = updateData($newCMS, $pdo, 'cms');
+        //$result = $updateImagePath->update();
     } else {
-        $result = $cms->update();
+        $result = updateData($cms, $pdo, 'cms');
+        //$result = $cms->update();
     }
 
     if ($result) {

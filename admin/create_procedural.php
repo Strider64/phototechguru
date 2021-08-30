@@ -1,14 +1,17 @@
 <?php
 require_once "../assets/config/config.php";
 require_once "../vendor/autoload.php";
-
+require_once "../assets/functions/procedural_database_functions.php";
+use mysql_xdevapi\Exception;
+use PhotoTech\Database;
 use PhotoTech\Resize;
-use PhotoTech\CMS;
 use PhotoTech\Login;
-
 Login::is_login($_SESSION['last_login']);
 
 Login::securityCheck();
+$pdo = Database::pdo(); // My PDO connection string
+
+
 
 $save_result = false;
 
@@ -89,7 +92,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
     move_uploaded_file($file_tmp, "../" . $new_file_name);
 
     $resize = new Resize("../" . $new_file_name);
-    $resize->resizeImage(IMAGE_WIDTH, IMAGE_HEIGHT, 'auto');
+    $resize->resizeImage(IMAGE_WIDTH, IMAGE_HEIGHT);
     $resize->saveImage("../" . $new_file_name, 100);
     /*
      * Set path information for database table.
@@ -106,11 +109,12 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
         try {
             $today = $todayDate = new DateTime('today', new DateTimeZone("America/Detroit"));
         } catch (Exception $e) {
+
         }
         $data['date_updated'] = $data['date_added'] = $today->format("Y-m-d H:i:s");
 
-        $cms = new CMS($data);
-        $result = $cms->create();
+        $result = insertData($data, $pdo, 'cms');
+
         if ($result) {
             header("Location: index.php");
             exit();
@@ -158,7 +162,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
 
 </div>
 
-<form id="formData" class="checkStyle" action="create.php" method="post" enctype="multipart/form-data">
+<form id="formData" class="checkStyle" action="create_procedural.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="cms[user_id]" value="3">
     <input type="hidden" name="cms[author]" value="<?= Login::full_name() ?>">
     <input type="hidden" name="action" value="upload">

@@ -106,7 +106,7 @@ class CalendarObject {
 
         $stmt = Database::pdo()->prepare($sql);
 
-        $stmt->execute([':date_added' => $calDate]);
+        $stmt->execute(['date_added' => $calDate]);
 
         return $stmt->fetch();
 

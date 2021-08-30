@@ -8,14 +8,6 @@ use PhotoTech\Login;
 Login::is_login($_SESSION['last_login']);
 
 
-
-
-if (isset($_POST['submit'])) {
-    $_SESSION['page'] = $_POST['page'];
-} else {
-    $_SESSION['page'] = 'blog';
-}
-
 /*
  * Using pagination in order to have a nice looking
  * website page.
@@ -66,6 +58,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     <div class="nav-links">
         <a href="../photogallery.php">home</a>
         <a href="create.php">create</a>
+        <a href="create_procedural.php">create(p)</a>
         <a href="addQuiz.php">Quiz Maintenance</a>
         <a href="logout.php">logout</a>
     </div>
@@ -84,7 +77,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
                     <time datetime="<?= htmlspecialchars(CMS::styleTime($record['date_added'])) ?>"><?= htmlspecialchars(CMS::styleDate($record['date_added'])) ?></time>
                 </span>
                 <p><?= nl2br($record['content']) ?></p>
-                <a class="form_button" href="edit.php?id=<?= urldecode($record['id']) ?>">Record <?= urldecode($record['id']) ?></a>
+                <a class="editButton" href="edit.php?id=<?= urldecode($record['id']) ?>">Record <?= urldecode($record['id']) ?></a>
             </article>
 
         <?php }
