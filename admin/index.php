@@ -7,6 +7,11 @@ use PhotoTech\Login;
 
 Login::is_login($_SESSION['last_login']);
 
+if (isset($_POST['submit'])) {
+    $_SESSION['page'] = $_POST['page'];
+} else {
+    $_SESSION['page'] = 'blog';
+}
 
 /*
  * Using pagination in order to have a nice looking
@@ -35,7 +40,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
-    <title>Admin Home Page</title>
+    <title>Admin Home</title>
     <link rel="stylesheet" media="all" href="../assets/css/admin.css">
 </head>
 <body class="site">
@@ -58,7 +63,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     <div class="nav-links">
         <a href="../photogallery.php">home</a>
         <a href="create.php">create</a>
-        <a href="create_procedural.php">create(p)</a>
+        <a href="create_procedure.php">create(p)</a>
         <a href="addQuiz.php">Quiz Maintenance</a>
         <a href="logout.php">logout</a>
     </div>

@@ -22,11 +22,12 @@ class DatabaseObject // Extended by the children class:
      */
     public static function fetch_by_column_name($sql)
     {
-        $stmt = Database::pdo()->prepare($sql);
+        $stmt = Database::pdo()->prepare($sql); // Database::pdo() is the PDO Connection
 
         $stmt->execute([ static::$searchItem => static::$searchValue ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
 
     public static function fetch_all_by_column_name($sql): array
     {

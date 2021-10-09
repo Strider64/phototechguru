@@ -100,7 +100,7 @@ class Pagination {
                 }
 
             }
-            if ($i !== $this->total_pages()) {
+            if ($i < $this->total_pages()) {
                 static::$links .= '<span class="three-dots">' . " ... " . '</span>';
             }
             if ($i === $this->total_pages()) {

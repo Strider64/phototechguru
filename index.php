@@ -11,12 +11,18 @@ use PhotoTech\Pagination;
  */
 
 
-$current_page = $_GET['page'] ?? 1;
+
 
 
 $per_page = 2; // Total number of records to be displayed:
 $total_count = CMS::countAllPage('blog'); // Total Records in the db table:
+$current_page = $_GET['page'] ?? 1;
 
+if (($current_page < 1)) {
+    $current_page = 1;
+} elseif ($current_page > ceil($total_count / $per_page)) {
+    $current_page = ceil($total_count / $per_page);
+}
 
 /* Send the 3 variables to the Pagination class to be processed */
 $pagination = new Pagination($current_page, $per_page, $total_count);
@@ -56,7 +62,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
         <?php foreach ($cms as $record) { ?>
             <article class="cms">
                 <img class="article_image"
-                     src="<?php echo htmlspecialchars($record['image_path']); ?>" <?= getimagesize($record['image_path'])[3] ?>
+                     src="<?= htmlspecialchars($record['image_path']) ?>" <?= getimagesize($record['image_path'])[3] ?>
                      alt="article image">
                 <h2><?= $record['heading'] ?></h2>
                 <span class="author_style">Created by <?= $record['author'] ?> on

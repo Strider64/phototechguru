@@ -401,30 +401,34 @@ p, a, label, textarea {
       position: fixed;
       z-index: 1000;
       top: 0;
-      width: 100%;
-      height: 100%;
+      width: 60%;
+      height: 60%;
       background-color: rgba(0, 0, 0, 0.8); }
 
     #lightbox.active {
       grid-area: lightbox;
       display: grid;
-      justify-content: center;
-      align-items: center; }
+      grid-template-columns: 1fr;
+      grid-template-areas: 'lighbox';
+      justify-content: center; }
 
     #lightbox .boxStyle {
+      grid-area: lightbox;
+      display: grid;
+      justify-content: center;
       position: relative;
-      width: 128em;
       max-width: 75%;
-      padding: 2px; }
+      padding: 2px;
+      margin: 1.250em auto; }
 
     #lightbox p.displayInfo {
       position: absolute;
-      left: 1.250em;
-      bottom: 1.250em;
+      bottom: 0.3125em;
+      left: 0.625em;
       background-color: rgba(0, 0, 0, 0.45);
       color: #fff;
       z-index: 20000;
-      padding: 1.250em; }
+      padding: 0.625em 1.250em; }
 
     .colophon {
       grid-area: footer; } } }

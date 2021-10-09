@@ -219,6 +219,7 @@
     const clickHandler = (e) => {
         let userAnswer = parseInt(e.target.getAttribute('data-correct'));
         responseAns.id = parseInt(gameData[gameIndex].id); // { id: integer }
+        console.log(responseAns);
         const checkUrl = "check.php";
         stopTimer();
         if ((gameIndex + 1) === totalQuestions) {
