@@ -64,7 +64,7 @@ class Pagination {
 
         for($i=1; $i <= $this->total_pages(); $i++) {
             if($i === $this->current_page) {
-                static::$links .= "<span class=\"selected\">{$i}</span>";
+                static::$links .= "<span class=\"selected\">$i</span>";
             } else {
                 static::$links .= '<a href="' . $url . '?page=' . $i . '">' . $i . '</a>';
             }

@@ -2,6 +2,7 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
+
 use PhotoTech\CMS;
 use PhotoTech\Pagination;
 
@@ -37,6 +38,8 @@ $offset = $pagination->offset();
  * and put the data into an array variable.
  */
 $cms = CMS::page($per_page, $offset, 'blog');
+//echo "<pre>" . print_r($cms, 1) . "</pre>";
+//die();
 
 
 ?>
@@ -68,10 +71,9 @@ $cms = CMS::page($per_page, $offset, 'blog');
                 <span class="author_style">Created by <?= $record['author'] ?> on
                     <time datetime="<?= htmlspecialchars(CMS::styleTime($record['date_added'])) ?>"><?= htmlspecialchars(CMS::styleDate($record['date_added'])) ?></time>
                 </span>
-                <p><?= nl2br($record['content']) ?></p>
+                <p><?= $record['content'] ?></p>
             </article>
         <?php } ?>
-
     </div>
 </main>
 

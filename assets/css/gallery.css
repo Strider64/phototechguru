@@ -180,7 +180,7 @@ th {
 h1, h2, h3, h4, h5, h6, legend, label {
   font-family: 'Work Sans', sans-serif; }
 
-p, a, label, textarea {
+p, label, textarea {
   font-family: 'Rubik', sans-serif;
   font-size: 1.2em;
   line-height: 1.5;
@@ -207,7 +207,7 @@ p, a, label, textarea {
 .nav {
   position: relative;
   width: 100%;
-  height: 3.700em;
+  height: 2.700em;
   background-color: #000;
   border-bottom: 1px solid #e6e6e6; }
 
@@ -215,7 +215,6 @@ p, a, label, textarea {
   display: none;
   font-family: 'Work Sans', sans-serif;
   font-size: 1.2em;
-  line-height: 1.875em;
   color: #efefef;
   padding-left: 0.625em; }
 
@@ -290,7 +289,7 @@ p, a, label, textarea {
     .site {
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-areas: "nav" "main" "sidebar" "footer" "lightbox";
+      grid-template-areas: "nav" "main" "sidebar" "footer";
       justify-content: center; }
 
     .nav {
@@ -310,7 +309,7 @@ p, a, label, textarea {
       justify-content: center;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      grid-auto-rows: 6.250em 18.50em;
+      grid-auto-rows: 6.250em 16.50em;
       grid-gap: 0.625em;
       grid-auto-flow: dense; }
 
@@ -401,29 +400,24 @@ p, a, label, textarea {
       position: fixed;
       z-index: 1000;
       top: 0;
-      width: 60%;
-      height: 60%;
+      width: 100%;
+      height: 100%;
       background-color: rgba(0, 0, 0, 0.8); }
 
     #lightbox.active {
-      grid-area: lightbox;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-areas: 'lighbox';
-      justify-content: center; }
+      display: block; }
 
     #lightbox .boxStyle {
       grid-area: lightbox;
-      display: grid;
       justify-content: center;
       position: relative;
-      max-width: 75%;
+      max-width: 50.000em;
       padding: 2px;
       margin: 1.250em auto; }
 
     #lightbox p.displayInfo {
       position: absolute;
-      bottom: 0.3125em;
+      bottom: -5.750em;
       left: 0.625em;
       background-color: rgba(0, 0, 0, 0.45);
       color: #fff;
