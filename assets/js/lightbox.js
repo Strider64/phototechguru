@@ -17,8 +17,8 @@ images.forEach(image => {
          */
         const img = document.createElement('img');
         img.classList.add('imageStyle')
-        img.setAttribute('width', '800');
-        img.setAttribute('height', '534');
+        img.width = 800;
+        img.height = 534;
 
         /*
          * Set the EXIF info for the particular image
