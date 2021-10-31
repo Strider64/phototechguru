@@ -76,9 +76,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
         <?php } ?>
     </div>
     <div class="flex_container">
-        <?php
-        echo $pagination->links();
-        ?>
+        <?= $pagination->links(); ?>
     </div>
 </main>
 
