@@ -1,8 +1,9 @@
 <?php
 require_once "../assets/config/config.php";
 require_once "../vendor/autoload.php";
+
 use PhotoTech\CMS;
-use PhotoTech\Pagination;
+use PhotoTech\Pagination_New as Pagination;
 use PhotoTech\Login;
 
 Login::is_login($_SESSION['last_login']);
@@ -18,7 +19,7 @@ if (isset($_POST['submit'])) {
  * website page.
  */
 $current_page = $_GET['page'] ?? 1; // Current Page
-$per_page = 2; // Total number of records to be displayed:
+$per_page = 1; // Total number of records to be displayed:
 $total_count = CMS::countAllPage($_SESSION['page']); // Total Records in the db table:
 
 /* Send the 3 variables to the Pagination class to be processed */
@@ -41,7 +42,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>Admin Home</title>
-    <link rel="stylesheet" media="all" href="../assets/css/admin.css">
+    <link rel="stylesheet" media="all" href="../assets/css/styles.css">
 </head>
 <body class="site">
 
@@ -82,16 +83,55 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
                     <time datetime="<?= htmlspecialchars(CMS::styleTime($record['date_added'])) ?>"><?= htmlspecialchars(CMS::styleDate($record['date_added'])) ?></time>
                 </span>
                 <p><?= nl2br($record['content']) ?></p>
-                <a class="editButton" href="edit.php?id=<?= urldecode($record['id']) ?>">Record <?= urldecode($record['id']) ?></a>
+                <a class="editButton"
+                   href="edit.php?id=<?= urldecode($record['id']) ?>">Record <?= urldecode($record['id']) ?></a>
             </article>
 
-        <?php }
-        $url = 'index.php';
-        echo $pagination->new_page_links($url);
-        ?>
+        <?php } ?>
+        <div class="flex_container">
+            <?php
+            $links = $pagination->links();
+            echo $links;
+            ?>
+        </div>
     </div>
 
 </main>
+<div class="sidebar">
+    <ul class="cards">
+        <li class="card-item">
+            <a href="https://flickr.com/photos/pepster/">
+                <figure class="card">
+                    <img src="../assets/images/img_flickr_pictures.jpg" alt="Flickr" width="348" height="174">
+                    <figcaption class="caption">
+                        <h3 class="caption-title">Flickr Images</h3>
+                    </figcaption>
+                </figure>
+            </a>
+        </li>
+        <li class="card-item">
+            <a href="https://github.com/Strider64/phototechguru">
+                <figure class="card">
+                    <img src="../assets/images/img_github_repository.jpg" alt="GitHub Repository">
+                    <figcaption class="caption">
+                        <h3 class="caption-title">GitHub Repository</h3>
+                    </figcaption>
+                </figure>
+            </a>
+        </li>
+        <li class="card-item">
+            <a href="https://www.facebook.com/Pepster64">
+                <figure class="card">
+                    <img src="../assets/images/img-facebook-group.jpg" alt="FaceBook Group">
+                    <figcaption class="caption">
+                        <h3 class="caption-title">Facebook Page</h3>
+                    </figcaption>
+                </figure>
+            </a>
+        </li>
+    </ul>
+
+</div>
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>

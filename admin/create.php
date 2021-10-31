@@ -13,7 +13,7 @@ Login::securityCheck();
 $save_result = false;
 
 if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['image'])) {
-    $data = $_POST['cms'];
+    $data = $_POST['cms']; // Data for the Database Table:
 
     $errors = array();
     $exif_data = [];

@@ -4,18 +4,14 @@ require_once "vendor/autoload.php";
 
 
 use PhotoTech\CMS;
-use PhotoTech\Pagination;
+use PhotoTech\Pagination_New as Pagination;
 
 /*
  * Using pagination in order to have a nice looking
  * website page.
  */
 
-
-
-
-
-$per_page = 2; // Total number of records to be displayed:
+$per_page = 1; // Total number of records to be displayed:
 $total_count = CMS::countAllPage('blog'); // Total Records in the db table:
 $current_page = $_GET['page'] ?? 1;
 
@@ -54,9 +50,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
 </head>
 <body class="site">
 
-<header class="masthead">
 
-</header>
 
 <?php include_once "assets/includes/inc.nav.php"; ?>
 
@@ -75,13 +69,48 @@ $cms = CMS::page($per_page, $offset, 'blog');
             </article>
         <?php } ?>
     </div>
+    <div class="flex_container">
+        <?php
+        $links = $pagination->links();
+        echo $links;
+        ?>
+    </div>
 </main>
 
 <div class="sidebar">
-    <?php
-    $url = 'index.php';
-    echo $pagination->new_page_links($url);
-    ?>
+    <ul class="cards">
+        <li class="card-item">
+            <a href="https://flickr.com/photos/pepster/">
+                <figure class="card">
+                    <img src="assets/images/img_flickr_pictures.jpg" alt="Flickr" width="348" height="174">
+                    <figcaption class="caption">
+                        <h3 class="caption-title">Flickr Images</h3>
+                    </figcaption>
+                </figure>
+            </a>
+        </li>
+        <li class="card-item">
+            <a href="https://github.com/Strider64/phototechguru">
+                <figure class="card">
+                    <img src="assets/images/img_github_repository.jpg" alt="GitHub Repository">
+                    <figcaption class="caption">
+                        <h3 class="caption-title">GitHub Repository</h3>
+                    </figcaption>
+                </figure>
+            </a>
+        </li>
+        <li class="card-item">
+            <a href="https://www.facebook.com/Pepster64">
+                <figure class="card">
+                    <img src="assets/images/img-facebook-group.jpg" alt="FaceBook Group">
+                    <figcaption class="caption">
+                        <h3 class="caption-title">Facebook Page</h3>
+                    </figcaption>
+                </figure>
+            </a>
+        </li>
+    </ul>
+
 </div>
 
 <footer class="colophon">

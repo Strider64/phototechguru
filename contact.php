@@ -20,7 +20,7 @@ require_once "vendor/autoload.php";
 
 <?php include_once "assets/includes/inc.nav.php"; ?>
 
-<main id="content" class="checkStyle">
+<main class="content">
     <div id="message">
         <h2 id="notice">Form Notification</h2>
     </div>
@@ -60,7 +60,38 @@ require_once "vendor/autoload.php";
 </main>
 
 <div class="sidebar">
-
+    <ul class="cards">
+        <li class="card-item">
+            <a href="https://flickr.com/photos/pepster/">
+                <figure class="card">
+                    <img src="assets/images/img_flickr_pictures.jpg" alt="Flickr" width="348" height="174">
+                    <figcaption class="caption">
+                        <h3 class="caption-title">Flickr Images</h3>
+                    </figcaption>
+                </figure>
+            </a>
+        </li>
+        <li class="card-item">
+            <a href="https://github.com/Strider64/phototechguru">
+                <figure class="card">
+                    <img src="assets/images/img_github_repository.jpg" alt="GitHub Repository">
+                    <figcaption class="caption">
+                        <h3 class="caption-title">GitHub Repository</h3>
+                    </figcaption>
+                </figure>
+            </a>
+        </li>
+        <li class="card-item">
+            <a href="https://www.facebook.com/Pepster64">
+                <figure class="card">
+                    <img src="assets/images/img-facebook-group.jpg" alt="FaceBook Group">
+                    <figcaption class="caption">
+                        <h3 class="caption-title">Facebook Page</h3>
+                    </figcaption>
+                </figure>
+            </a>
+        </li>
+    </ul>
 </div>
 
 <footer class="colophon">
