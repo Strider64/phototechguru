@@ -5,7 +5,7 @@ require_once "vendor/autoload.php";
 /*
  *  The Photo Tech Guru Website Version 2.0
  *  by John R. Pepp
- *  Started: January 1, 2020
+ *  Started: February 1, 2020
  *  Revised: October 31, 2021, at 11:00am
  */
 
@@ -77,8 +77,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
     </div>
     <div class="flex_container">
         <?php
-        $links = $pagination->links();
-        echo $links;
+        echo $pagination->links();
         ?>
     </div>
 </main>
