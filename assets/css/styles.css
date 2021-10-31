@@ -523,7 +523,7 @@ a.qBtn:hover {
 .flex_container {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: stretch;
   align-content: center; }
 
@@ -825,8 +825,9 @@ form {
       grid-area: main; }
       .content .container {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(31.25em, 1fr));
+        grid-template-columns: 40em;
         grid-gap: 1.250em;
+        justify-content: center;
         align-items: stretch; }
         .content .container > article {
           border: 1px solid #ccc;

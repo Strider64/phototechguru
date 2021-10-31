@@ -95,6 +95,7 @@ class Pagination_New
             if ($i != $this->total_pages())
                 static::$links .= '<a class="flex-item dashes" href="#">...</a>';
 
+            /* Last Page */
             if ($this->current_page == $this->total_pages()) {
                 static::$links .= '<a class="flex-item selected" href="?page=' .$this->total_pages() . '">' . $this->total_pages() . '</a>';
             } else {

@@ -2,6 +2,12 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
+/*
+ *  The Photo Tech Guru Website Version 2.0
+ *  by John R. Pepp
+ *  Started: January 1, 2020
+ *  Revised: October 31, 2021, at 11:00am
+ */
 
 use PhotoTech\CMS;
 use PhotoTech\Pagination_New as Pagination;
