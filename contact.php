@@ -21,38 +21,57 @@ require_once "vendor/autoload.php";
 <?php include_once "assets/includes/inc.nav.php"; ?>
 
 <main class="content">
-    <div id="message">
-        <h2 id="notice">Form Notification</h2>
-    </div>
-    <form id="contact" name="contact" action="contact.php" method="post" autocomplete="on">
+
+    <form class="contact" name="contact" action="contact.php" method="post" autocomplete="on">
 
         <input id="token" type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-        <label class="labelstyle" for="name" accesskey="U">Contact Name</label>
-        <input name="name" type="text" id="name" tabindex="1" autofocus required="required"/>
 
-        <label class="labelstyle" for="email" accesskey="E">Email</label>
-        <input name="email" type="email" id="email" tabindex="2" required="required"/>
+        <div class="contact_name">
+            <label class="labelstyle" for="name" accesskey="U">Contact Name</label>
+            <input name="name" type="text" id="name" tabindex="1" autofocus required="required"/>
+        </div>
 
-        <label class="labelstyle" for="phone" accesskey="P">Phone <small>(optional)</small></label>
-        <input name="phone" type="tel" id="phone" tabindex="3">
+        <div class="contact_email">
+            <label class="labelstyle" for="email" accesskey="E">Email</label>
+            <input name="email" type="email" id="email" tabindex="2" required="required"/>
+        </div>
 
-        <label class="labelstyle" for="web" accesskey="W">Website <small>(optional)</small></label>
-        <input name="website" type="text" id="web" tabindex="4">
+        <div class="contact_phone">
+            <label class="labelstyle" for="phone" accesskey="P">Phone <small>(optional)</small></label>
+            <input name="phone" type="tel" id="phone" tabindex="3">
+        </div>
 
-        <label for="message-type">Reason for Writing?</label>
-        <select id="message-type" name="reason">
-            <option value="message">Message</option>
-            <option value="inquiry">Inquiry</option>
-            <option value="order">Order</option>
-        </select>
+        <div class="contact_website">
+            <label class="labelstyle" for="web" accesskey="W">Website <small>(optional)</small></label>
+            <input name="website" type="text" id="web" tabindex="4">
+        </div>
 
-        <label class="textareaLabel" for="comments">Comments Length:<span id="length"></span></label>
-        <textarea name="comments" id="comments" spellcheck="true" placeholder="Enter Message Here..." tabindex="6"
-                  required="required"></textarea>
-        <button id="submitForm" type="submit" name="submit" value="Submit" tabindex="7" data-response="">Submit</button>
-        <!-- Use a data callback function that Google provides -->
+        <div class="contact_reason">
+            <label for="message-type">Reason for Writing?</label>
+            <select id="message-type" name="reason">
+                <option value="message">Message</option>
+                <option value="inquiry">Inquiry</option>
+                <option value="order">Order</option>
+            </select>
+        </div>
+
+        <div class="contact_comment">
+            <label class="textareaLabel" for="comments">Comments Length:<span id="length"></span></label>
+            <textarea name="comments" id="comments" spellcheck="true" placeholder="Enter Message Here..." tabindex="6"
+                      required="required"></textarea>
+        </div>
+
         <div id="recaptcha" class="g-recaptcha" data-sitekey="6Le0QrobAAAAAGDacgiAr1UbkPmj0i-LFyWXocfg"
              data-callback="correctCaptcha"></div>
+
+        <div id="message">
+            <img class="notice" src="assets/images/email.png" alt="email icon">
+            <img class="pen" src="assets/images/fountain-pen-close-up.png" alt="fountain pen">
+        </div>
+
+        <button id="submitForm" class="submit_comment" type="submit" name="submit" value="Submit" tabindex="7" data-response="">Submit</button>
+        <!-- Use a data callback function that Google provides -->
+
 
 
 
@@ -96,6 +115,7 @@ require_once "vendor/autoload.php";
 
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Miniature Photographer</p>
+    <div class="freepik_icons">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 </footer>
 <script src="assets/js/contact.js" async defer></script>
 <!-- Fetch the g-response using a callback function -->

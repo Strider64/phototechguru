@@ -56,8 +56,6 @@ $cms = CMS::page($per_page, $offset, 'blog');
 </head>
 <body class="site">
 
-
-
 <?php include_once "assets/includes/inc.nav.php"; ?>
 
 <main  class="content">
@@ -113,6 +111,8 @@ $cms = CMS::page($per_page, $offset, 'blog');
             </a>
         </li>
     </ul>
+
+
 
 </div>
 

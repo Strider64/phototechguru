@@ -45,7 +45,7 @@ const contact = () => {
     let email = d.querySelector('#email');
     let phone = d.querySelector('#phone');
     let website = d.querySelector('#web');
-    let notice = d.querySelector('#notice');
+    let notice = d.querySelector('.notice');
     let sendEmail = {};
     let sendStatus = {
         name: false,
@@ -55,7 +55,7 @@ const contact = () => {
     sendEmail.reason = 'message';
     sendEmail.token = d.querySelector('#token').value;
 
-    message.style.display = "none";
+
 
     let comments = d.querySelector("textarea");
     let output = d.querySelector("#length");
@@ -135,11 +135,7 @@ const contact = () => {
         if (result) {
             d.querySelector('#recaptcha').style.display = "none";
             submit.style.display = "none";
-            notice.style.display = "grid";
-
-            notice.textContent = "Email Successfully Sent!";
-            notice.style.color = "green";
-            message.style.display = "grid";
+            d.querySelector('.pen').setAttribute('src', 'assets/images/target.png');
             //messageSuccess.style.display = "block";
             d.querySelectorAll('form > *').forEach(function (a) {
                 a.disabled = true;
@@ -159,6 +155,7 @@ const contact = () => {
         return response.json();
     };
 
+
     const saveRequest = (sendUrl, succeed, fail) => {
 
         fetch(sendUrl, {
@@ -172,7 +169,9 @@ const contact = () => {
     };
 
     submit.addEventListener('click', (e) => {
+
         e.preventDefault();
+
         sendEmail.phone = phone.value;
         sendEmail.website = website.value;
         sendEmail.response = submit.getAttribute('data-response');
@@ -182,6 +181,11 @@ const contact = () => {
             email.focus();
         }
         if (sendStatus.name && sendStatus.email && sendStatus.comments) {
+            submit.style.display = "none";
+            notice.style.display = "grid";
+
+            d.querySelector('.pen').setAttribute('src', 'assets/images/hour-glass.png');
+            message.style.display = "flex";
             saveRequest(sendUrl, sendUISuccess, sendUIError);
         } else {
             notice.style.display = "block";
