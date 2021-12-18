@@ -20,20 +20,26 @@ require_once "vendor/autoload.php";
 
 <?php include_once "assets/includes/inc.nav.php"; ?>
 
-<main class="content">
+<main class="content" id="content">
 
     <form class="contact" name="contact" action="contact.php" method="post" autocomplete="on">
 
         <input id="token" type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-
+        <input type="hidden" name="reason" value="message">
+        <figure class="owner">
+            <img src="assets/images/img-john-pepp-150-150-001.jpg" alt="John Pepp" width="150" height="150">
+            <figcaption>John Pepp </figcaption>
+        </figure>
+        <hr class="horizontal_line">
         <div class="contact_name">
             <label class="labelstyle" for="name" accesskey="U">Contact Name</label>
-            <input name="name" type="text" id="name" tabindex="1" autofocus required="required"/>
+            <input name="name" type="text" id="name" tabindex="1" placeholder="Full Name" autofocus
+                   required="required"/>
         </div>
 
         <div class="contact_email">
             <label class="labelstyle" for="email" accesskey="E">Email</label>
-            <input name="email" type="email" id="email" tabindex="2" required="required"/>
+            <input name="email" type="email" id="email" placeholder="Email" tabindex="2" required="required"/>
         </div>
 
         <div class="contact_phone">
@@ -46,18 +52,11 @@ require_once "vendor/autoload.php";
             <input name="website" type="text" id="web" tabindex="4">
         </div>
 
-        <div class="contact_reason">
-            <label for="message-type">Reason for Writing?</label>
-            <select id="message-type" name="reason">
-                <option value="message">Message</option>
-                <option value="inquiry">Inquiry</option>
-                <option value="order">Order</option>
-            </select>
-        </div>
+
 
         <div class="contact_comment">
             <label class="textareaLabel" for="comments">Comments Length:<span id="length"></span></label>
-            <textarea name="comments" id="comments" spellcheck="true" placeholder="Enter Message Here..." tabindex="6"
+            <textarea name="comments" id="comments" spellcheck="true" placeholder="Your Message" tabindex="6"
                       required="required"></textarea>
         </div>
 
@@ -69,10 +68,10 @@ require_once "vendor/autoload.php";
             <img class="pen" src="assets/images/fountain-pen-close-up.png" alt="fountain pen">
         </div>
 
-        <button id="submitForm" class="submit_comment" type="submit" name="submit" value="Submit" tabindex="7" data-response="">Submit</button>
+        <button id="submitForm" class="submit_comment" type="submit" name="submit" value="Submit" tabindex="7"
+                data-response="">Submit
+        </button>
         <!-- Use a data callback function that Google provides -->
-
-
 
 
     </form>
@@ -114,8 +113,11 @@ require_once "vendor/autoload.php";
 </div>
 
 <footer class="colophon">
-    <p>&copy; <?php echo date("Y") ?> The Miniature Photographer</p>
-    <div class="freepik_icons">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru - <span class="freepik_icons">Icons made by <a
+                    href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
+                                                                                       title="Flaticon">www.flaticon.com</a></span>
+    </p>
+
 </footer>
 <script src="assets/js/contact.js" async defer></script>
 <!-- Fetch the g-response using a callback function -->

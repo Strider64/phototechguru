@@ -42,7 +42,7 @@ $user = Login::securityCheck();
 
     <div class="nav-links">
         <a href="index.php">home</a>
-        <a href="addQuiz.php">add question</a>
+        <a href="../addQuiz.php">add question</a>
         <a href="editQuiz.php">edit question</a>
         <a href="logout.php">logout</a>
     </div>

@@ -392,6 +392,7 @@
         d.getElementById('content').scrollIntoView();
 
         gameData = parsedData;
+        console.log(parsedData);
 
         //gameData = parsedData.sort(() => Math.random() - .5); // randomize questions:
         totalQuestions = parseInt(gameData.length);

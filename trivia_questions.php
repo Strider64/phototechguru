@@ -15,8 +15,8 @@ if (isset($category)) { // Get rid of $api_key if not using:
 
     $data = Trivia::fetch_data($category); // Fetch the data from the Database Table:
 
-    $mData = []; // Temporary Array Placeholder:
-    $answers = []; // Answer Columns from Table Array:
+    $finalOutput = []; // Final Output:
+    $ansColumns = []; // Answer Columns from Table Array:
     $finished = []; // Finished Results:
     $index = 0; // Index for answers array:
     $indexArray = 0; // Index for database table array:
@@ -26,7 +26,7 @@ if (isset($category)) { // Get rid of $api_key if not using:
      * JSON will work properly.
      */
     foreach ($data as $question_data) {
-
+        if ($question_data['hidden'] === 'yes') { continue; }
         foreach ($question_data as $key => $value) {
 
             /*
@@ -36,31 +36,25 @@ if (isset($category)) { // Get rid of $api_key if not using:
             switch ($key) {
 
                 case 'answer1':
-                    $answers['answers'][$index] = $value;
+                    $ansColumns['answers'][$index] = $value;
                     break;
                 case 'answer2':
-                    $answers['answers'][$index + 1] = $value;
+                    $ansColumns['answers'][$index + 1] = $value;
                     break;
                 case 'answer3':
-                    $answers['answers'][$index + 2] = $value;
+                    $ansColumns['answers'][$index + 2] = $value;
                     break;
                 case 'answer4':
-                    $answers['answers'][$index + 3] = $value;
+                    $ansColumns['answers'][$index + 3] = $value;
                     break;
             }
-        } // foreach inner
-
-        /*
-         * No Longer needed, but it wouldn't hurt if not unset
-         */
-        unset($question_data['answer1'], $question_data['answer2'], $question_data['answer3'], $question_data['answer4']);
-
-        $finished = array_merge($question_data, $answers);
-        $mData[$indexArray] = $finished;
+        } // End of Inner foreach
+        $finished = array_merge($question_data, $ansColumns);
+        $finalOutput[$indexArray] = $finished;
         $indexArray++;
-    }
+    } // End of Outer foreach
 
-    output($mData); // Send properly formatted array back to javascript:
+    output($finalOutput); // Send properly formatted array back to javascript:
 }
 
 /*

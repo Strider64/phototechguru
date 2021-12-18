@@ -25,7 +25,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
         '<br>Email Address : ' . $data['email'] .
         '<br>Phone : ' . $data['phone'] .
         '<br>Birthday : ' . $data['birthday'] . '</p>' .
-        '<p style="font-size: 1.4em; line-height: 1.5;">Please click on link: https://www.phototechguru.com/admin/activate.php?confirmation=' . $data['validation'] . ' in order to have access to the Miniature Photographer Website.</p>' .
+        '<p style="font-size: 1.4em; line-height: 1.5;">Please click on link: https://www.phototechguru.com/admin/activate.php?confirmation=' . $data['validation'] . ' in order to have access to The Photo Tech Guru Website.</p>' .
         '<p style="font-size: 1.4em; line-height: 1.5;">In addition please answer the question "Meet Me Under the [blank] Clock" with the name of the clock in the image that was sent.</p>' .
         '</body>' .
         '</html>';

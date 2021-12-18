@@ -89,6 +89,7 @@ let requestUrl = "retrieve_table.php";
 const tableUISuccess = function (parsedData) {
     totalRecords = parsedData.length;
     records = parsedData;
+    console.log(records);
     insertData(records[tableIndex]);
 };
 

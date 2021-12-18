@@ -23,6 +23,25 @@ if (isset($_SESSION['id'])) {
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>Photography Trivia</title>
     <link rel="stylesheet" media="all" href="assets/css/game.css">
+    <style>
+        .button {
+            display: block;
+            width: 115px;
+            height: 25px;
+            background-color: #4E9CAF;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            line-height: 25px;
+            margin: 20px 10px;
+        }
+        .button:hover {
+            background-color: #0C2C56;
+        }
+    </style>
     <script src="assets/js/game.js" defer></script>
 </head>
 <body class="site">
@@ -66,9 +85,8 @@ if (isset($_SESSION['id'])) {
         will not be able to continue on and the game will end. Obviously the player will have to know something
         about photography and its history in order to go far into the game. The game is written in Vanilla JavaScript
         using Fetch to pull the questions and answers from the database table.</p>
-        <p>I am still updating this trivia game. There might
-            be modifications to the gameplay (rules) and I am always open to constructive critiques
-            to the game.</p>
+        <p>I have added where a user who is a MEMBER can add questions to the photography database, but the questions/answers will have to be approved by me first.</p>
+        <p>You must register to become a Member and validate your email address before you can add questions. You don't have to add questions as you username will show up on the high scores table.</p>
         <div id="startBtn">
             <a class="logo" id="customBtn" title="Start Button" href="game.php">Start Game</a>
         </div>
@@ -133,11 +151,14 @@ if (isset($_SESSION['id'])) {
                 <input id="username" class="io_username" type="text" name="user[username]" value="" required>
                 <label class="text_password" for="password">Password</label>
                 <input id="password" class="io_password" type="password" name="user[hashed_password]" required>
-                <button class="form_button" type="submit" name="submit" value="login">submit</button>
+                <button class="form_button" type="submit" name="submit" value="login">Login</button>
                 <a href="admin/register.php" title="register">register</a>
             </form>
         </div>
-    <?php } ?>
+    <?php } else if (login::gameSecurityCheck()) {
+        echo '<a class="button" href="addQuiz.php">Add Question</a>';
+    } ?>
+
 
 </div>
 

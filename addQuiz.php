@@ -1,6 +1,6 @@
 <?php
-require_once '../assets/config/config.php';
-require_once "../vendor/autoload.php";
+require_once 'assets/config/config.php';
+require_once "vendor/autoload.php";
 
 use PhotoTech\Login;
 use PhotoTech\Trivia;
@@ -13,9 +13,10 @@ if (isset($_POST['submit'])) {
     $result = $trivia->create();
 }
 
-Login::is_login($_SESSION['last_login']);
-
-$user = Login::securityCheck();
+if (!isset($_SESSION['id']) || !Login::gameSecurityCheck()) {
+    header('Location: game.php');
+    exit();
+}
 
 
 ?>
@@ -26,7 +27,7 @@ $user = Login::securityCheck();
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>Add Quiz</title>
-    <link rel="stylesheet" media="all" href="../assets/css/admin.css">
+    <link rel="stylesheet" media="all" href="assets/css/admin.css">
 </head>
 <body class="site">
 <div id="skip"><a href="#content">Skip to Main Content</a></div>
@@ -50,17 +51,22 @@ $user = Login::securityCheck();
     </div>
 
     <div class="nav-links">
-        <a href="index.php">home</a>
-        <a href="addQuiz.php">add question</a>
-        <a href="editQuiz.php">edit question</a>
-        <a href="logout.php">logout</a>
+        <a href="admin/index.php">Admin</a>
+        <a href="game.php">Quiz</a>
+        <a href="admin/editQuiz.php">edit question</a>
+        <?php
+        if (isset($_SESSION['id'])) {
+            echo '<a href="/admin/logout.php">Logout</a>';
+        }
+        ?>
     </div>
 </div>
 
 <main id="content" class="checkStyle">
     <form id="addTriviaQA" class="gameForm" action="addQuiz.php" method="post">
         <input type="hidden" name="quiz[user_id]" value="<?= $_SESSION['id'] ?>">
-        <input type="hidden" name="quiz[hidden]" value="no">
+        <input type="hidden" name="quiz[token]" value="<?= $_SESSION['token'] ?>">
+        <input type="hidden" name="quiz[hidden]" value="yes">
         <input type="hidden" name="quiz[category]" value="photography">
         <div class="question">
             <label class="question_label" for="content">Question</label>

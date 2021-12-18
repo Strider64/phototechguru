@@ -741,6 +741,14 @@ body {
   width: 90%;
   padding: 0.938em;
   margin: 0 auto; }
+  .contact .owner {
+    padding-bottom: 0.625em; }
+    .contact .owner img {
+      width: 9.375em;
+      height: 9.375em;
+      margin-bottom: 0.625em; }
+  .contact .horizontal_line {
+    border-top: 1px solid #ccc; }
   .contact label {
     font-size: 0.8em;
     color: #2E2E2E; }
@@ -769,6 +777,7 @@ body {
     flex-flow: row nowrap;
     justify-content: space-evenly;
     background-color: #cccccc;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
     padding: 1.250em;
     margin: 1.250em; }
     .contact #message .notice {
@@ -813,9 +822,17 @@ body {
   @media screen and (min-width: 48em) {
     .contact {
       display: grid;
-      grid-template-columns: fit-content(2fr);
-      grid-template-areas: "contact_name contact_name" "contact_email contact_email" "contact_phone contact_website" "contact_reason contact_reason" "contact_comment contact_comment" "recaptcha message" "submit_comment submit_comment";
+      grid-template-columns: 2fr;
+      grid-template-areas: "owner owner" "horizontal_line horizontal_line" "contact_name  contact_email" "contact_phone contact_website" "contact_comment contact_comment" "recaptcha message" "submit_comment submit_comment";
       grid-column-gap: 1.250em; }
+      .contact .owner {
+        grid-area: owner;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-self: center;
+        text-align: center; }
+      .contact .horizontal_line {
+        grid-area: horizontal_line; }
       .contact .contact_name {
         grid-area: contact_name; }
       .contact .contact_email {
@@ -947,7 +964,7 @@ body {
   @media screen and (min-width: 78em) {
     .site {
       display: grid;
-      grid-template-columns: 1fr 52em;
+      grid-template-columns: 1fr 40em;
       grid-template-areas: "nav nav" "sidebar main" "footer footer";
       justify-content: center;
       width: 75em;

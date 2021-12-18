@@ -65,7 +65,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
         <a href="../photogallery.php">home</a>
         <a href="create.php">create</a>
         <a href="create_procedure.php">create(p)</a>
-        <a href="addQuiz.php">Quiz Maintenance</a>
+        <a href="../addQuiz.php">Quiz Maintenance</a>
         <a href="logout.php">logout</a>
     </div>
 </div>

@@ -15,7 +15,9 @@ class Validation extends DatabaseObject
     {
 
 
-        $query = "SELECT username FROM " . static::$table ." WHERE username = :username";
+        if (isset(static::$table)) {
+            $query = "SELECT username FROM " . static::$table ." WHERE username = :username";
+        }
         $stmt = Database::pdo()->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->execute();

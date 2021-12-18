@@ -168,7 +168,7 @@ if (isset($_POST['submit'])) {
     <div class="nav-links">
         <a href="index.php">home</a>
         <a href="create.php">create</a>
-        <a href="addQuiz.php">Add Questions</a>
+        <a href="../addQuiz.php">Add Questions</a>
         <a href="logout.php">logout</a>
     </div>
 </div>

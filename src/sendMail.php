@@ -147,8 +147,8 @@ class sendMail {
             ->setFrom([$data['email'] => $data['name']])
             ->setTo(['jrpepp@pepster.com'])
             ->setCc([$data['email'] => $data['name']])
-            ->setBody($data['message'], 'text/html')
-            ->attach(entity: Swift_Attachment::fromPath('https://www.phototechguru.com/assets/images/img-logo-003.jpg'));
+            ->setBody($data['message'], 'text/html');
+            //->attach(entity: Swift_Attachment::fromPath('https://www.phototechguru.com/assets/images/img-logo-003.jpg'));
 
         /* Send the message */
         return $mailer->send($message);

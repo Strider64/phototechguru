@@ -49,6 +49,18 @@ class Login extends DatabaseObject
         return $user['first_name'] . " " . $user['last_name'];
     }
 
+    public static function gameSecurityCheck() {
+        static::$searchItem = 'id';
+        static::$searchValue = $_SESSION['id'];
+        $sql = "SELECT security FROM " . static::$table . " WHERE id=:id LIMIT 1";
+        $result =  static::fetch_by_column_name($sql);
+
+        if ($result['security'] === 'member' || $result['security'] === 'sysop') {
+            return true;
+        }
+
+        return false;
+    }
     public static function securityCheck()
     {
         static::$searchItem = "id";
@@ -59,9 +71,11 @@ class Login extends DatabaseObject
          * Only Sysop privileges are allowed.
          */
         if ($result['security'] !== 'sysop') {
-            header("Location: ../game.php");
+            header("Location: ../index.php");
             exit();
         }
+
+
 
     }
 
@@ -77,7 +91,7 @@ class Login extends DatabaseObject
             session_regenerate_id(); // prevent session fixation attacks
             static::$last_login = $_SESSION['last_login'] = time();
             $this->id = $_SESSION['id'] = $user['id'];
-            header("Location: index.php");
+            header("Location: ../game.php");
             exit();
         }
 
@@ -85,8 +99,7 @@ class Login extends DatabaseObject
 
     }
 
-
-    public static function is_login($last_login): void
+     public static function is_login($last_login): void
     {
         if (!isset($last_login) || ($last_login + self::MAX_LOGIN_AGE) < time()) {
             header("Location: login.php");
@@ -97,7 +110,7 @@ class Login extends DatabaseObject
     #[NoReturn] public static function logout(): void
     {
         unset($_SESSION['last_login'], $_SESSION['id']);
-        header("Location: ../photogallery.php");
+        header("Location: ../index.php");
         exit();
     }
 }

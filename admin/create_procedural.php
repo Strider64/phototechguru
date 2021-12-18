@@ -154,7 +154,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
     <div class="nav-links">
         <a href="index.php">Home</a>
         <a href="create.php">Create</a>
-        <a href="addQuiz.php">Add Questions</a>
+        <a href="../addQuiz.php">Add Questions</a>
         <a href="logout.php">Logout</a>
     </div>
 </div>

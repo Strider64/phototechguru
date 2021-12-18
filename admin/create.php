@@ -150,7 +150,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
     <div class="nav-links">
         <a href="index.php">Home</a>
         <a href="create.php">Create</a>
-        <a href="addQuiz.php">Add Questions</a>
+        <a href="../addQuiz.php">Add Questions</a>
         <a href="logout.php">Logout</a>
     </div>
 </div>
@@ -166,11 +166,13 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
         <input id="file" class="file-input-style" type="file" name="image">
         <label for="file">Select file</label>
     </div>
-    <select class="select-css" name="cms[page]">
-        <option value="index">Home</option>
-        <option value="blog" selected>Blog</option>
-        <option value="about">About</option>
-    </select>
+    <label>
+        <select class="select-css" name="cms[page]">
+            <option value="index">Home</option>
+            <option value="blog" selected>Blog</option>
+            <option value="about">About</option>
+        </select>
+    </label>
     <div class="heading-style">
         <label class="heading_label_style" for="heading">Heading</label>
         <input class="enter_input_style" id="heading" type="text" name="cms[heading]" value="" tabindex="1" required
