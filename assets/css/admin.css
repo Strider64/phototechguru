@@ -183,7 +183,7 @@ h1, h2, h3, h4, h5, h6, legend, label {
 
 p, a, label, textarea {
   font-family: 'Rubik', sans-serif;
-  font-size: 1.0em;
+  font-size: 0.8em;
   line-height: 1.5;
   font-weight: normal; }
 
@@ -424,13 +424,14 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  font-size: 0.8em;
   margin-top: 0.375em;
   margin-bottom: 1em;
   resize: vertical; }
 
 textarea {
   resize: none;
-  height: 12.5em;
+  height: 9.5em;
   width: 100%;
   padding: 0.625em; }
 

@@ -49,7 +49,7 @@ class Pagination_New
     {
         if($this->previous_page() !== false) {
             static::$links .= '<a class="flex-item word-link" href="' . $url . '?page=' . $this->previous_page() . '">';
-            static::$links .= "&laquo; Previous</a>";
+            static::$links .= "&laquo;</a>";
         }
         return static::$links;
     }
@@ -59,7 +59,7 @@ class Pagination_New
 
         if ($this->next_page() !== false) {
             static::$links .= '<a class="flex-item word-link" href="' . $url . '?page=' . $this->next_page() . '">';
-            static::$links .= "Next &raquo;</a>";
+            static::$links .= "&raquo;</a>";
         }
 
         return static::$links;

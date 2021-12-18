@@ -49,11 +49,12 @@ class Login extends DatabaseObject
         return $user['first_name'] . " " . $user['last_name'];
     }
 
-    public static function gameSecurityCheck() {
+    public static function gameSecurityCheck()
+    {
         static::$searchItem = 'id';
         static::$searchValue = $_SESSION['id'];
         $sql = "SELECT security FROM " . static::$table . " WHERE id=:id LIMIT 1";
-        $result =  static::fetch_by_column_name($sql);
+        $result = static::fetch_by_column_name($sql);
 
         if ($result['security'] === 'member' || $result['security'] === 'sysop') {
             return true;
@@ -61,12 +62,26 @@ class Login extends DatabaseObject
 
         return false;
     }
+
+    public static function adminCheck()
+    {
+        static::$searchItem = 'id';
+        static::$searchValue = $_SESSION['id'];
+        $sql = "SELECT security FROM " . static::$table . " WHERE id=:id LIMIT 1";
+        $result = static::fetch_by_column_name($sql);
+        if ($result['security'] === 'sysop') {
+            return true;
+        }
+
+        return false;
+    }
+
     public static function securityCheck()
     {
         static::$searchItem = "id";
         static::$searchValue = $_SESSION['id'];
         $sql = "SELECT security FROM " . static::$table . " WHERE id=:id LIMIT 1";
-        $result =  static::fetch_by_column_name($sql);
+        $result = static::fetch_by_column_name($sql);
         /*
          * Only Sysop privileges are allowed.
          */
@@ -74,7 +89,6 @@ class Login extends DatabaseObject
             header("Location: ../index.php");
             exit();
         }
-
 
 
     }
@@ -99,7 +113,7 @@ class Login extends DatabaseObject
 
     }
 
-     public static function is_login($last_login): void
+    public static function is_login($last_login): void
     {
         if (!isset($last_login) || ($last_login + self::MAX_LOGIN_AGE) < time()) {
             header("Location: login.php");

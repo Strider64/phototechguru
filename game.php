@@ -157,7 +157,11 @@ if (isset($_SESSION['id'])) {
         </div>
     <?php } else if (login::gameSecurityCheck()) {
         echo '<a class="button" href="addQuiz.php">Add Question</a>';
-    } ?>
+        if (login::adminCheck()) {
+            echo '<a class="button" href="admin/editQuiz.php">Edit Question</a>';
+        }
+    }
+    ?>
 
 
 </div>

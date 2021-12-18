@@ -1,8 +1,8 @@
 /*
- *  The Photography Quiz 6.50 using FETCH/JSON
+ *  The Trivia Quiz 6.50 using FETCH/JSON
  *  by John R. Pepp
  *  Started: January 14, 2020
- *  Revised: August 7, 2021 @ 9:30 am
+ *  Revised: December 18, 2021 @ 4:30 pm
  */
 
 'use strict';
@@ -391,10 +391,10 @@
         mainGame.style.display = 'grid';
         d.getElementById('content').scrollIntoView();
 
-        gameData = parsedData;
+        //gameData = parsedData;
         console.log(parsedData);
 
-        //gameData = parsedData.sort(() => Math.random() - .5); // randomize questions:
+        gameData = parsedData.sort(() => Math.random() - .5); // randomize questions:
         totalQuestions = parseInt(gameData.length);
         createQuiz(gameData[gameIndex]);
 
