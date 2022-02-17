@@ -519,6 +519,32 @@ a.qBtn:hover {
     width: auto;
     height: auto; }
 
+.header {
+  display: none;
+  width: 75.00em;
+  height: 12.50em; }
+  .header .web-info {
+    display: flex;
+    justify-content: center; }
+    .header .web-info .heading1 {
+      width: 12.50em; }
+    .header .web-info .text-info {
+      background-color: #2e2e2e;
+      width: 100%;
+      color: #fff;
+      padding: 0.625em; }
+      .header .web-info .text-info h2 {
+        font-family: Georgia, serif;
+        font-size: 1.6em;
+        line-height: 0.6; }
+      .header .web-info .text-info h3 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.8em;
+        font-style: italic;
+        line-height: 1.2; }
+  .header .heading2 {
+    width: 41.00em; }
+
 /* pagination */
 .flex_container {
   display: flex;
@@ -633,8 +659,8 @@ body {
 .nav {
   position: relative;
   width: 100%;
-  height: 3.700em;
-  background-color: #2e2e2e; }
+  height: auto;
+  background-color: #000; }
 
 .nav-title {
   display: inline-block;
@@ -661,7 +687,7 @@ body {
   padding: 0.313em 0.625em; }
 
 .nav > .nav-links > a:hover {
-  background-color: rgba(0, 0, 0, 0.3); }
+  background-color: #2e2e2e; }
 
 .nav > #nav-check {
   display: none; }
@@ -875,8 +901,19 @@ body {
     .site {
       display: grid;
       grid-template-columns: 48em;
-      grid-template-areas: "nav" "main" "sidebar" "footer";
+      grid-template-areas: "header" "nav" "main" "sidebar" "footer";
       justify-content: center; }
+
+    .header {
+      grid-area: header;
+      display: flex;
+      background-color: #cccccc;
+      width: 100%;
+      height: 12.50em; }
+      .header .web-info {
+        width: 100%; }
+      .header .heading2 {
+        width: 41.00em; }
 
     .nav {
       grid-area: nav; }
@@ -950,7 +987,7 @@ body {
     .site {
       display: grid;
       grid-template-columns: 1fr 42em;
-      grid-template-areas: "nav nav" "sidebar main" "footer footer";
+      grid-template-areas: "header header" "nav nav" "sidebar main" "footer footer";
       justify-content: center;
       width: 64em;
       margin: 0 auto; }
@@ -965,7 +1002,7 @@ body {
     .site {
       display: grid;
       grid-template-columns: 1fr 40em;
-      grid-template-areas: "nav nav" "sidebar main" "footer footer";
+      grid-template-areas: "header header" "nav nav" "sidebar main" "footer footer";
       justify-content: center;
       width: 75em;
       margin: 0 auto; }

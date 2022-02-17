@@ -488,7 +488,7 @@ button, a.editButton {
       .checkStyle form.gameForm {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-areas: "remote" "select-hidden" "question" "answer1" "answer2" "answer3" "answer4" "correct" "submitBtn";
+        grid-template-areas: "remote" "select-hidden" "question" "answer1" "answer2" "answer3" "answer4" "correct" "category" "submitBtn";
         max-width: 100%; }
       .checkStyle .remote {
         grid-area: remote;
@@ -511,6 +511,8 @@ button, a.editButton {
         grid-area: answer4; }
       .checkStyle .correct {
         grid-area: correct; }
+      .checkStyle .category {
+        grid-area: category; }
       .checkStyle .submitBtn {
         grid-area: submitBtn; }
       .checkStyle .form_classes {

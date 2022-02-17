@@ -168,8 +168,8 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
     </div>
     <label>
         <select class="select-css" name="cms[page]">
-            <option value="index">Home</option>
-            <option value="blog" selected>Blog</option>
+            <option value="index" selected>Home</option>
+            <option value="blog">Blog</option>
             <option value="about">About</option>
         </select>
     </label>

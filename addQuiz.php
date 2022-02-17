@@ -7,6 +7,7 @@ use PhotoTech\Trivia;
 
 if (isset($_POST['submit'])) {
     $quiz = $_POST['quiz'];
+    $quiz['hidden'] = 'yes';
     //echo "<pre>" .print_r($quiz, 1) . "</pre>";
     //die();
     $trivia = new Trivia($quiz);
@@ -66,8 +67,9 @@ if (!isset($_SESSION['id']) || !Login::gameSecurityCheck()) {
     <form id="addTriviaQA" class="gameForm" action="addQuiz.php" method="post">
         <input type="hidden" name="quiz[user_id]" value="<?= $_SESSION['id'] ?>">
         <input type="hidden" name="quiz[token]" value="<?= $_SESSION['token'] ?>">
-        <input type="hidden" name="quiz[hidden]" value="yes">
+
         <input type="hidden" name="quiz[category]" value="photography">
+
         <div class="question">
             <label class="question_label" for="content">Question</label>
             <textarea class="question_input" id="content" name="quiz[question]" tabindex="2"
@@ -97,6 +99,18 @@ if (!isset($_SESSION['id']) || !Login::gameSecurityCheck()) {
             <label class="correct_answer_label" for="addCorrect">Answer</label>
             <input class="correct_answer_input" id="addCorrect" type="text" name="quiz[correct]" value="" tabindex="7">
         </div>
+
+        <div class="category">
+            <label for="category">Category</label>
+            <div id="category" class="select">
+                <select name="quiz[category]" id="standard-select">
+                    <option value="photography">Photography</option>
+                    <option value="space">Space</option>
+                    <option value="movie">Movie</option>
+                </select>
+            </div>
+        </div>
+
 
         <div class="submitBtn">
             <button class="form-button" type="submit" name="submit" value="enter">submit</button>

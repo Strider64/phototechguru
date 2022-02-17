@@ -6,7 +6,7 @@ require_once "vendor/autoload.php";
  *  The Photo Tech Guru Website Version 2.0
  *  by John R. Pepp
  *  Started: February 1, 2020
- *  Revised: October 31, 2021, at 11:00am
+ *  Revised: October 31, 2021
  */
 
 use PhotoTech\CMS;
@@ -55,10 +55,22 @@ $cms = CMS::page($per_page, $offset, 'blog');
     <link rel="stylesheet" media="all" href="assets/css/styles.css">
 </head>
 <body class="site">
-
+<header class="header">
+    <div class="web-info">
+        <img class="heading1"
+             src="assets/images/img-logo-005.jpg" <?= getimagesize('assets/images/img-logo-005.jpg')[3] ?> alt="logo">
+        <div class="text-info">
+            <h2>Photo Tech Guru</h2>
+            <h3>Photography, Web Design and Development</h3>
+        </div>
+    </div>
+    <img class="heading2"
+         src="assets/images/img-header-new.jpg" <?= getimagesize('assets/images/img-header-new.jpg')[3] ?>
+         alt="Photo Tech Guru">
+</header>
 <?php include_once "assets/includes/inc.nav.php"; ?>
 
-<main  class="content">
+<main class="content">
     <div class="container">
         <?php foreach ($cms as $record) { ?>
             <article class="cms">
@@ -111,7 +123,6 @@ $cms = CMS::page($per_page, $offset, 'blog');
             </a>
         </li>
     </ul>
-
 
 
 </div>

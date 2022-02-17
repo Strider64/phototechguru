@@ -1,8 +1,8 @@
 /*
- *  The Trivia Quiz 6.50 using FETCH/JSON
+ *  The Trivia Quiz 6.90 using FETCH/JSON
  *  by John R. Pepp
  *  Started: January 14, 2020
- *  Revised: December 18, 2021 @ 4:30 pm
+ *  Revised: February 14, 2022 @ 8:00 am
  */
 
 'use strict';
@@ -32,13 +32,13 @@
         answeredRight = 0,
         answeredWrong = 0,
         totalQuestions = 0,
-        shotsRemaining = 3,
+        shotsRemaining = 5,
         username = d.querySelector('.displayMessage').getAttribute('data-username'),
         finalResult = d.querySelector('#finalResult'),
         hs_table = {};
 
     let responseAns = {};
-    setGaugeValue(gaugeElement, shotsRemaining / 3);
+    setGaugeValue(gaugeElement, shotsRemaining / 5);
     finalResult.style.display = "none";
     //const buttons = d.querySelectorAll(".answerButton");
     const mainGame = d.querySelector('#mainGame');
@@ -66,7 +66,7 @@
                 newClock.textContent = "00";
                 if (shotsRemaining < 1) {
                     shotsRemaining = shotsRemaining - 1;
-                    setGaugeValue(gaugeElement, shotsRemaining / 3);
+                    setGaugeValue(gaugeElement, shotsRemaining / 5);
                 }
                 scoringFcn(userAnswer, correct);
                 highlightFCN(userAnswer, correct);
@@ -153,7 +153,7 @@
         } else {
             score = score - (points / 2);
             shotsRemaining = shotsRemaining - 1;
-            setGaugeValue(gaugeElement, shotsRemaining / 3);
+            setGaugeValue(gaugeElement, shotsRemaining / 5);
             answeredWrong++;
             scoreText.textContent = `${score} Points`;
         }
@@ -392,7 +392,7 @@
         d.getElementById('content').scrollIntoView();
 
         //gameData = parsedData;
-        console.log(parsedData);
+
 
         gameData = parsedData.sort(() => Math.random() - .5); // randomize questions:
         totalQuestions = parseInt(gameData.length);
@@ -472,8 +472,21 @@
         d.querySelector('#quiz').style.display = 'block';
     };
 
-    d.querySelector('#customBtn').addEventListener('click', startGame, false);
-    d.querySelector('#quiz').style.display = "none";
+    //d.querySelector('#customBtn').addEventListener('click', startGame, false);
+    //d.querySelector('#quiz').style.display = "none";
 
+    function selection(category) {
+
+        console.log('category', category);
+        d.querySelector('#quiz').style.display = "none";
+        selectCat(category);
+        d.querySelector('.displayStatus').style.display = 'none';
+
+        d.querySelector('#quiz').style.display = 'block';
+    }
+    d.querySelector('#quiz').style.display = 'none';
+    let category = d.querySelector('#category');
+    category.addEventListener('change', () => { selection(category.value) } , false);
+    //console.log('category', category.value);
 
 })();

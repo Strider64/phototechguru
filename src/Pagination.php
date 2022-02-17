@@ -59,7 +59,7 @@ class Pagination {
         return static::$links;
     }
 
-    #[Pure] public function number_links($url=""): string
+/*    public function number_links($url=""): string
     {
 
         for($i=1; $i <= $this->total_pages(); $i++) {
@@ -71,10 +71,10 @@ class Pagination {
         }
 
         return static::$links;
-    }
+    }*/
 
 
-    #[Pure] public function new_page_links($url): string
+    public function new_page_links($url): string
     {
 
 
@@ -83,9 +83,9 @@ class Pagination {
         $this->previous_link();
         if ($this->current_page <= $this->total_pages()) {
             if ($this->current_page === 1) {
-                static::$links .= "<a class='selected' href=\"{$url}?page=1\">1</a>";
+                static::$links .= "<a class='selected' href=\"$url?page=1\">1</a>";
             } else {
-                static::$links .= "<a href=\"{$url}?page=1\">1</a>";
+                static::$links .= "<a href=\"$url?page=1\">1</a>";
             }
 
             $i = max(2, $this->current_page - 5);
@@ -94,9 +94,9 @@ class Pagination {
             }
             for (; $i < min($this->current_page + 6, $this->total_pages()); $i++) {
                 if ($this->current_page === $i) {
-                    static::$links .= "<a class='selected' href=\"{$url}?page={$i}\">{$i}</a>";
+                    static::$links .= "<a class='selected' href=\"$url?page=$i\">$i</a>";
                 } else {
-                    static::$links .= "<a href=\"{$url}?page={$i}\">{$i}</a>";
+                    static::$links .= "<a href=\"$url?page=$i\">$i</a>";
                 }
 
             }
@@ -104,11 +104,11 @@ class Pagination {
                 static::$links .= '<span class="three-dots">' . " ... " . '</span>';
             }
             if ($i === $this->total_pages()) {
-                static::$links .= "<a href=\"{$url}?page={$this->total_pages()}\">{$this->total_pages()}</a>";
+                static::$links .= "<a href=\"$url?page={$this->total_pages()}\">{$this->total_pages()}</a>";
             } elseif ($i === $this->current_page) {
-                static::$links .= "<a class='selected' href=\"{$url}?page={$this->total_pages()}\">{$this->total_pages()}</a>";
+                static::$links .= "<a class='selected' href=\"$url?page={$this->total_pages()}\">{$this->total_pages()}</a>";
             } else {
-                static::$links .= "<a href=\"{$url}?page={$this->total_pages()}\">{$this->total_pages()}</a>";
+                static::$links .= "<a href=\"$url?page={$this->total_pages()}\">{$this->total_pages()}</a>";
             }
 
         }

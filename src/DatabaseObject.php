@@ -46,6 +46,15 @@ class DatabaseObject // Extended by the children class:
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function fetch_all_records($sql): array
+    {
+        // execute a query
+        $statement = Database::pdo()->query($sql);
+
+        // fetch all rows
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /*
      * Total rows in Database Table
      */
@@ -115,7 +124,7 @@ class DatabaseObject // Extended by the children class:
             /*
              * Prepare the Database Table:
              */
-            $stmt = Database::pdo()->prepare($sql);
+            $stmt = Database::pdo()->prepare($sql); // PHP Version 8.x Database::pdo()
 
             /*
              * Grab the corresponding values in order to

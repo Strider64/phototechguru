@@ -18,7 +18,7 @@ const answer3 = d.querySelector('#addAnswer3');
 const answer4 = d.querySelector('#addAnswer4');
 
 const correct = d.querySelector('#addCorrect');
-
+const category = d.querySelector('#category');
 const saveUrl = "saveRecord.php";
 const deleteRecord = d.querySelector('#delete_quiz_record');
 
@@ -35,6 +35,7 @@ let tableIndex = 0,
 const insertData = (data) => {
 
     record = data;
+    //console.log(record);
 
     position.textContent = record.id;
     id.value = parseInt(record.id);
@@ -47,6 +48,7 @@ const insertData = (data) => {
     answer2.value = record.answer2;
     answer3.value = record.answer3;
     answer4.value = record.answer4;
+    category.value = record.category;
 
 
     correct.value = record.correct;
@@ -161,7 +163,8 @@ const serializeArray = function () {
         answer2: answer2.value,
         answer3: answer3.value,
         answer4: answer4.value,
-        correct: parseInt(correct.value)
+        correct: parseInt(correct.value),
+        category: category.value
     };
 
 
@@ -173,8 +176,8 @@ const serializeArray = function () {
     record.answer2 = answer2.value;
     record.answer3 = answer3.value;
     record.answer4 = answer4.value;
-
     record.correct = correct.value;
+    record.category = category.value;
     insertData(record);
     return serialized;
 

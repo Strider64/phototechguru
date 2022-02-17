@@ -1,9 +1,7 @@
 <div class="nav">
     <input type="checkbox" id="nav-check">
 
-    <h3 class="nav-title">
-
-    </h3>
+    <h3 class="nav-title">&nbsp;</h3>
 
     <div class="nav-btn">
         <label for="nav-check">

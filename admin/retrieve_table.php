@@ -9,9 +9,9 @@ use PhotoTech\Trivia;
 Login::is_login($_SESSION['last_login']);
 
 
-$data = Trivia::fetch_all_data('photography');
+$data = Trivia::fetch_all_categories();
 
-/* Makes it so we don't have to decode the json coming from javascript */
+/* Makes it, so we don't have to decode the json coming from javascript */
 header('Content-type: application/json');
 
 

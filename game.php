@@ -79,16 +79,20 @@ if (isset($_SESSION['id'])) {
 <main id="content" class="checkStyle">
     <div class="displayStatus">
         <span id="clock"></span>
-        <h4 class="displayTitle">Photography Trivia</h4>
-        <p class="triviaInfo">The Photo Tech Guru Trivia game has been improved to include
-            a high score table of the top 5 players for that day. The person can only get 3 wrong or he or she
-        will not be able to continue on and the game will end. Obviously the player will have to know something
-        about photography and its history in order to go far into the game. The game is written in Vanilla JavaScript
-        using Fetch to pull the questions and answers from the database table.</p>
-        <p>I have added where a user who is a MEMBER can add questions to the photography database, but the questions/answers will have to be approved by me first.</p>
+        <h4 class="displayTitle">Pepster's Online Trivia</h4>
+        <p class="triviaInfo">I'm adding more categories to my online trivia game and hopefully make it appeal to more people! I am still keep the photography category,
+        but I am adding two new categories (movie and space). I am going to make a better scoring feature and have daily challenges as well a monthly challenges!</p>
+        <p>I'm still keeping the feature where a member can add questions to the online trivia database and be able to select the category of their liking, but the questions/answers will have to be approved by me first.</p>
         <p>You must register to become a Member and validate your email address before you can add questions. You don't have to add questions as you username will show up on the high scores table.</p>
         <div id="startBtn">
-            <a class="logo" id="customBtn" title="Start Button" href="game.php">Start Game</a>
+            <form id="game_category" action="game.php" method="post">
+                <select id="category" class="select-css" name="category" tabindex="1">
+                    <option selected disabled>Select a Category</option>
+                    <option value="photography">Photography</option>
+                    <option value="movie">Movie</option>
+                    <option value="space">Space</option>
+                </select>
+            </form>
         </div>
     </div>
 

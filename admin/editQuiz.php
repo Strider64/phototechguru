@@ -63,6 +63,13 @@ $user = Login::securityCheck();
             <option value="no">Hide Question: No</option>
         </select>
     </div>
+    <div class="select-category">
+        <select id="category" tabindex="">
+            <option value="photography">Photography</option>
+            <option value="movie">Movie</option>
+            <option value="space">Space</option>
+        </select>
+    </div>
     <div class="question">
         <label class="question_label" for="addQuestion">Content</label>
         <textarea id="addQuestion" class="question_input" name="question" tabindex="2"

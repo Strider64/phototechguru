@@ -54,6 +54,12 @@ class Trivia extends DatabaseObject
 
     }
 
+    public static function fetch_all_categories(): array
+    {
+        $sql = "SELECT * FROM " .static::$table;
+        return static::fetch_all_records($sql);
+    }
+
     /*
      * Fetch correct answer:
      */

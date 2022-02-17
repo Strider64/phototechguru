@@ -162,7 +162,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
 
 </div>
 
-<form id="formData" class="checkStyle" action="create_procedural.php" method="post" enctype="multipart/form-data">
+<form id="formData" class="checkStyle" action="create_procedure.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="cms[user_id]" value="3">
     <input type="hidden" name="cms[author]" value="<?= Login::full_name() ?>">
     <input type="hidden" name="action" value="upload">
@@ -171,8 +171,8 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
         <label for="file">Select file</label>
     </div>
     <select class="select-css" name="cms[page]">
-        <option value="index">Home</option>
-        <option value="blog" selected>Blog</option>
+        <option value="index" selected>Home</option>
+        <option value="blog">Blog</option>
         <option value="about">About</option>
     </select>
     <div class="heading-style">

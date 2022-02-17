@@ -14,8 +14,18 @@ require_once "vendor/autoload.php";
 </head>
 <body class="site">
 <div id="skip"><a href="#content">Skip to Main Content</a></div>
-<header class="masthead">
-
+<header class="header">
+    <div class="web-info">
+        <img class="heading1"
+             src="assets/images/img-logo-005.jpg" <?= getimagesize('assets/images/img-logo-005.jpg')[3] ?> alt="logo">
+        <div class="text-info">
+            <h2>Photo Tech Guru</h2>
+            <h3>Photography, Web Design and Development</h3>
+        </div>
+    </div>
+    <img class="heading2"
+         src="assets/images/img-header-new.jpg" <?= getimagesize('assets/images/img-header-new.jpg')[3] ?>
+         alt="Photo Tech Guru">
 </header>
 
 <?php include_once "assets/includes/inc.nav.php"; ?>

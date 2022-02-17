@@ -45,7 +45,19 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     <link rel="stylesheet" media="all" href="../assets/css/styles.css">
 </head>
 <body class="site">
-
+<header class="header">
+    <div class="web-info">
+        <img class="heading1"
+             src="../assets/images/img-logo-005.jpg" <?= getimagesize('../assets/images/img-logo-005.jpg')[3] ?> alt="logo">
+        <div class="text-info">
+            <h2>Photo Tech Guru</h2>
+            <h3>Photography, Web Design and Development</h3>
+        </div>
+    </div>
+    <img class="heading2"
+         src="../assets/images/img-header-new.jpg" <?= getimagesize('../assets/images/img-header-new.jpg')[3] ?>
+         alt="Photo Tech Guru">
+</header>
 <div class="nav">
     <input type="checkbox" id="nav-check">
 
