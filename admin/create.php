@@ -35,7 +35,9 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'], $_FILES['
          * have to do.
          */
         $exif_data = @exif_read_data($file_tmp);
-
+        //echo intval($exif_data['FocalLength']) . "<br>";
+        //echo "<pre>" . print_r($exif_data, 1) . "</pre>";
+        //die();
         if (array_key_exists('Make', $exif_data) && array_key_exists('Model', $exif_data)) {
             $data['Model'] = $exif_data['Make'] . ' ' . $exif_data['Model'];
         }

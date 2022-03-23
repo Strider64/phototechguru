@@ -11,7 +11,7 @@
      * Constants & Variables Initialization Section.
      */
 
-    const quizUrl = 'trivia_questions.php?'; // PHP database script
+    const quizUrl = 'trivia_database_table.php?'; // PHP database script
     const d = document; // Shorten document function::
     d.querySelector('#photography');
     d.querySelector('.gameTitle');
@@ -35,11 +35,13 @@
         shotsRemaining = 5,
         username = d.querySelector('.displayMessage').getAttribute('data-username'),
         finalResult = d.querySelector('#finalResult'),
+        highScoresDisplay = d.querySelector('.addTriviaInfo'),
         hs_table = {};
 
     let responseAns = {};
     setGaugeValue(gaugeElement, shotsRemaining / 5);
     finalResult.style.display = "none";
+    highScoresDisplay.style.display = "none";
     //const buttons = d.querySelectorAll(".answerButton");
     const mainGame = d.querySelector('#mainGame');
     next.style.display = "none";
@@ -250,6 +252,7 @@
      * Create and Display High Score Table
      */
     const displayHSTable = (info) => {
+        highScoresDisplay.style.display = "block";
         info.forEach((value, index) => {
             let anchor = d.querySelector('.anchor');
             let trElement = anchor.appendChild(d.createElement('tr'));
@@ -303,6 +306,7 @@
 
     /* Create High Score Data using fetch */
     const createHSTable = (retrieveUrl, succeed, fail) => {
+
         let max = 5; // Maximum Records to Be Displayed
         let maximum = {};
         maximum.max_limit = max;
@@ -387,7 +391,7 @@
 
     /* Success function utilizing FETCH */
     const quizUISuccess = (parsedData) => {
-
+        console.log('trivia data', parsedData);
         mainGame.style.display = 'grid';
         d.getElementById('content').scrollIntoView();
 

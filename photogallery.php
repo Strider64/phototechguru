@@ -15,7 +15,7 @@ use PhotoTech\CMS;
 use PhotoTech\Pagination;
 
 
-$displayFormat = ["gallery-container w-3 h-2", 'gallery-container w-3', 'gallery-container', 'gallery-container', 'gallery-container', 'gallery-container h-3 w-4"', 'gallery-container', 'gallery-container', 'gallery-container', 'gallery-container', 'gallery-container', 'gallery-container'];
+$displayFormat = ["gallery-container w-2 h-2", 'gallery-container w-2 h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2"', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2'];
 /*
  * Using pagination in order to have a nice looking
  * website page.
@@ -77,7 +77,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
         <a href="photogallery.php">Gallery</a>
 
         <a href="/admin/index.php">Admin</a>
-        <a href="game.php">Quiz</a>
+        <a href="game.php">Trivia</a>
         <a href="contact.php">Contact</a>
         <?php
         if (isset($_SESSION['id'])) {
@@ -92,6 +92,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
         <?php
         $count = 0;
         foreach ($cms as $record) {
+            echo '<p class="hideContent">' . $record['content'] . '</p>';
             echo '<div class="' . $displayFormat[$count] . '">';
             echo '<div class="gallery-item">';
             echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1" data-exif="' . $record['Model'] . ' ' . $record['ExposureTime'] . ' ' . $record['Aperture'] . ' ' . $record['ISO'] . ' ' . $record['FocalLength'] . '" width="800" height="534">';

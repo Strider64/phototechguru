@@ -111,7 +111,7 @@ if (isset($_SESSION['id'])) {
                     <div class="gauge">
                         <div class="gauge__body">
                             <div class="gauge__fill"></div>
-                            <div class="gauge__cover">Battery 100%</div>
+                            <div class="gauge__cover">Power 100%</div>
                         </div>
                     </div>
                     <p id="score">0 Points</p>
@@ -184,7 +184,7 @@ if (isset($_SESSION['id'])) {
         gauge.querySelector(".gauge__fill").style.transform = `rotate(${
             value / 2
         }turn)`;
-        gauge.querySelector(".gauge__cover").textContent = `Battery ${Math.round(
+        gauge.querySelector(".gauge__cover").textContent = `Power ${Math.round(
             value * 100
         )}%`;
     }

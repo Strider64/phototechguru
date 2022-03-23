@@ -82,7 +82,7 @@ function updateData(array $data, $pdo, $table): bool
     foreach ($data as $key => $value)
     {
         if($key === 'id') { continue; } // Don't include the id:
-        $attribute_pairs[] = "{$key}=:{$key}"; // Assign it to an array:
+        $attribute_pairs[] = "$key=:$key"; // Assign it to an array:
     }
 
     /*

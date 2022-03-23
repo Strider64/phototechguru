@@ -395,6 +395,9 @@ p, label, textarea {
       grid-row: span 6; }
 
     /* lightbox */
+    .hideContent {
+      display: none; }
+
     #lightbox {
       display: none;
       position: fixed;
