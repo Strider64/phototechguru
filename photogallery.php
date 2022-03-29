@@ -6,8 +6,8 @@ require_once "vendor/autoload.php";
  * The Photo Tech Guru
  * Created by John R. Pepp
  * Date Created: July, 12, 2021
- * Last Revision: October 25, 2021
- * Version: 2.50 ßeta
+ * Last Revision: March 28, 2022 @ 10:30 PM
+ * Version: 3.00 ßeta
  *
  */
 
@@ -92,10 +92,11 @@ $cms = CMS::page($per_page, $offset, 'blog');
         <?php
         $count = 0;
         foreach ($cms as $record) {
-            echo '<p class="hideContent">' . $record['content'] . '</p>';
+
             echo '<div class="' . $displayFormat[$count] . '">';
             echo '<div class="gallery-item">';
             echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1" data-exif="' . $record['Model'] . ' ' . $record['ExposureTime'] . ' ' . $record['Aperture'] . ' ' . $record['ISO'] . ' ' . $record['FocalLength'] . '" width="800" height="534">';
+            echo '<p class="hideContent">' . $record['content'] . '</p>';
             echo '</div>';
             $count++;
             echo '<div class="title">' . '<h1 class="pictureHeading">' . $record['heading'] . '</h1>' . '<span class="exifInfo">' . $record['Model'] . '</span>' . '</div>';

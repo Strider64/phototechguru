@@ -283,6 +283,21 @@ p, label, textarea {
   .nav > #nav-check:checked ~ .nav-links {
     height: calc(100vh - 3.125em);
     overflow-y: auto; } }
+.galleryExif {
+  display: block;
+  width: 100%;
+  height: 3.125em;
+  line-height: 3.125em;
+  background-color: #21759b;
+  color: #fff;
+  margin: 0; }
+
+.galleryText {
+  display: block;
+  font-size: 1.0em;
+  padding: 1.250em;
+  margin: 0 auto; }
+
 /* Approximately the size of an iPad 768px */
 @supports (grid-area: auto) {
   @media screen and (min-width: 48em) {
@@ -311,7 +326,8 @@ p, label, textarea {
       grid-template-columns: repeat(6, 1fr);
       grid-auto-rows: 6.250em 16.50em;
       grid-gap: 0.625em;
-      grid-auto-flow: dense; }
+      grid-auto-flow: dense;
+      margin-top: 1.250em; }
 
     .gallery-item {
       width: 100%;
@@ -398,43 +414,35 @@ p, label, textarea {
     .hideContent {
       display: none; }
 
-    #lightbox {
+    .lightbox {
       display: none;
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8); }
+      cursor: pointer; }
 
-    #lightbox.active {
-      display: block; }
-
-    #lightbox .boxStyle {
-      grid-area: lightbox;
+    .active {
+      grid-area: main;
+      display: grid;
+      grid-template-columns: minmax(40em, 50em) 1fr;
+      grid-template-areas: "lightboxImage lightboxText" "lightboxExif lightboxText";
+      background-color: #fff;
       justify-content: center;
-      position: relative;
-      max-width: 50.000em;
-      padding: 2px;
-      margin: 1.250em auto; }
+      grid-column-gap: 1.250em;
+      margin-top: 1.250em;
+      z-index: 2000; }
 
-    #lightbox p.displayInfo {
-      position: absolute;
-      bottom: -5.750em;
-      left: 0.0em;
-      background-color: rgba(0, 0, 255, 0.6);
-      color: #fff;
-      z-index: 20000;
-      padding: 0.625em 1.250em; }
+    .galleryImage {
+      grid-area: lightboxImage; }
+
+    .galleryExif {
+      grid-area: lightboxExif;
+      display: flex;
+      justify-content: center; }
+
+    .galleryText {
+      grid-area: lightboxText; }
 
     .colophon {
       grid-area: footer; } } }
 /* Approximately the size of a 1248px large display monitor */
-@supports (grid-area: auto) {
-  @media screen and (min-width: 78em) {
-    .boxStyle {
-      max-width: 85%;
-      max-height: 85%; } } }
 /* animation instructions for move-down in text */
 @keyframes move-down {
   0% {
