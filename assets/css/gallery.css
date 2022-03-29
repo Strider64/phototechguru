@@ -194,6 +194,32 @@ p, label, textarea {
   font-size: 1.0em;
   line-height: 1.0; }
 
+/* lightbox */
+.lightbox {
+  margin-top: 1.250em; }
+
+.hideContent {
+  display: none; }
+
+.container {
+  margin-top: 1.250em; }
+
+.gallery-item .title {
+  display: block;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 0.625em; }
+
+.galleryExif {
+  display: block;
+  width: 100%;
+  font-size: 1.0em;
+  text-align: center;
+  line-height: 3.125em;
+  background-color: #21759b;
+  color: #fff;
+  margin: 0; }
+
 .site {
   width: 90%;
   background-color: #000;
@@ -209,7 +235,8 @@ p, label, textarea {
   width: 100%;
   height: 2.700em;
   background-color: #000;
-  border-bottom: 1px solid #e6e6e6; }
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 0.625em; }
 
 .nav-title {
   display: none;
@@ -283,20 +310,25 @@ p, label, textarea {
   .nav > #nav-check:checked ~ .nav-links {
     height: calc(100vh - 3.125em);
     overflow-y: auto; } }
-.galleryExif {
-  display: block;
+.container {
   width: 100%;
-  height: 3.125em;
-  line-height: 3.125em;
-  background-color: #21759b;
-  color: #fff;
-  margin: 0; }
+  padding: 0; }
 
 .galleryText {
   display: block;
   font-size: 1.0em;
+  background-color: #fff;
   padding: 1.250em;
   margin: 0 auto; }
+
+.colophon {
+  display: none;
+  height: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #F5F5F5;
+  text-align: center;
+  background-color: #000;
+  margin-top: 1.250em; }
 
 /* Approximately the size of an iPad 768px */
 @supports (grid-area: auto) {
@@ -410,10 +442,6 @@ p, label, textarea {
     .h-6 {
       grid-row: span 6; }
 
-    /* lightbox */
-    .hideContent {
-      display: none; }
-
     .lightbox {
       display: none;
       cursor: pointer; }
@@ -421,9 +449,8 @@ p, label, textarea {
     .active {
       grid-area: main;
       display: grid;
-      grid-template-columns: minmax(40em, 50em) 1fr;
+      grid-template-columns: minmax(40em, 50em) fit-content(1fr);
       grid-template-areas: "lightboxImage lightboxText" "lightboxExif lightboxText";
-      background-color: #fff;
       justify-content: center;
       grid-column-gap: 1.250em;
       margin-top: 1.250em;
@@ -441,7 +468,8 @@ p, label, textarea {
       grid-area: lightboxText; }
 
     .colophon {
-      grid-area: footer; } } }
+      grid-area: footer;
+      display: block; } } }
 /* Approximately the size of a 1248px large display monitor */
 /* animation instructions for move-down in text */
 @keyframes move-down {
@@ -474,14 +502,5 @@ p, label, textarea {
   font-weight: bolder;
   color: #fff;
   padding-left: 0.313em; }
-
-.colophon {
-  display: block;
-  height: auto;
-  font-family: 'Work Sans', sans-serif;
-  color: #F5F5F5;
-  text-align: center;
-  background-color: #000;
-  margin-top: 1.250em; }
 
 /*# sourceMappingURL=gallery.css.map */

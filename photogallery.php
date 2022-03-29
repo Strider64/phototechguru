@@ -6,8 +6,8 @@ require_once "vendor/autoload.php";
  * The Photo Tech Guru
  * Created by John R. Pepp
  * Date Created: July, 12, 2021
- * Last Revision: March 28, 2022 @ 10:30 PM
- * Version: 3.00 ßeta
+ * Last Revision: March 29, 2022 @ 6:00 PM
+ * Version: 3.01 ßeta
  *
  */
 
