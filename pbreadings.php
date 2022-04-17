@@ -3,7 +3,7 @@ require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
 use PhotoTech\Measure;
-use PhotoTech\Pagination_New as Pagination;
+
 
 if (!isset($_SESSION['last_login'])) {
     header("Location: index.php");
@@ -25,45 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 }
 
-function styleDate($prettyDate): string
-{
 
-    try {
-        $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
-    } catch (Exception $e) {
-    }
-
-    return $dateStylized->format("F j, Y");
-}
-
-$user_id = 2;
-
-$per_page = 14; // Total number of records to be displayed:
-$total_count = Measure::countByUser($user_id);
-
-//echo $total_count . "<br>";
-
-$current_page = $_GET['page'] ?? 1;
-
-//echo $current_page . "<br>";
-
-if (($current_page < 1)) {
-    $current_page = 1;
-} elseif ($current_page > ceil($total_count / $per_page)) {
-    $current_page = ceil($total_count / $per_page);
-}
-
-/* Send the 3 variables to the Pagination class to be processed */
-$pagination = new Pagination($current_page, $per_page, $total_count);
-
-/* Grab the offset (page) location from using the offset method */
-$offset = $pagination->offset();
-
-//echo 'Offset = ' . $offset . "<br>";
-
-$bp = Measure::records($per_page, $offset);
-
-//echo "<pre>" . print_r($bp, 1) . "</pre>";
+$user_id = $_SESSION['id']; // Get User Id:
 
 
 ?>
@@ -182,7 +145,7 @@ $bp = Measure::records($per_page, $offset);
 
     </style>
 </head>
-<body class="site" data-pages="<?= $total_count ?>">
+<body class="site" data-pages="<?=  Measure::countByUser($user_id) ?>">
 <header class="header">
 
 </header>
