@@ -169,7 +169,7 @@ th {
   position: relative;
   width: 100%;
   height: 3.700em;
-  background-color: #2e2e2e;
+  background-color: #33579c;
   margin-bottom: 1.250em; }
 
 .nav-title {
@@ -680,7 +680,7 @@ a.qBtn:hover {
   font-family: 'Rubik', sans-serif;
   color: #F5F5F5;
   text-align: center;
-  background-color: #2E2E2E;
+  background-color: #33579c;
   margin-top: 1.250em; }
 
 @supports (grid-area: auto) {

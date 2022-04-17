@@ -10,7 +10,8 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
 
     $send = new sendMail();
     $data = [];
-    $data['name'] = $_POST['user']['first_name'] . ' ' . $_POST['user']['last_name'];
+
+    $data['name'] = trim($_POST['user']['first_name'] . ' ' . $_POST['user']['last_name']);
     $data['validation'] = $send->validationFCN(20);
     $_POST['user']['validation'] = $data['validation'];
 

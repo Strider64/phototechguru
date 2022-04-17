@@ -40,7 +40,6 @@ images.forEach(image => {
         galleryText.textContent = nextSibling.textContent;
 
 
-
         /* Remove Image For Screen (cleanup) */
         while (lightbox.firstChild) {
             lightbox.removeChild(lightbox.firstChild)

@@ -105,7 +105,7 @@ class Login extends DatabaseObject
             session_regenerate_id(); // prevent session fixation attacks
             static::$last_login = $_SESSION['last_login'] = time();
             $this->id = $_SESSION['id'] = $user['id'];
-            header("Location: ../game.php");
+            header("Location: index.php");
             exit();
         }
 

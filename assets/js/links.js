@@ -5,7 +5,7 @@
     data.current_page = 0;
 
     const linkCard = function (l_record, index) {
-        console.log('index', index);
+        console.log('l_record', l_record, 'index', index);
         const links_container = document.querySelector(".links_container");
 
         /* Create HTML elements article */

@@ -13,6 +13,7 @@
 
     <div class="nav-links">
         <a href="index.php">Home</a>
+        <?php echo($_SESSION['last_login']) ? '<a href="bpreadings.php">BP</a>' : null; ?>
         <a href="photogallery.php">Gallery</a>
         <a href="/admin/index.php">Admin</a>
         <a href="game.php">Trivia</a>

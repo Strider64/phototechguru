@@ -46,17 +46,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
 </head>
 <body class="site">
 <header class="header">
-    <div class="web-info">
-        <img class="heading1"
-             src="../assets/images/img-logo-005.jpg" <?= getimagesize('../assets/images/img-logo-005.jpg')[3] ?> alt="logo">
-        <div class="text-info">
-            <h2>Photo Tech Guru</h2>
-            <h3>Photography, Web Design and Development</h3>
-        </div>
-    </div>
-    <img class="heading2"
-         src="../assets/images/img-header-new.jpg" <?= getimagesize('../assets/images/img-header-new.jpg')[3] ?>
-         alt="Photo Tech Guru">
+
 </header>
 <div class="nav">
     <input type="checkbox" id="nav-check">
@@ -74,7 +64,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     </div>
 
     <div class="nav-links">
-        <a href="../photogallery.php">home</a>
+        <a href="../index.php">home</a>
         <a href="create.php">create</a>
         <a href="create_procedure.php">create(p)</a>
         <a href="../addQuiz.php">Quiz Maintenance</a>

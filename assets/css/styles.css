@@ -523,27 +523,6 @@ a.qBtn:hover {
   display: none;
   width: 75.00em;
   height: 12.50em; }
-  .header .web-info {
-    display: flex;
-    justify-content: center; }
-    .header .web-info .heading1 {
-      width: 12.50em; }
-    .header .web-info .text-info {
-      background-color: #2e2e2e;
-      width: 100%;
-      color: #fff;
-      padding: 0.625em; }
-      .header .web-info .text-info h2 {
-        font-family: Georgia, serif;
-        font-size: 1.6em;
-        line-height: 0.6; }
-      .header .web-info .text-info h3 {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 0.8em;
-        font-style: italic;
-        line-height: 1.2; }
-  .header .heading2 {
-    width: 41.00em; }
 
 /* pagination */
 .flex_container {
@@ -582,7 +561,8 @@ p {
   flex: 0 0 4em; }
 
 figure {
-  margin: 0; }
+  max-width: 21.75em;
+  margin: auto; }
 
 .cards {
   list-style-type: none;
@@ -660,7 +640,7 @@ body {
   position: relative;
   width: 100%;
   height: auto;
-  background-color: #000; }
+  background-color: #33579c; }
 
 .nav-title {
   display: inline-block;
@@ -885,9 +865,9 @@ body {
   display: block;
   height: auto;
   font-family: 'Rubik', sans-serif;
-  color: #F5F5F5;
+  color: #fff;
   text-align: center;
-  background-color: #2E2E2E;
+  background-color: #33579c;
   margin-top: 1.250em; }
   .colophon .freepik_icons a {
     text-decoration: none;
@@ -907,13 +887,11 @@ body {
     .header {
       grid-area: header;
       display: flex;
-      background-color: #cccccc;
+      justify-content: right;
+      background-image: url("../images/img-header-1200-300-004.jpg");
+      background-repeat: no-repeat;
       width: 100%;
-      height: 12.50em; }
-      .header .web-info {
-        width: 100%; }
-      .header .heading2 {
-        width: 41.00em; }
+      height: 18.50em; }
 
     .nav {
       grid-area: nav; }
@@ -1001,7 +979,7 @@ body {
   @media screen and (min-width: 78em) {
     .site {
       display: grid;
-      grid-template-columns: 1fr 40em;
+      grid-template-columns: 1fr 50em;
       grid-template-areas: "header header" "nav nav" "sidebar main" "footer footer";
       justify-content: center;
       width: 75em;

@@ -222,7 +222,6 @@ p, label, textarea {
 
 .site {
   width: 90%;
-  background-color: #000;
   margin: 0 auto; }
 
 .exifInfo {
@@ -234,7 +233,7 @@ p, label, textarea {
   position: relative;
   width: 100%;
   height: 2.700em;
-  background-color: #000;
+  background-color: #33579c;
   border-bottom: 1px solid #e6e6e6;
   padding-bottom: 0.625em; }
 
@@ -327,7 +326,7 @@ p, label, textarea {
   font-family: 'Work Sans', sans-serif;
   color: #F5F5F5;
   text-align: center;
-  background-color: #000;
+  background-color: #33579c;
   margin-top: 1.250em; }
 
 /* Approximately the size of an iPad 768px */

@@ -76,6 +76,14 @@ class DatabaseObject // Extended by the children class:
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function records($perPage, $offset): array
+    {
+        $sql = 'SELECT * FROM ' . static::$table . ' ORDER BY date_taken DESC LIMIT :perPage OFFSET :offset';
+        $stmt = Database::pdo()->prepare($sql); // Prepare the query:
+        $stmt->execute(['perPage' => $perPage, 'offset' => $offset]); // Execute the query with the supplied data:
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /*
      * Grab Record will be used for editing:
      */
