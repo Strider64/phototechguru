@@ -15,6 +15,9 @@ if ($_SESSION['id'] != 2) {
     exit();
 }
 
+/*
+ * Add a new record to the database table.
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bp_data = $_POST['data'];
     $bp_data['miles_walked'] = (float)$bp_data['miles_walked'];

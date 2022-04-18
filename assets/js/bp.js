@@ -69,14 +69,19 @@
         let max = total_pages;
         const range = (min, max) => [...Array(max - min + 1).keys()].map(i => i + min);
         const flex_container = document.querySelector('.flex_container');
-
-        //console.log('range', range(min, max));
+        /* Make a ranges of the pages */
         let pages = range(min, max);
-        //console.log('pages', pages);
+        /*
+         * Create anchor element, css classes and add event listener.
+         */
         pages.forEach((value, index) => {
-           //console.log('value', value, 'index', index);
+           //console.log('value', value, 'index', index, 'data_current', data.current);
            let page = flex_container.appendChild(document.createElement('a'));
            page.className = "flex-item";
+           if (data.current === index ) {
+               page.className = 'selected';
+           }
+
            page.setAttribute('data-page', index);
            page.setAttribute('href', '');
            page.addEventListener('click', callPage, false);
