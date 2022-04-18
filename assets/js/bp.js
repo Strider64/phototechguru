@@ -39,7 +39,7 @@
 
     };
 
-    /* Remove answers from Screen */
+    /* Remove data from Screen */
     const clear_entries = () => {
         let element = document.querySelector('.entries');
         while (element.firstChild) {
