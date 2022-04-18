@@ -52,7 +52,7 @@
     };
 
     /*
-     * Add Event Listener to Anchor Tags
+     * Action when user click on one of those anchor tags
      */
     const callPage = (e) => {
         e.preventDefault(); // prevent anchor tag from firing
