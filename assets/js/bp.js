@@ -145,7 +145,7 @@
 
     }
 
-    /* retrieve User Data from hs_table */
+    /* retrieve User Data and Create Links */
     const retrieveBPTableUISuccess = function (bp) {
         process_record(bp);
         links();
