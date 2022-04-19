@@ -18,15 +18,15 @@ if ($_SESSION['id'] != 2) {
 /*
  * Add a new record to the database table.
  */
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $bp_data = $_POST['data'];
-    $bp_data['miles_walked'] = (float)$bp_data['miles_walked'];
-    $bp_data['sodium'] = (int)$bp_data['sodium'];
-    $bp_data['weight'] = (int)$bp_data['weight'];
-    $measure = new Measure($bp_data);
-    $measure->create();
-
-}
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//    $bp_data = $_POST['data'];
+//    $bp_data['miles_walked'] = (float)$bp_data['miles_walked'];
+//    $bp_data['sodium'] = (int)$bp_data['sodium'];
+//    $bp_data['weight'] = (int)$bp_data['weight'];
+//    $measure = new Measure($bp_data);
+//    $measure->create();
+//
+//}
 
 
 $user_id = $_SESSION['id']; // Get User Id:
@@ -179,7 +179,7 @@ $user_id = $_SESSION['id']; // Get User Id:
 </main>
 
 <div class="sidebar">
-    <form class="bpForm" method="post">
+    <form id="bpForm" class="bpForm" method="post">
         <label for="date_taken_form">Date Taken</label>
         <input type="date" name="data[date_taken]" id="date_taken_form" tabindex="1" required>
         <label for="systolic_form">Systolic</label>
@@ -204,5 +204,8 @@ $user_id = $_SESSION['id']; // Get User Id:
 
 
 <script src="assets/js/bp.js" async defer></script>
+<script src="assets/js/bp_new.js" async defer></script>
+
+
 </body>
 </html>

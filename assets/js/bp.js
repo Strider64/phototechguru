@@ -1,13 +1,11 @@
 'use strict';
 
 /*
- *  The Blood Pressure Tracking ver 1.5  using FETCH/JSON
+ *  The Blood Pressure Tracking ver 1.8  using FETCH/JSON
  *  by John R. Pepp
  *  Started: April 14, 2022
- *  Revised: Aprile 17 @ 2:30 pm
+ *  Revised: Aprile 18 @ 7:00 pm
  */
-
-(function () {
 
     let total_count = parseInt(document.querySelector('.site').getAttribute('data-pages'));
     let per_page = 14;
@@ -35,7 +33,7 @@
         let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',	'November', 'December'];
 
         // return a formatted date
-        return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+        return months[date.getMonth()] + ' ' + date.getDate().toString().padStart(2, '0') + ', ' + date.getFullYear();
 
     };
 
@@ -63,6 +61,7 @@
         createTable('newRetrieveBP.php', retrieveBPTableUISuccess, retrieveBPTableUIError);
     }
 
+    /* Create the Links for Pagination (Still needs improvement) */
     const links = () => {
 
         let min = 1;
@@ -91,7 +90,9 @@
 
     };
 
+    /* A function to process the records and display the on the screen */
     const process_record = (records) => {
+        //console.log('records', records);
         let entries = document.querySelector('.entries');
         records.forEach(record => {
             let date_taken = document.createElement('div');
@@ -168,7 +169,8 @@
             .catch((error) => fail(error));
     };
 
-    createTable('newRetrieveBP.php', retrieveBPTableUISuccess, retrieveBPTableUIError);
+/* Retrieve the Data and Display them */
+createTable('newRetrieveBP.php', retrieveBPTableUISuccess, retrieveBPTableUIError);
 
-})();
+
 

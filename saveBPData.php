@@ -4,14 +4,15 @@ require_once "vendor/autoload.php";
 
 use PhotoTech\Measure;
 
+
 if (!isset($_SESSION['last_login'])) {
-    header("Location: index.php");
-    exit();
+header("Location: index.php");
+exit();
 }
 
 if ($_SESSION['id'] != 2) {
-    header('Location: index.php');
-    exit();
+header('Location: index.php');
+exit();
 }
 
 /* Makes it, so we don't have to decode the json coming from javascript */
@@ -19,16 +20,27 @@ header('Content-type: application/json');
 
 
 /*
- * Grab per_page and offset
- */
+* Grab per_page and offset
+*/
 $data = json_decode(file_get_contents('php://input'), true);
 
-
-$bp = Measure::records($data['per_page'], $data['offset']);
-
-if (isset($bp)) {
-    output($bp);
+try {
+    $date_added = new DateTime($data['date_taken'], new DateTimeZone("America/Detroit"));
+} catch (Exception $e) {
 }
+$send['date_taken'] = $date_added->format('Y-m-d H:i:s');
+$send['systolic'] = (int) $data['systolic'];
+$send['diastolic'] = (int) $data['diastolic'];
+$send['pulse'] = (int) $data['pulse'];
+$send['miles_walked'] = (float) $data['miles_walked'];
+$send['weight'] = (int) $data['weight'];
+$send['sodium'] = (int) $data['sodium'];
+
+$save = new Measure($send);
+$save->create();
+
+
+output(true);
 
 /*
  * Throw error if something is wrong
