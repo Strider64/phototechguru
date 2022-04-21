@@ -205,6 +205,7 @@ $user_id = $_SESSION['id']; // Get User Id:
 
 <script src="assets/js/bp.js" async defer></script>
 <script src="assets/js/bp_new.js" async defer></script>
+<script src="assets/js/bp_edit.js" async defer></script>
 
 
 </body>

@@ -94,7 +94,9 @@
     const process_record = (records) => {
         //console.log('records', records);
         let entries = document.querySelector('.entries');
+
         records.forEach(record => {
+
             let date_taken = document.createElement('div');
             let systolic = document.createElement('div');
             let diastolic = document.createElement('div');
@@ -105,33 +107,47 @@
 
             date_taken.classList.add('date_taken');
             date_taken.textContent = formatDate(record.date_taken);
+            date_taken.setAttribute('contenteditable', true);
+            date_taken.setAttribute('data-id', record.id);
 
             systolic.classList.add('systolic');
             systolic.textContent = record.systolic;
+            systolic.setAttribute('contenteditable', true);
+            systolic.setAttribute('data-id', record.id);
 
             diastolic.classList.add('diastolic');
             diastolic.textContent = record.diastolic;
+            diastolic.setAttribute('contenteditable', true);
+            diastolic.setAttribute('data-id', record.id);
 
             pulse.classList.add('pulse');
             pulse.textContent = record.pulse;
+            pulse.setAttribute('contenteditable', true);
+            pulse.setAttribute('data-id', record.id);
 
             miles_walked.classList.add('miles');
             if (record.miles_walked == 0) {
                 record.miles_walked = null;
             }
+            miles_walked.setAttribute('contenteditable', true);
             miles_walked.textContent = record.miles_walked;
+            miles_walked.setAttribute('data-id', record.id);
 
             weight.classList.add('weight');
             if (record.weight == 0) {
                 record.weight = null;
             }
+            weight.setAttribute('contenteditable', true);
             weight.textContent = record.weight;
+            weight.setAttribute('data-id', record.id);
 
             sodium.classList.add('sodium');
             if (record.sodium == 0) {
                 record.sodium = null;
             }
+            sodium.setAttribute('contenteditable', true);
             sodium.textContent = record.sodium;
+            sodium.setAttribute('data-id', record.id);
 
             entries.appendChild(date_taken);
             entries.appendChild(systolic)
@@ -148,6 +164,7 @@
 
     /* retrieve User Data and Create Links */
     const retrieveBPTableUISuccess = function (bp) {
+        //console.log(bp);
         process_record(bp);
         links();
 

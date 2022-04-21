@@ -57,7 +57,7 @@
         data.miles_walked = parseFloat(document.querySelector('#miles_walked_form').value);
         data.weight = parseInt(document.querySelector('#weight_form').value);
         data.sodium = parseInt(document.querySelector('#sodium_form').value);
-        console.log('Data', data);
+        //console.log('Data', data);
         saveToFile('saveBPData.php', saveToFileUISuccess, saveToFileUIError);
 
 
