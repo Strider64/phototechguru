@@ -41,110 +41,10 @@ $user_id = $_SESSION['id']; // Get User Id:
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Blood Pressure</title>
-    <link href="https://fonts.googleapis.com/css?family=Unkempt" rel="stylesheet">
-    <link rel="stylesheet" media="all" href="assets/css/styles.css">
+    <link rel="stylesheet" media="all" href="assets/css/bpStyle.css">
     <style>
 
-        .bpForm {
-            display: grid;
-            grid-template-columns: [labels] auto [controls] 1fr;
-            grid-auto-flow: row;
-            grid-gap: .8em;
-            background: #eee;
-            padding: 1.2em;
-        }
 
-        .bpForm > label {
-            grid-column: labels;
-            grid-row: auto;
-            display: flex;
-            justify-content: end;
-            font: 1.0em 'Unkempt', sans-serif;
-            line-height: 3.125em;
-        }
-
-        .bpForm > input,
-        .bpForm > textarea,
-        .bpForm > button {
-            grid-column: controls;
-            grid-row: auto;
-            border: none;
-            font: 1.2em 'Unkempt', sans-serif;
-            font-weight: bold;
-            padding: 1em;
-        }
-
-        .entries, .entry_headings {
-            display: grid;
-            grid-template-columns: repeat(9, 1fr);
-            grid-auto-rows: auto;
-            gap: 0.625em 0;
-            font-family: 'Unkempt', sans-serif;
-            font-size: 1.0em;
-            color: #ff0;
-            padding: 0 1.250em;
-            margin-top: 1.250em;
-        }
-
-        .entries > div, .entry_headings > div {
-            background-color: #33579c;
-        }
-
-        .date_taken {
-            grid-column: span 2;
-            grid-row: span 1;
-            display: flex;
-            justify-content: right;
-            padding: 0 0.625em;
-        }
-
-        .systolic {
-            grid-column: span 1;
-            display: flex;
-            justify-content: center;
-            padding: 0 0.625em;
-        }
-
-        .diastolic {
-            grid-column: span 1;
-            display: flex;
-            justify-content: center;
-            padding: 0 0.625em;
-        }
-
-        .pulse {
-            grid-column: span 1;
-            display: flex;
-            justify-content: center;
-            padding: 0 0.313em;
-        }
-
-        .miles {
-            grid-column: span 2;
-            display: flex;
-            justify-content: center;
-            padding: 0 0.625em;
-        }
-
-        .weight {
-            grid-column: span 1;
-            display: flex;
-            justify-content: right;
-            padding: 0 0.313em
-        }
-
-        .sodium {
-            grid-column: span 1;
-            display: flex;
-            justify-content: right;
-            padding: 0 0.625em;
-        }
-
-        p.totals {
-            font: 1.0em 'Unkempt', sans-serif;
-            color: #000;
-            padding: 0 1.250em;
-        }
 
     </style>
 </head>
@@ -152,6 +52,7 @@ $user_id = $_SESSION['id']; // Get User Id:
 <header class="header">
 
 </header>
+
 <?php include_once "assets/includes/inc.nav.php"; ?>
 
 <main class="content">
@@ -165,6 +66,7 @@ $user_id = $_SESSION['id']; // Get User Id:
         <div class="weight">Weight</div>
         <div class="sodium">Sodium</div>
     </div>
+
     <div class="entries">
 
     </div>

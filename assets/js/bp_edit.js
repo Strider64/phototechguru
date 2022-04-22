@@ -21,6 +21,7 @@
     /* Save to Databse Table */
     const updateUISuccess = function (info) {
         console.log(info);
+        e_data = {};
 
     };
 
@@ -44,19 +45,53 @@
 
     const changeText = (e) => {
 
-        if (e.target.classList.contains('date_taken')) {
-            //console.log(e.target.getAttribute('data-id'), e.target.valueOf().textContent);
+        let cname = e.target.className.valueOf();
+        console.log('Class Name', cname);
+
+        const modified = () => {
             e_data.id = parseInt(e.target.getAttribute('data-id'));
-            e_data.date_taken = e.target.valueOf().textContent;
-            console.log('data', e_data);
+            //console.log('data', e_data);
             updateFile('bp_edit.php', updateUISuccess, updateUIError)
+        };
+
+        switch (cname) {
+            case 'date_taken':
+                e_data.id = parseInt(e.target.getAttribute('data-id'));
+                e_data.date_taken = e.target.valueOf().textContent;
+                //console.log('data', e_data);
+                updateFile('bp_edit.php', updateUISuccess, updateUIError)
+                break;
+            case 'systolic':
+                e_data.systolic = e.target.valueOf().textContent;
+                modified();
+                break;
+            case 'diastolic':
+                e_data.diastolic = e.target.valueOf().textContent;
+                modified();
+                break;
+            case 'pulse':
+                e_data.pulse = e.target.valueOf().textContent;
+                modified();
+                break;
+            case 'miles':
+                e_data.miles_walked = e.target.valueOf().textContent;
+                modified();
+                break;
+            case 'weight':
+                e_data.weight = e.target.valueOf().textContent;
+                modified();
+                break;
+            case 'sodium':
+                e_data.sodium = e.target.valueOf().textContent;
+                modified();
+                break;
+            default:
+                console.log('Class Name Not Found!');
         }
-        if (e.target.classList.contains('systolic')) {
-            e_data.id = parseInt(e.target.getAttribute('data-id'));
-            e_data.systolic = parseInt(e.target.valueOf().textContent);
-            console.log('data', e_data);
-            updateFile('bp_edit.php', updateUISuccess, updateUIError)
-        }
+
+
+
+
     };
     document.addEventListener( 'focusout', changeText, false);
 
