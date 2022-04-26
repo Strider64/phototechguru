@@ -907,10 +907,10 @@ body {
       grid-auto-rows: auto;
       grid-row-gap: 1.250em; }
 
-    .card {
+    .cards {
       display: grid; }
 
-    .card img,
+    .cards img,
     .caption {
       grid-column: 1;
       grid-row: 1; }

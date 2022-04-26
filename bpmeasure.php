@@ -108,7 +108,7 @@ $bp = Measure::records($per_page, $offset);
             padding: 1em;
         }
 
-        .entries {
+        .cards {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             grid-auto-rows: auto;
@@ -119,7 +119,7 @@ $bp = Measure::records($per_page, $offset);
             margin-top: 1.250em;
         }
 
-        .entries > div {
+        .cards > div {
             background-color: #33579c;
         }
 

@@ -101,7 +101,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
     <ul class="cards">
         <li class="card-item">
             <a href="https://flickr.com/photos/pepster/">
-                <figure class="card">
+                <figure class="cards">
                     <img src="assets/images/img_flickr_pictures.jpg" alt="Flickr" width="348" height="174">
                     <figcaption class="caption">
                         <h3 class="caption-title">Flickr Images</h3>
@@ -111,7 +111,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
         </li>
         <li class="card-item">
             <a href="https://github.com/Strider64/phototechguru">
-                <figure class="card">
+                <figure class="cards">
                     <img src="assets/images/img_github_repository.jpg" alt="GitHub Repository">
                     <figcaption class="caption">
                         <h3 class="caption-title">GitHub Repository</h3>
@@ -121,7 +121,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
         </li>
         <li class="card-item">
             <a href="https://www.facebook.com/Pepster64">
-                <figure class="card">
+                <figure class="cards">
                     <img src="assets/images/img-facebook-group.jpg" alt="FaceBook Group">
                     <figcaption class="caption">
                         <h3 class="caption-title">Facebook Page</h3>

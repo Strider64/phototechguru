@@ -57,19 +57,11 @@ $user_id = $_SESSION['id']; // Get User Id:
 
 <main class="content">
 
-    <div class="entry_headings">
-        <div class="date_taken">Date Taken</div>
-        <div class="systolic">Systolic</div>
-        <div class="diastolic">Diastolic</div>
-        <div class="pulse">Pulse</div>
-        <div class="miles">Miles</div>
-        <div class="weight">Weight</div>
-        <div class="sodium">Sodium</div>
-    </div>
 
-    <div class="entries">
 
-    </div>
+    <ul class="cards">
+
+    </ul>
 
     <div class="flex_container" data-role="controlgroup">
 
