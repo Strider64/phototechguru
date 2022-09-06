@@ -64,7 +64,7 @@ if (isset($_SESSION['id'])) {
 
     <div class="nav-links">
         <a href="index.php">Home</a>
-        <a href="photogallery.php">Gallery</a>
+        <a href="gallery.php">Gallery</a>
         <a href="/admin/index.php">Admin</a>
         <a href="game.php">Quiz</a>
         <a href="contact.php">Contact</a>
@@ -77,10 +77,10 @@ if (isset($_SESSION['id'])) {
 </div>
 
 <main id="content" class="checkStyle">
-    <div class="displayStatus">
+    <div class="displayStatus select-css">
         <span id="clock"></span>
         <h4 class="displayTitle">Pepster's Online Trivia</h4>
-        <p class="triviaInfo">I'm adding more categories to my online trivia game and hopefully make it appeal to more people! I am still keep the photography category,
+        <p class="triviaInfo">I'm adding more categories to my online trivia game and hopefully make it appeal to more people! I am still keeping the photography category,
         but I am adding two new categories (movie and space). I am going to make a better scoring feature and have daily challenges as well a monthly challenges!</p>
         <p>I'm still keeping the feature where a member can add questions to the online trivia database and be able to select the category of their liking, but the questions/answers will have to be approved by me first.</p>
         <p>You must register to become a Member and validate your email address before you can add questions. You don't have to add questions as you username will show up on the high scores table.</p>
@@ -108,6 +108,7 @@ if (isset($_SESSION['id'])) {
                 </div>
 
                 <div id="headerStyle" data-user="">
+                    <button id="next" class="nextBtn">Next</button>
                     <div class="gauge">
                         <div class="gauge__body">
                             <div class="gauge__fill"></div>
@@ -117,7 +118,7 @@ if (isset($_SESSION['id'])) {
                     <p id="score">0 Points</p>
                     <p id="percent">100% Correct</p>
 
-                    <button id="next" class="nextBtn">Next</button>
+
                 </div>
 
             </div>

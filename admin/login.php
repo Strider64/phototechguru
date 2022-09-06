@@ -6,7 +6,7 @@ require_once "../vendor/autoload.php";
 use PhotoTech\Login;
 
 if (isset($_SESSION['last_login'])) {
-    header("Location: index.php");
+    header("Location: gallery.php");
     exit();
 }
 
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
     </div>
 
     <div class="nav-links">
-        <a href="../photogallery.php">Home</a>
+        <a href="../gallery.php">Home</a>
         <a href="#">Register</a>
     </div>
 </div>

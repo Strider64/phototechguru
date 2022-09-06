@@ -65,8 +65,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
 
     <div class="nav-links">
         <a href="../index.php">home</a>
-        <a href="create.php">create</a>
-        <a href="create_procedure.php">create(p)</a>
+        <a href="gallery_create.php">create</a>
         <a href="../addQuiz.php">Quiz Maintenance</a>
         <a href="logout.php">logout</a>
     </div>
@@ -77,9 +76,6 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     <div class="container">
         <?php foreach ($cms as $record) { ?>
             <article class="cms">
-                <img class="article_image"
-                     src="<?php echo "../" . htmlspecialchars($record['image_path']); ?>" <?= getimagesize("../" . $record['image_path'])[3] ?>
-                     alt="article image">
                 <h2><?= $record['heading'] ?></h2>
                 <span class="author_style">Created by <?= $record['author'] ?> on
                     <time datetime="<?= htmlspecialchars(CMS::styleTime($record['date_added'])) ?>"><?= htmlspecialchars(CMS::styleDate($record['date_added'])) ?></time>

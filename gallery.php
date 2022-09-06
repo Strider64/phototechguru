@@ -12,7 +12,7 @@ require_once "vendor/autoload.php";
  */
 
 use PhotoTech\CMS;
-use PhotoTech\Pagination;
+use PhotoTech\Pagination_New as Pagination;
 
 
 $displayFormat = ["gallery-container w-2 h-2", 'gallery-container w-2 h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2"', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2'];
@@ -44,7 +44,6 @@ $offset = $pagination->offset();
  * and put the data into an array variable.
  */
 $cms = CMS::page($per_page, $offset, 'blog');
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -53,16 +52,55 @@ $cms = CMS::page($per_page, $offset, 'blog');
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Photo Gallery</title>
+    <title>Gallery</title>
     <link rel="stylesheet" media="all" href="assets/css/gallery.css">
+    <style>
+        /* pagination */
+        .flex_container {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: stretch;
+            align-content: center;
+            width: 18.75em;
+        }
+
+        .flex_container a {
+            padding: 0.625em;
+            margin: 0.625em;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 2.500em;
+        }
+
+        .flex-item {
+            color: #000;
+        }
+
+        .selected {
+            color: #2e6b31;
+        }
+
+        .dashes {
+            pointer-events: none;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 0.8;
+            font-weight: bold;
+        }
+
+        .previous {
+            /* Not Growable, Shrinkable and Init Width */
+            flex: 0 0 4em;
+        }
+    </style>
 </head>
 <body class="site">
 <div class="nav">
     <input type="checkbox" id="nav-check">
 
-    <h3 class="nav-title">
-        Click on any image below
-    </h3>
 
     <div class="nav-btn">
         <label for="nav-check">
@@ -74,8 +112,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
 
     <div class="nav-links">
         <a href="index.php">Home</a>
-        <a href="photogallery.php">Gallery</a>
-
+        <a href="gallery.php">Gallery</a>
         <a href="/admin/index.php">Admin</a>
         <a href="game.php">Trivia</a>
         <a href="contact.php">Contact</a>
@@ -85,35 +122,46 @@ $cms = CMS::page($per_page, $offset, 'blog');
         }
         ?>
     </div>
+
+    <div class="name-website">
+        <h1 class="webtitle">The Photo Tech Guru</h1>
+    </div>
+
 </div>
 <main class="content">
-    <div class="container">
+    <div class="main_container">
+        <div class="home_article">
+            <div class="container">
+                <?php
 
-        <?php
-        $count = 0;
-        foreach ($cms as $record) {
+                $count = 0;
+                foreach ($cms as $record) {
 
-            echo '<div class="' . $displayFormat[$count] . '">';
-            echo '<div class="gallery-item">';
-            echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1" data-exif="' . $record['Model'] . ' ' . $record['ExposureTime'] . ' ' . $record['Aperture'] . ' ' . $record['ISO'] . ' ' . $record['FocalLength'] . '" width="800" height="534">';
-            echo '<p class="hideContent">' . $record['content'] . '</p>';
-            echo '</div>';
-            $count++;
-            echo '<div class="title">' . '<h1 class="pictureHeading">' . $record['heading'] . '</h1>' . '<span class="exifInfo">' . $record['Model'] . '</span>' . '</div>';
-            echo '</div>';
-            echo '</div>';
+                    echo '<div class="' . $displayFormat[$count] . '">';
+                    echo '<div class="gallery-item">';
+                    echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1" data-exif="' . $record['Model'] . ' ' . $record['ExposureTime'] . ' ' . $record['Aperture'] . ' ' . $record['ISO'] . ' ' . $record['FocalLength'] . '" width="800" height="534">';
+                    echo '<p class="hideContent">' . $record['content'] . '</p>';
+                    echo '</div>';
+                    $count++;
+                    echo '<div class="title">' . '<h1 class="pictureHeading">' . $record['heading'] . '</h1>' . '<span class="exifInfo">' . $record['Model'] . '</span>' . '</div>';
+                    echo '</div>';
+                    echo '</div>';
 
-        }
-        ?>
 
+                }
+                ?>
+            </div>
+        </div>
+        <div class="home_sidebar">
+            <div class="flex_container">
+                <?= $pagination->links('gallery.php'); ?>
+            </div>
+        </div>
     </div>
 
 </main>
 <aside class="sidebar">
-    <?php
-    $url = 'photogallery.php';
-    echo $pagination->new_page_links($url);
-    ?>
+
 </aside>
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>

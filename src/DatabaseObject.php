@@ -5,6 +5,8 @@ namespace PhotoTech;
 use mysql_xdevapi\Exception;
 use PDO;
 use PDOException;
+use DateTime;
+use DateTimeZone;
 
 class DatabaseObject // Extended by the children class:
 {
@@ -14,6 +16,41 @@ class DatabaseObject // Extended by the children class:
     static protected array $params = [];
     static protected $searchItem;
     static protected $searchValue;
+
+    public static function styleTime($prettyDate): string
+    {
+        try {
+            $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
+        } catch (Exception $e) {
+        }
+
+        return $dateStylized->format("Y-m-d H:i:s");
+    }
+
+    /*
+     * Put the date from 00-00-0000 00:00:00 that is stored in the MySQL
+     * database table to a more presentable format such as January 1, 2021.
+     */
+    public static function styleDate($prettyDate): string
+    {
+
+        try {
+            $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
+        } catch (Exception $e) {
+        }
+
+        return $dateStylized->format("F j, Y");
+    }
+
+    public static function bpDate($prettyDate): string
+    {
+        try {
+            $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
+        } catch (Exception $e) {
+        }
+
+        return $dateStylized->format("n/j");
+    }
 
     /*
      * There is NO read() method this fetch_all method
@@ -68,11 +105,11 @@ class DatabaseObject // Extended by the children class:
      * useful for tables that contain a lot of
      * records (data).
      */
-    public static function page($perPage, $offset, $loc = 'index'): array
+    public static function page($perPage, $offset, $page = "index"): array
     {
-        $sql = 'SELECT * FROM ' . static::$table . ' ORDER BY page DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
+        $sql = 'SELECT * FROM ' . static::$table . ' WHERE page =:page ORDER BY page DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
         $stmt = Database::pdo()->prepare($sql); // Prepare the query:
-        $stmt->execute(['perPage' => $perPage, 'blogOffset' => $offset]); // Execute the query with the supplied data:
+        $stmt->execute(['page' => $page, 'perPage' => $perPage, 'blogOffset' => $offset]); // Execute the query with the supplied data:
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -123,7 +160,7 @@ class DatabaseObject // Extended by the children class:
             $attribute_pairs = [];
 
             /*
-             * Setup the query using prepared states with static:$params being
+             * Set up the query using prepared states with static:$params being
              * the columns and the array keys being the prepared named placeholders.
              */
             $sql = 'INSERT INTO ' . static::$table . '(' . implode(", ", array_keys(static::$params)) . ')';
@@ -184,7 +221,7 @@ class DatabaseObject // Extended by the children class:
 
     /*
      * This is the update that method that I came up with and
-     * it does use named place holders. I have always found
+     * it does use named placeholders. I have always found
      * updating is easier than creating/adding a record for
      * some strange reason?
      */
@@ -197,7 +234,7 @@ class DatabaseObject // Extended by the children class:
         foreach (static::$params as $key => $value)
         {
             if($key === 'id') { continue; } // Don't include the id:
-            $attribute_pairs[] = "{$key}=:{$key}"; // Assign it to an array:
+            $attribute_pairs[] = "$key=:$key"; // Assign it to an array:
         }
 
         /*
@@ -207,7 +244,7 @@ class DatabaseObject // Extended by the children class:
         $sql  = 'UPDATE ' . static::$table . ' SET ';
         $sql .= implode(", ", $attribute_pairs) . ' WHERE id =:id';
 
-        /* Normally in two lines, but you can daisy chain pdo method calls */
+        /* Normally in two lines, but you can daisy-chain pdo method calls */
         Database::pdo()->prepare($sql)->execute(static::$params);
 
         return true;
@@ -215,7 +252,7 @@ class DatabaseObject // Extended by the children class:
     }
 
     /*
-     * Delete is probably the most easiest of CRUD (Create Read Update Delete),
+     * Delete is probably the easiest of CRUD (Create Read Update Delete),
      * but is the most dangerous method of the four as the erasure of the data is permanent of
      * PlEASE USE WITH CAUTION! (I use a small javascript code to warn users of deletion)
      */

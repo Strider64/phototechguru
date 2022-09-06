@@ -12,14 +12,20 @@
     </div>
 
     <div class="nav-links">
-        <a href="index.php">Home</a>
-        <?php echo($_SESSION['last_login']) ? '<a href="bpreadings.php">BP</a>' : null; ?>
-        <a href="photogallery.php">Gallery</a>
-        <a href="/admin/index.php">Admin</a>
+        <a href="photogallery.php">Home</a>
+        <?php
+            if (isset($_SESSION['last_login']) && $_SESSION['last_login']) {
+                echo '<a href="bpreadings.php">BP</a>';
+            } else {
+                echo '<a href="display_bp.php">BP</a>';
+            }
+        ?>
+
         <a href="game.php">Trivia</a>
         <a href="contact.php">Contact</a>
         <?php
         if (isset($_SESSION['id'])) {
+            echo '<a href="/admin/gallery.php">Admin</a>';
             echo '<a href="/admin/logout.php">Logout</a>';
         }
         ?>

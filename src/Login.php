@@ -86,7 +86,7 @@ class Login extends DatabaseObject
          * Only Sysop privileges are allowed.
          */
         if ($result['security'] !== 'sysop') {
-            header("Location: ../index.php");
+            header("Location: ../gallery.php");
             exit();
         }
 

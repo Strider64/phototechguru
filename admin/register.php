@@ -79,7 +79,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
     </div>
 
     <div class="nav-links">
-        <a href="../index.php">Home</a>
+        <a href="../gallery.php">Home</a>
         <a href="login.php">login</a>
     </div>
 </div>
@@ -87,7 +87,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
 <div class="sidebar">
     <div class="info">
         <h2>Registration System</h2>
-        <p>Feel Free to register, but accounts may be deleted from time to time as this is still in development.</p>
+        <p>The Registration is up an running and is no longer in development after a long delay of me not concentrating on this website.</p>
     </div>
 </div>
 <main id="content" class="checkStyle">

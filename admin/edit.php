@@ -111,9 +111,9 @@ if (isset($_POST['submit'])) {
 
         move_uploaded_file($file_tmp, "../" . $new_file_name);
 
-        $resize = new Resize("../" . $new_file_name);
-        $resize->resizeImage(IMAGE_WIDTH, IMAGE_HEIGHT, 'auto');
-        $resize->saveImage("../" . $new_file_name, 100);
+        //$resize = new Resize("../" . $new_file_name);
+        //$resize->resizeImage(IMAGE_WIDTH, IMAGE_HEIGHT, 'auto');
+        //resize->saveImage("../" . $new_file_name, 100);
         /*
          * Set path information for database table.
          */
@@ -126,7 +126,7 @@ if (isset($_POST['submit'])) {
     }
 
     if ($result) {
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit();
     }
 } elseif ($id && is_int($id)) {
@@ -134,7 +134,7 @@ if (isset($_POST['submit'])) {
     $cms = new CMS($record);
     $_SESSION['old_image'] = $cms->image_path;
 } else {
-    header("Location: photogallery.php");
+    header("Location: gallery.php");
     exit();
 }
 

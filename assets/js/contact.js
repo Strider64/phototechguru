@@ -157,7 +157,7 @@ const contact = () => {
 
 
     const saveRequest = (sendUrl, succeed, fail) => {
-
+        //console.log(sendEmail);
         fetch(sendUrl, {
             method: 'POST', // or 'PUT'
             body: JSON.stringify(sendEmail)
@@ -186,6 +186,7 @@ const contact = () => {
 
             d.querySelector('.pen').setAttribute('src', 'assets/images/hour-glass.png');
             message.style.display = "flex";
+            //console.log(sendEmail);
             saveRequest(sendUrl, sendUISuccess, sendUIError);
         } else {
             notice.style.display = "block";

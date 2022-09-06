@@ -4,15 +4,7 @@ require_once "vendor/autoload.php";
 
 use PhotoTech\Measure;
 
-if (!isset($_SESSION['last_login'])) {
-    header("Location: index.php");
-    exit();
-}
 
-if ($_SESSION['id'] != 2) {
-    header('Location: index.php');
-    exit();
-}
 
 /* Makes it, so we don't have to decode the json coming from javascript */
 header('Content-type: application/json');
@@ -25,6 +17,21 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 
 $bp = Measure::records($data['per_page'], $data['offset']);
+
+
+
+
+    for ($x=0; $x < count($bp); $x++) {
+        $temp = new DateTime($bp[$x]['date_taken'], new DateTimeZone("America/Detroit"));
+        $bp[$x]['date_taken'] = $temp->format('F j, Y');
+
+    }
+
+
+
+
+
+
 
 if (isset($bp)) {
     output($bp);

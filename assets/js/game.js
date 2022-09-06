@@ -106,6 +106,8 @@
 
                 answer.textContent = answer.textContent.substring(2);
                 answer.textContent = "📸 " + answer.textContent;
+                answer.style.background = 'green';
+                answer.style.color = 'white';
             }
 
             /*
@@ -114,10 +116,14 @@
             if (userAnswer !== correct && userAnswer === parseInt(answer.getAttribute('data-correct'))) {
                 answer.textContent = answer.textContent.substring(2);
                 answer.textContent = "😥 " + answer.textContent;
+                answer.style.background = 'red';
+                answer.style.color = 'white';
             }
             if (userAnswer !== correct && correct === parseInt(answer.getAttribute('data-correct'))) {
                 answer.textContent = answer.textContent.substring(2);
                 answer.textContent = "📸 " + answer.textContent;
+                answer.style.background = 'green';
+                answer.style.color = 'white';
             }
 
             /*

@@ -6,12 +6,12 @@ use PhotoTech\Measure;
 
 
 if (!isset($_SESSION['last_login'])) {
-    header("Location: index.php");
+    header("Location: gallery.php");
     exit();
 }
 
 if ($_SESSION['id'] != 2) {
-    header('Location: index.php');
+    header('Location: gallery.php');
     exit();
 }
 

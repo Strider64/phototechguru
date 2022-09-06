@@ -28,7 +28,7 @@ class sendMail {
         $this->sendTo = $sendTo;
     }
 
-    public function sendFrom(array $sendFrom = ['jrpepp@pepster' => 'John Pepp']): void
+    public function sendFrom(array $sendFrom = ['jrpepp@pepster.com' => 'John Pepp']): void
     {
         $this->sendFrom = $sendFrom;
     }
@@ -117,9 +117,9 @@ class sendMail {
 
     public function verificationEmail($data) {
         /* Setup swiftmailer using your email server information */
-        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
-            ->setUsername("chalkboardquiz@gmail.com")
-            ->setPassword(G_PASSWORD);
+        $transport = (new Swift_SmtpTransport('smtp.ionos.com', 587, 'tls'))
+            ->setUsername("jrpepp@pepster.com")
+            ->setPassword(EMAIL_PASSWORD);
 
         // Create the Mailer using your created Transport
         $mailer = new Swift_Mailer($transport);
@@ -135,9 +135,9 @@ class sendMail {
     }
     public function sendEmail($data) {
         /* Setup swiftmailer using your email server information */
-        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
-            ->setUsername("chalkboardquiz@gmail.com")
-            ->setPassword(G_PASSWORD);
+        $transport = (new Swift_SmtpTransport('smtp.ionos.com', 587, 'tls'))
+            ->setUsername("jrpepp@pepster.com")
+            ->setPassword(EMAIL_PASSWORD);
 
         // Create the Mailer using your created Transport
         $mailer = new Swift_Mailer($transport);

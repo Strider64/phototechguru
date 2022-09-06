@@ -56,7 +56,7 @@ class Measure extends DatabaseObject
 
     }
 
-    public static function totalMiles($user_id) {
+    public static function totalMiles($user_id=2) {
         static::$searchItem = 'user_id';
         static::$searchValue = $user_id;
         $sql = "SELECT SUM(miles_walked) AS distance FROM " . static::$table . " WHERE user_id=:user_id";
@@ -68,4 +68,36 @@ class Measure extends DatabaseObject
 
     }
 
+    public static function systolic($user_id=2): float
+    {
+        static::$searchItem = 'user_id';
+        static::$searchValue = $user_id;
+        $sql = "SELECT SUM(systolic) AS all_systolic, COUNT(systolic) AS total_count FROM " . static::$table . " WHERE user_id=:user_id";
+        $stmt = Database::pdo()->prepare($sql);
+        $stmt->execute([static::$searchItem => static::$searchValue]);
+        $total = $stmt->fetch(PDO::FETCH_ASSOC);
+        return round($total['all_systolic'] / $total['total_count']);
+    }
+
+    public static function diastolic($user_id=2): float
+    {
+        static::$searchItem = 'user_id';
+        static::$searchValue = $user_id;
+        $sql = "SELECT SUM(diastolic) AS all_diastolic, COUNT(diastolic) AS total_count FROM " . static::$table . " WHERE user_id=:user_id";
+        $stmt = Database::pdo()->prepare($sql);
+        $stmt->execute([static::$searchItem => static::$searchValue]);
+        $total = $stmt->fetch(PDO::FETCH_ASSOC);
+        return round($total['all_diastolic'] / $total['total_count']);
+    }
+
+    public static function pulse($user_id=2): float
+    {
+        static::$searchItem = 'user_id';
+        static::$searchValue = $user_id;
+        $sql = "SELECT SUM(pulse) AS all_pulse, COUNT(pulse) AS total_count FROM " . static::$table . " WHERE user_id=:user_id";
+        $stmt = Database::pdo()->prepare($sql);
+        $stmt->execute([static::$searchItem => static::$searchValue]);
+        $total = $stmt->fetch(PDO::FETCH_ASSOC);
+        return round($total['all_pulse'] / $total['total_count']);
+    }
 } // End of Class

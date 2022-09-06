@@ -2,6 +2,7 @@
 CSS Reset
 --------------------------------------------------------------*/
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;1,500&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,500;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
 html {
   font-family: sans-serif; }
 
@@ -164,6 +165,123 @@ td,
 th {
   padding: 0; }
 
+.contact {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
+  background-color: #F1F1F1;
+  width: 50em;
+  padding: 0.938em;
+  margin: 1.25em auto; }
+  .contact .owner {
+    padding-bottom: 0.625em; }
+    .contact .owner img {
+      width: 9.375em;
+      height: 9.375em;
+      margin-bottom: 0.625em; }
+  .contact .horizontal_line {
+    border-top: 1px solid #ccc; }
+  .contact label {
+    font-size: 0.8em;
+    color: #2E2E2E; }
+  .contact input[type=text], .contact input[type=tel], .contact input[type=email], .contact input[type="password"], .contact select, .contact textarea {
+    width: 100%;
+    padding: 0.750em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 0.375em;
+    margin-bottom: 1em;
+    resize: vertical; }
+  .contact .emailLabel .emailError {
+    display: none; }
+  .contact .text_username .error {
+    display: none; }
+  .contact textarea {
+    resize: none;
+    height: 12.50em;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.0em; }
+  .contact #recaptcha {
+    padding: 1.250em 0; }
+  .contact #message {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    background-color: #cccccc;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+    padding: 1.250em;
+    margin: 1.250em; }
+    .contact #message .notice {
+      width: 4em;
+      height: 4em; }
+    .contact #message .pen {
+      width: 4em;
+      height: 4em; }
+  .contact input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: capitalize;
+    border: none;
+    border-radius: 0.250em;
+    cursor: pointer;
+    padding: 0.750em 1.250em;
+    margin-top: 0.625em; }
+  .contact input[type=submit]:hover {
+    background-color: #45a049; }
+  .contact button, .contact a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    color: #2E2E2E;
+    border: none;
+    background-color: #ccc;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 0.313em;
+    margin: 0 auto;
+    transition: background-color .5s; }
+    .contact button:hover, .contact button:active, .contact a:hover, .contact a:active {
+      background-color: #a6a6a6; }
+
+/* Approximately the size of an iPad 768px */
+@supports (grid-area: auto) {
+  @media screen and (min-width: 48em) {
+    .contact {
+      display: grid;
+      grid-template-columns: 2fr;
+      grid-template-areas: "owner owner" "horizontal_line horizontal_line" "contact_name  contact_email" "contact_phone contact_website" "contact_comment contact_comment" "recaptcha message" "submit_comment submit_comment";
+      grid-column-gap: 1.250em; }
+      .contact .owner {
+        grid-area: owner;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-self: center;
+        text-align: center; }
+      .contact .horizontal_line {
+        grid-area: horizontal_line; }
+      .contact .contact_name {
+        grid-area: contact_name; }
+      .contact .contact_email {
+        grid-area: contact_email; }
+      .contact .contact_phone {
+        grid-area: contact_phone; }
+      .contact .contact_website {
+        grid-area: contact_website; }
+      .contact .contact_reason {
+        grid-area: contact_reason; }
+      .contact .contact_comment {
+        grid-area: contact_comment; }
+      .contact #recaptcha {
+        grid-area: recaptcha; }
+      .contact #message {
+        grid-area: message; }
+      .contact .submit_comment {
+        grid-area: submit_comment; } } }
 /* Accessibility */
 #skip a {
   position: absolute;
@@ -176,6 +294,34 @@ th {
     position: static;
     width: auto;
     height: auto; }
+
+figure {
+  max-width: 21.75em;
+  margin: auto; }
+
+.cards {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0.625em; }
+  .cards a {
+    display: block;
+    text-decoration: none; }
+
+.caption {
+  padding: 1em;
+  background: rgba(52, 46, 107, 0.6);
+  color: white;
+  font-size: 1.2em;
+  transition: all .4s; }
+
+a:focus .caption,
+a:hover .caption {
+  background: #342e6b; }
+
+.caption-title {
+  margin: 0;
+  font-size: 1.0em;
+  line-height: 1.1em; }
 
 h1, h2, h3, h4, h5, h6, legend, label {
   font-family: 'Work Sans', sans-serif; }
@@ -206,7 +352,7 @@ p, label, textarea {
 
 .gallery-item .title {
   display: block;
-  color: #fff;
+  color: #e6e6e6;
   text-align: center;
   margin-bottom: 0.625em; }
 
@@ -233,7 +379,6 @@ p, label, textarea {
   position: relative;
   width: 100%;
   height: 2.700em;
-  background-color: #33579c;
   border-bottom: 1px solid #e6e6e6;
   padding-bottom: 0.625em; }
 
@@ -243,6 +388,16 @@ p, label, textarea {
   font-size: 1.2em;
   color: #efefef;
   padding-left: 0.625em; }
+
+.name-website {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: -0.9375em; }
+  .name-website .webtitle {
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 1.8em;
+    color: #b3b3b3; }
 
 .nav > .nav-btn {
   display: none; }
@@ -258,11 +413,11 @@ p, label, textarea {
   line-height: 1.875em;
   text-decoration: none;
   text-transform: capitalize;
-  color: #efefef;
+  color: #b3b3b3;
   padding: 0.313em 0.625em; }
 
 .nav > .nav-links > a:hover {
-  background-color: #4CAF50; }
+  color: #4d4d4d; }
 
 .nav > #nav-check {
   display: none; }
@@ -292,6 +447,7 @@ p, label, textarea {
     position: absolute;
     display: block;
     width: 100%;
+    z-index: 30000;
     background-color: #333;
     height: 0;
     transition: all 0.3s ease-in;
@@ -323,19 +479,20 @@ p, label, textarea {
 .colophon {
   display: none;
   height: auto;
-  font-family: 'Work Sans', sans-serif;
-  color: #F5F5F5;
   text-align: center;
-  background-color: #33579c;
   margin-top: 1.250em; }
+  .colophon p {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.0em;
+    color: #000; }
 
 /* Approximately the size of an iPad 768px */
 @supports (grid-area: auto) {
   @media screen and (min-width: 48em) {
     .site {
       display: grid;
-      grid-template-columns: 1fr;
-      grid-template-areas: "nav" "main" "sidebar" "footer";
+      grid-template-columns: 30em 1fr;
+      grid-template-areas: "nav nav" "main sidebar" "footer footer";
       justify-content: center; }
 
     .nav {
@@ -347,7 +504,31 @@ p, label, textarea {
       display: inline-block; }
 
     .sidebar {
-      grid-area: sidebar; }
+      grid-area: sidebar;
+      justify-content: center;
+      background-color: linen;
+      padding: 1.250em 0;
+      margin: 1.250em auto; }
+
+    .cards {
+      display: grid;
+      width: 130%;
+      margin-top: 1.250em; }
+
+    .cards img,
+    .caption {
+      grid-column: 1;
+      grid-row: 1; }
+
+    .caption {
+      display: flex;
+      align-items: flex-end;
+      opacity: 0; }
+
+    a:focus .caption,
+    a:hover .caption {
+      background: rgba(52, 46, 107, 0.6);
+      opacity: 1; }
 
     /* This allows the amount of columns to be set to 6 with each section taking up a single equal fraction. It also sets the grid row height to interchange between 100px and 300px automatically. Grid-auto-flow attempts to fill any wholes created from spanning.*/
     .container {
@@ -451,12 +632,13 @@ p, label, textarea {
       grid-template-columns: minmax(40em, 50em) fit-content(1fr);
       grid-template-areas: "lightboxImage lightboxText" "lightboxExif lightboxText";
       justify-content: center;
-      grid-column-gap: 1.250em;
       margin-top: 1.250em;
       z-index: 2000; }
 
     .galleryImage {
-      grid-area: lightboxImage; }
+      grid-area: lightboxImage;
+      width: 96%;
+      margin: auto; }
 
     .galleryExif {
       grid-area: lightboxExif;
@@ -470,6 +652,39 @@ p, label, textarea {
       grid-area: footer;
       display: block; } } }
 /* Approximately the size of a 1248px large display monitor */
+@supports (grid-area: auto) {
+  @media screen and (min-width: 78em) {
+    .name-website {
+      display: block; }
+
+    .site {
+      display: grid;
+      grid-template-columns: 78em;
+      grid-template-areas: "nav" "main" "sidebar" "footer";
+      column-gap: 1.250em;
+      justify-content: center; }
+
+    .main_container {
+      grid-area: main;
+      display: grid;
+      grid-template-columns: 58em 10.75em;
+      grid-template-areas: "home_main home_sidebar"; }
+      .main_container .home_article {
+        grid-area: home_main;
+        padding: 1.250em; }
+        .main_container .home_article h1 {
+          font-family: Georgia, serif;
+          font-weight: normal;
+          font-size: 1.8em;
+          color: #4d4d4d; }
+        .main_container .home_article p {
+          font-family: Helvetica, Arial, Sans-Serif;
+          font-weight: normal;
+          font-size: 1.2em;
+          line-height: 1.5;
+          color: #4d4d4d; }
+      .main_container .home_sidebar {
+        grid-area: home_sidebar; } } }
 /* animation instructions for move-down in text */
 @keyframes move-down {
   0% {

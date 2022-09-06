@@ -640,7 +640,8 @@ body {
   position: relative;
   width: 100%;
   height: auto;
-  background-color: #33579c; }
+  background-color: #33579c;
+  z-index: 10000; }
 
 .nav-title {
   display: inline-block;
@@ -744,9 +745,9 @@ body {
   border: 1px solid #ccc;
   box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
   background-color: #F1F1F1;
-  width: 90%;
+  width: 50em;
   padding: 0.938em;
-  margin: 0 auto; }
+  margin: 1.25em auto; }
   .contact .owner {
     padding-bottom: 0.625em; }
     .contact .owner img {
@@ -857,9 +858,13 @@ body {
         grid-area: message; }
       .contact .submit_comment {
         grid-area: submit_comment; } } }
+main {
+  filter: drop-shadow(0.3em 0.3em 0.2em); }
+
 .sidebar {
   display: block;
-  height: auto; }
+  height: auto;
+  filter: drop-shadow(0.3em 0.3em 0.2em); }
 
 .colophon {
   display: block;
@@ -927,35 +932,6 @@ body {
 
     .content {
       grid-area: main; }
-      .content .container {
-        display: grid;
-        grid-template-columns: 40em;
-        grid-gap: 1.250em;
-        justify-content: center;
-        align-items: stretch; }
-        .content .container > article {
-          border: 1px solid #ccc;
-          box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3); }
-          .content .container > article > img {
-            max-width: 100%; }
-      .content .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(18.5em, 1fr));
-        grid-gap: 1.250em;
-        align-items: stretch; }
-        .content .gallery > article {
-          border: 1px solid #ccc;
-          box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3); }
-          .content .gallery > article > img {
-            max-width: 100%; }
-        .content .gallery .text {
-          padding: 0 20px 20px; }
-          .content .gallery .text > button {
-            background: gray;
-            border: 0;
-            color: white;
-            padding: 10px;
-            width: 100%; }
 
     .colophon {
       grid-area: footer; } } }
@@ -964,7 +940,7 @@ body {
   @media screen and (min-width: 64em) {
     .site {
       display: grid;
-      grid-template-columns: 1fr 42em;
+      grid-template-columns: 1fr 24.00em;
       grid-template-areas: "header header" "nav nav" "sidebar main" "footer footer";
       justify-content: center;
       width: 64em;
@@ -973,13 +949,13 @@ body {
     .sidebar {
       grid-area: sidebar;
       justify-content: center;
-      width: 100%; } } }
+      width: 12.500em; } } }
 /* Approximately the size of a 1248px large display monitor */
 @supports (grid-area: auto) {
   @media screen and (min-width: 78em) {
     .site {
       display: grid;
-      grid-template-columns: 1fr 50em;
+      grid-template-columns: 1fr 50.000em;
       grid-template-areas: "header header" "nav nav" "sidebar main" "footer footer";
       justify-content: center;
       width: 75em;
@@ -987,6 +963,10 @@ body {
 
     .sidebar {
       grid-area: sidebar;
-      justify-content: center; } } }
+      justify-content: center;
+      width: 12.500em; }
+
+    .content {
+      grid-area: main; } } }
 
 /*# sourceMappingURL=styles.css.map */

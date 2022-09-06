@@ -265,6 +265,9 @@ th {
     height: calc(100vh - 3.125em);
     overflow-y: auto; } }
 /* End of Navigation CSS */
+.sidebar {
+  padding: 1.250em; }
+
 .cards {
   margin: 0;
   padding: 0;
@@ -275,6 +278,7 @@ th {
 
 .card a {
   display: block;
+  height: 12.50em;
   padding: 0 1em;
   color: #0d0d0d;
   text-align: center;
@@ -322,10 +326,13 @@ th {
     .mobile_headings {
       display: none; }
 
+    .sidebar {
+      padding: 0; }
+
     .site {
       display: grid;
       grid-template-columns: 48em;
-      grid-template-areas: "header" "nav" "main" "sidebar" "footer";
+      grid-template-areas: "header" "nav" "sidebar" "main" "footer";
       justify-content: center; }
 
     .header {
@@ -349,7 +356,8 @@ th {
     .content {
       grid-area: main;
       padding: 1em;
-      background-color: #e6e6e6; }
+      background-color: #e6e6e6;
+      margin-top: 1.250em; }
 
     .cards {
       display: grid;
@@ -401,8 +409,8 @@ th {
       grid-area: footer; } }
   .card a {
     display: grid;
-    grid-template-columns: 10em auto;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 8em auto;
+    grid-template-rows: 8em 1fr;
     padding: 0 1em 0 0;
     text-align: left; }
 
@@ -417,12 +425,20 @@ th {
   .bp_readings {
     grid-column: 2;
     grid-row: 1;
-    align-self: flex-end; }
+    align-self: center;
+    display: flex; }
+
+  .bp_readings > p {
+    padding-left: 1em; }
 
   .other_measures {
     grid-column: 2;
     grid-row: 2;
-    align-self: flex-end; } }
+    align-self: auto;
+    display: flex; }
+
+  .other_measures > p {
+    padding-left: 1em; } }
 /* Approximately the size of an iPad Pro 12.9in 1024px */
 @supports (grid-area: auto) {
   @media screen and (min-width: 64em) {

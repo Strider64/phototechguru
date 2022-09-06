@@ -6,12 +6,12 @@ use PhotoTech\Measure;
 use PhotoTech\Pagination_New as Pagination;
 
 if (!isset($_SESSION['last_login'])) {
-    header("Location: index.php");
+    header("Location: gallery.php");
     exit();
 }
 
 if ($_SESSION['id'] != 2) {
-    header('Location: index.php');
+    header('Location: gallery.php');
     exit();
 }
 
@@ -25,7 +25,7 @@ $user_id = 2;
 $per_page = 5; // Total number of records to be displayed:
 $total_count = Measure::countByUser($user_id);
 
-//$_SESSION['current_page'] = 2;
+
 
 $data = json_decode(file_get_contents('php://input'), true);
 

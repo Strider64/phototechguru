@@ -65,14 +65,14 @@ class Pagination_New
         return static::$links;
     }
 
-    public function number_links(): string
+    public function number_links($url = ""): string
     {
 
         if ($this->total_pages() >= 1 && $this->current_page <= $this->total_pages()) {
 
             /* First Page Check */
             if ($this->current_page === 1) {
-                static::$links .= '<a class="flex-item selected" href="?page=1" data-page="1">1</a>';
+                static::$links .= '<a class="flex-item selected" href="' . $url . '?page=1" data-page="1">1</a>';
             } else {
                 static::$links .= '<a class="flex-item" href="?page=1" data-page="1">1</a>';
             }
@@ -85,9 +85,9 @@ class Pagination_New
             /* Multiple Links For Loop */
             for (; $i < min($this->current_page + 3, $this->total_pages()); $i++) {
                 if ($this->current_page === $i ) {
-                    static::$links .= '<a class="flex-item selected" href="?page=' . $i . '" data-page="' . $i . '">' . $i . '</a>';
+                    static::$links .= '<a class="flex-item selected" href="' . $url . '?page=' . $i . '" data-page="' . $i . '">' . $i . '</a>';
                 } else {
-                    static::$links .= '<a class="flex-item" href="?page=' . $i . '" data-page="' . $i . '">' . $i . '</a>';
+                    static::$links .= '<a class="flex-item" href="' . $url . '?page=' . $i . '" data-page="' . $i . '">' . $i . '</a>';
                 }
             }
 
@@ -97,9 +97,9 @@ class Pagination_New
 
             /* Last Page */
             if ($this->current_page == $this->total_pages()) {
-                static::$links .= '<a class="flex-item selected" href="?page=' .$this->total_pages() . '" data-page="' . $this->total_pages() . '">' . $this->total_pages() . '</a>';
+                static::$links .= '<a class="flex-item selected" href="' . $url . '?page=' .$this->total_pages() . '" data-page="' . $this->total_pages() . '">' . $this->total_pages() . '</a>';
             } else {
-                static::$links .= '<a class="flex-item" href="?page=' .$this->total_pages() . '" data-page="' . $this->total_pages() . '">' . $this->total_pages() . '</a>';
+                static::$links .= '<a class="flex-item" href="' . $url . '?page=' .$this->total_pages() . '" data-page="' . $this->total_pages() . '">' . $this->total_pages() . '</a>';
             }
 
         }
@@ -108,11 +108,11 @@ class Pagination_New
         return static::$links;
     }
 
-    public function links()
+    public function links($url = "")
     {
-        $this->previous_link();
-        $this->number_links();
-        $this->next_link();
+        $this->previous_link($url);
+        $this->number_links($url);
+        $this->next_link($url);
         return static::$links;
     }
 

@@ -41,17 +41,9 @@ class CMS extends DatabaseObject
 
     }
 
-    public static function styleTime($prettyDate): string
-    {
-        try {
-            $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
-        } catch (Exception $e) {
-        }
 
-        return $dateStylized->format("Y-m-d H:i:s");
-    }
 
-    public static function countAllPage($page)
+    public static function countAllPage($page = 'index')
     {
         static::$searchItem = 'page';
         static::$searchValue = $page;
@@ -72,20 +64,7 @@ class CMS extends DatabaseObject
         return $text;
     }
 
-    /*
-     * Put the date from 00-00-0000 00:00:00 that is stored in the MySQL
-     * database table to a more presentable format such as January 1, 2021.
-     */
-    public static function styleDate($prettyDate): string
-    {
 
-        try {
-            $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
-        } catch (Exception $e) {
-        }
-
-        return $dateStylized->format("F j, Y");
-    }
 
     /*
      * Construct the data for the CMS

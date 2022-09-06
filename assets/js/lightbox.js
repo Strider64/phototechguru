@@ -12,7 +12,7 @@ images.forEach(image => {
     image.addEventListener('click', () => {
         lightbox.classList.add('active');
         document.querySelector('.content').style.display = 'none';
-        document.querySelector('.pagination').style.display = 'none';
+        //document.querySelector('.pagination').style.display = 'none';
 
         /*
          * Create Image portion of LightBox
@@ -22,6 +22,7 @@ images.forEach(image => {
         galleryImage.width = 800;
         galleryImage.height = 534;
         galleryImage.src = image.src // image path
+        console.log(image.src);
 
         /*
          * Create EXIF portion of LightBox
@@ -36,8 +37,8 @@ images.forEach(image => {
         let nextSibling = image.nextElementSibling; // Grab the next sibling:
         let galleryText = document.createElement('p');
         galleryText.classList.add('galleryText');
-        console.log(nextSibling.textContent);
-        galleryText.textContent = nextSibling.textContent;
+        //console.log(nextSibling.textContent);
+        //galleryText.textContent = nextSibling.textContent;
 
 
         /* Remove Image For Screen (cleanup) */
@@ -52,7 +53,7 @@ images.forEach(image => {
         lightbox.appendChild(galleryExif);
 
         /* Add Content to Screen */
-        lightbox.appendChild(galleryText);
+        //lightbox.appendChild(galleryText);
 
 
     })
@@ -64,6 +65,6 @@ lightbox.addEventListener('click', () => {
         lightbox.classList.remove('active'); // Exit Lightbox by removing active css class
         lightbox.classList.add('lightbox');
         document.querySelector('.content').style.display = 'grid';
-        document.querySelector('.pagination').style.display = 'flex';
+        //document.querySelector('.pagination').style.display = 'flex';
     }
 })
