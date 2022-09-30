@@ -10,7 +10,7 @@ require_once "vendor/autoload.php";
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>Contact Form</title>
-    <link rel="stylesheet" media="all" href="assets/css/gallery.css">
+    <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
 
 </head>
 <body class="site">

@@ -26,7 +26,9 @@ if (isset($category)) { // Get rid of $api_key if not using:
      * JSON will work properly.
      */
     foreach ($data as $question_data) {
-        if ($question_data['hidden'] === 'yes') { continue; }
+        if ($question_data['hidden'] === 'yes') {
+            continue;
+        }
         foreach ($question_data as $key => $value) {
 
             /*

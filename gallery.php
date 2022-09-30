@@ -6,7 +6,7 @@ require_once "vendor/autoload.php";
  * The Photo Tech Guru
  * Created by John R. Pepp
  * Date Created: July, 12, 2021
- * Last Revision: March 29, 2022 @ 6:00 PM
+ * Last Revision: September 30, 2022 @ 2:17 PM
  * Version: 3.01 ßeta
  *
  */
@@ -53,7 +53,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gallery</title>
-    <link rel="stylesheet" media="all" href="assets/css/gallery.css">
+    <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
     <style>
         /* pagination */
         .flex_container {

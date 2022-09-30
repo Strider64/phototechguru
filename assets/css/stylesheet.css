@@ -374,12 +374,12 @@ p, label, textarea {
   font-family: "Roboto", sans-serif;
   font-size: 0.8em; }
 
-/* Navigational CSS */
+/* Navigational CSS 9/30/2022 */
 .nav {
   position: relative;
   width: 100%;
   height: 2.700em;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid #9a9a9a;
   padding-bottom: 0.625em; }
 
 .nav-title {
@@ -441,7 +441,7 @@ p, label, textarea {
     display: block;
     width: 1.563em;
     height: 0.500em;
-    border-top: 0.125em solid #eee; }
+    border-top: 0.125em solid #9a9a9a; }
 
   .nav > .nav-links {
     position: absolute;
@@ -678,7 +678,7 @@ p, label, textarea {
           font-size: 1.8em;
           color: #4d4d4d; }
         .main_container .home_article p {
-          font-family: Helvetica, Arial, Sans-Serif;
+          font-family: Helvetica, Arial, sans-serif;
           font-weight: normal;
           font-size: 1.2em;
           line-height: 1.5;
@@ -717,4 +717,4 @@ p, label, textarea {
   color: #fff;
   padding-left: 0.313em; }
 
-/*# sourceMappingURL=gallery.css.map */
+/*# sourceMappingURL=stylesheet.css.map */

@@ -54,7 +54,7 @@ $cms = CMS::page($per_page, $offset);
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home Page</title>
-    <link rel="stylesheet" media="all" href="assets/css/gallery.css">
+    <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
 
 </head>
 <body class="site">
