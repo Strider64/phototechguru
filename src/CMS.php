@@ -10,10 +10,11 @@ use DateTimeZone;
 class CMS extends DatabaseObject
 {
     protected static string $table = "cms"; // Table Name:
-    static protected array $db_columns = ['id', 'user_id', 'thumb_path', 'image_path', 'Model', 'ExposureTime', 'Aperture', 'ISO', 'FocalLength', 'author', 'heading', 'content', 'data_updated', 'date_added'];
+    static protected array $db_columns = ['id', 'category', 'user_id', 'thumb_path', 'image_path', 'Model', 'ExposureTime', 'Aperture', 'ISO', 'FocalLength', 'author', 'heading', 'content', 'data_updated', 'date_added'];
     public $id;
     public $user_id;
     public $page;
+    public $category;
     public $thumb_path;
     public $image_path;
     public $Model;
@@ -43,14 +44,14 @@ class CMS extends DatabaseObject
 
 
 
-    public static function countAllPage($page = 'index')
+    public static function countAllPage($page = 'index', $category = 'blog')
     {
         static::$searchItem = 'page';
         static::$searchValue = $page;
-        $sql = "SELECT count(id) FROM " . static::$table . " WHERE page=:page";
+        $sql = "SELECT count(id) FROM " . static::$table . " WHERE page=:page AND category=:category";
         $stmt = Database::pdo()->prepare($sql);
 
-        $stmt->execute([ static::$searchItem => static::$searchValue ]);
+        $stmt->execute([ static::$searchItem => static::$searchValue, 'category' => $category ]);
         return $stmt->fetchColumn();
 
     }

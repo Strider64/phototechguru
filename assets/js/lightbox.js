@@ -7,6 +7,7 @@ document.body.appendChild(lightbox);
 
 
 const images = document.querySelectorAll('img')
+console.log(images);
 images.forEach(image => {
     /* Add Event Listener to Images and setting css class to active */
     image.addEventListener('click', () => {

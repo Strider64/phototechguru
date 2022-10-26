@@ -295,6 +295,48 @@ th {
     width: auto;
     height: auto; }
 
+.home_sidebar {
+  padding: 1.250em; }
+
+#gallery_category {
+  background-color: #00b28d;
+  padding: 1.250em; }
+
+/* Select Styling */
+.select-css {
+  display: block;
+  font-size: 1.0em;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  line-height: 1.3;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+  appearance: none;
+  background-color: #fff;
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%, 0 0;
+  background-size: .65em auto, 100%;
+  margin-bottom: 1.250em; }
+
+.select-css::-ms-expand {
+  display: none; }
+
+.select-css:hover {
+  border-color: #888; }
+
+.select-css:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222;
+  outline: none; }
+
+.select-css option {
+  font-weight: normal; }
+
 figure {
   max-width: 21.75em;
   margin: auto; }
@@ -569,14 +611,17 @@ p, label, textarea {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #fff;
-      font-size: 20px;
       pointer-events: none;
       z-index: 4;
       transistion: .3s ease-in-out;
       -webkit-backdrop-filter: blur(5px) saturate(1.8);
       backdrop-filter: blur(5px) saturate(1.8);
       max-width: 80%; }
+
+    .gallery-item .title .pictureHeading {
+      color: #fff;
+      font-size: 0.8em;
+      z-index: 5; }
 
     .gallery-item:hover .title {
       opacity: 1;
@@ -637,7 +682,6 @@ p, label, textarea {
 
     .galleryImage {
       grid-area: lightboxImage;
-      width: 96%;
       margin: auto; }
 
     .galleryExif {
@@ -667,7 +711,7 @@ p, label, textarea {
     .main_container {
       grid-area: main;
       display: grid;
-      grid-template-columns: 58em 10.75em;
+      grid-template-columns: 58em 1fr;
       grid-template-areas: "home_main home_sidebar"; }
       .main_container .home_article {
         grid-area: home_main;

@@ -105,17 +105,17 @@ class DatabaseObject // Extended by the children class:
      * useful for tables that contain a lot of
      * records (data).
      */
-    public static function page($perPage, $offset, $page = "index"): array
+    public static function page($perPage, $offset, $page = "index", $category = "general"): array
     {
-        $sql = 'SELECT * FROM ' . static::$table . ' WHERE page =:page ORDER BY page DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
+        $sql = 'SELECT * FROM ' . static::$table . ' WHERE page =:page AND category =:category ORDER BY id DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
         $stmt = Database::pdo()->prepare($sql); // Prepare the query:
-        $stmt->execute(['page' => $page, 'perPage' => $perPage, 'blogOffset' => $offset]); // Execute the query with the supplied data:
+        $stmt->execute(['page' => $page, 'perPage' => $perPage, 'category' => $category, 'blogOffset' => $offset]); // Execute the query with the supplied data:
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function records($perPage, $offset): array
     {
-        $sql = 'SELECT * FROM ' . static::$table . ' ORDER BY date_taken DESC LIMIT :perPage OFFSET :offset';
+        $sql = 'SELECT * FROM ' . static::$table . ' ORDER BY id DESC LIMIT :perPage OFFSET :offset';
         $stmt = Database::pdo()->prepare($sql); // Prepare the query:
         $stmt->execute(['perPage' => $perPage, 'offset' => $offset]); // Execute the query with the supplied data:
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

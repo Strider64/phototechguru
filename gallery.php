@@ -8,14 +8,20 @@ require_once "vendor/autoload.php";
  * Date Created: July, 12, 2021
  * Last Revision: September 30, 2022 @ 2:17 PM
  * Version: 3.01 ßeta
+ * Big Time Credit goes to
+ * Annastasshia for the gallery design
+ * https://codepen.io/annastasshia
+ * without her contribution and
+ * kindness of sharing this gallery
+ * page would not be what it is.
  *
  */
 
 use PhotoTech\CMS;
 use PhotoTech\Pagination_New as Pagination;
 
-
-$displayFormat = ["gallery-container w-2 h-2", 'gallery-container w-2 h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2"', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2'];
+$category = 'general';
+$displayFormat = ["gallery-container w-4 h-2", 'gallery-container w-3 h-2', 'gallery-container w-4 h-2', 'gallery-container w-3 h-2', 'gallery-container w-3 h-2', 'gallery-container w-2 h-2"', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container w-2 h-2', 'gallery-container w-4 h-2'];
 /*
  * Using pagination in order to have a nice looking
  * website page.
@@ -28,7 +34,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 }
 
 $per_page = 12; // Total number of records to be displayed:
-$total_count = CMS::countAllPage('blog'); // Total Records in the db table:
+$total_count = CMS::countAllPage('blog', $category); // Total Records in the db table:
 
 
 /* Send the 3 variables to the Pagination class to be processed */
@@ -43,7 +49,9 @@ $offset = $pagination->offset();
  * Grab the data from the CMS class method *static*
  * and put the data into an array variable.
  */
-$cms = CMS::page($per_page, $offset, 'blog');
+$cms = CMS::page($per_page, $offset, 'blog', $category);
+//echo "<pre>" . print_r($cms, 1) . "</pre>";
+//die();
 ?>
 <!doctype html>
 <html lang="en">
@@ -96,8 +104,27 @@ $cms = CMS::page($per_page, $offset, 'blog');
             flex: 0 0 4em;
         }
     </style>
+
 </head>
 <body class="site">
+<!--
+ * Big Time Credit goes to
+ * Annastasshia for the gallery design
+ * https://codepen.io/annastasshia
+ * without her contribution and
+ * kindness of sharing this on
+ * Codepen this page would not be what it is.
+
+ Copyright (c) 2022 by Annastasshia (https://codepen.io/annastasshia/pen/YzpEajJ)
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+-->
 <div class="nav">
     <input type="checkbox" id="nav-check">
 
@@ -132,30 +159,22 @@ $cms = CMS::page($per_page, $offset, 'blog');
     <div class="main_container">
         <div class="home_article">
             <div class="container">
-                <?php
 
-                $count = 0;
-                foreach ($cms as $record) {
-
-                    echo '<div class="' . $displayFormat[$count] . '">';
-                    echo '<div class="gallery-item">';
-                    echo '<div class="images"><img src="' . $record['image_path'] . '" alt="Photo1" data-exif="' . $record['Model'] . ' ' . $record['ExposureTime'] . ' ' . $record['Aperture'] . ' ' . $record['ISO'] . ' ' . $record['FocalLength'] . '" width="800" height="534">';
-                    echo '<p class="hideContent">' . $record['content'] . '</p>';
-                    echo '</div>';
-                    $count++;
-                    echo '<div class="title">' . '<h1 class="pictureHeading">' . $record['heading'] . '</h1>' . '<span class="exifInfo">' . $record['Model'] . '</span>' . '</div>';
-                    echo '</div>';
-                    echo '</div>';
-
-
-                }
-                ?>
             </div>
         </div>
         <div class="home_sidebar">
             <div class="flex_container">
                 <?= $pagination->links('gallery.php'); ?>
             </div>
+            <form id="gallery_category" action="gallery.php" method="post">
+                <label for="category">Select a Category</label><select id="category" class="select-css" name="category" tabindex="1">
+                    <option selected disabled>Select a Category</option>
+                    <option value="general" selected>General</option>
+                    <option value="halloween">Halloween</option>
+                    <option value="landscape">Landscape</option>
+                    <option value="wildlife">Wildlife</option>
+                </select>
+            </form>
         </div>
     </div>
 
@@ -166,6 +185,7 @@ $cms = CMS::page($per_page, $offset, 'blog');
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
-<script src="assets/js/lightbox.js"></script>
+
+<script src="assets/js/images.js"></script>
 </body>
 </html>

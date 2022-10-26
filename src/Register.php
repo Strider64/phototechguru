@@ -54,7 +54,7 @@ class Register extends DatabaseObject
         foreach ($args as $k => $v) {
             if (property_exists($this, $k)) {
                 $this->$k = $v;
-                static::$params[$k] = $v;
+                static::$params[$k] = trim($v);
                 static::$objects[] = $v;
             }
         }

@@ -34,6 +34,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
          * have to do.
          */
         $exif_data = @exif_read_data($file_tmp);
+
         //echo intval($exif_data['FocalLength']) . "<br>";
         //echo "<pre>" . print_r($exif_data, 1) . "</pre>";
         //die();
@@ -80,12 +81,12 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
     /*
      * Set the paths to the correct folders
      */
-    $dir_path = 'assets/uploads/';
+    $dir_path = 'assets/uploads/' . $data['category'] . '/';
 
     /*
      * Create unique name for image.
      */
-    $new_file_name = $dir_path . 'img-gallery-' . time() . '-2048x1365-' . '.' . $file_ext;
+    $new_file_name = $dir_path . 'img-gallery-' . time() . '-2048x1365' . '-' . $data['category']. '.' . $file_ext;
 
     move_uploaded_file($file_tmp, "../" . $new_file_name);
 
@@ -177,6 +178,15 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
             <option value="about">About</option>
         </select>
     </label>
+    <div class="category-style">
+        <select id="category" class="select-css" name="cms[category]" tabindex="1">
+            <option selected disabled>Select a Category</option>
+            <option value="general" selected>General</option>
+            <option value="halloween">Halloween</option>
+            <option value="landscape">Landscape</option>
+            <option value="wildlife">Wildlife</option>
+        </select>
+    </div>
     <div class="heading-style">
         <label class="heading_label_style" for="heading">Heading</label>
         <input class="enter_input_style" id="heading" type="text" name="cms[heading]" value="" tabindex="1" required

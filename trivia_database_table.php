@@ -63,7 +63,7 @@ if (isset($category)) { // Get rid of $api_key if not using:
  * After converting data array to JSON send back to javascript using
  * this function.
  */
-function output($output)
+function output($output): void
 {
     http_response_code(200);
     try {

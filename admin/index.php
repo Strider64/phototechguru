@@ -8,32 +8,40 @@ use PhotoTech\Login;
 
 Login::is_login($_SESSION['last_login']);
 
-if (isset($_POST['submit'])) {
-    $_SESSION['page'] = $_POST['page'];
+if (isset($_GET['page']) && !empty($_GET['page'])) {
+    $current_page = urldecode($_GET['page']);
 } else {
-    $_SESSION['page'] = 'blog';
+    $current_page = 1;
 }
 
-/*
- * Using pagination in order to have a nice looking
- * website page.
- */
-$current_page = $_GET['page'] ?? 1; // Current Page
-$per_page = 1; // Total number of records to be displayed:
-$total_count = CMS::countAllPage($_SESSION['page']); // Total Records in the db table:
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $category = $_POST['category'];
+} else {
+    $category = 'general';
+}
+
+$per_page = 12; // Total number of records to be displayed:
+$total_count = CMS::countAllPage('blog', $category); // Total Records in the db table:
+//echo "<pre>" . print_r($total_count, 1) . "</pre>";
+//die();
 
 /* Send the 3 variables to the Pagination class to be processed */
 $pagination = new Pagination($current_page, $per_page, $total_count);
 
+
 /* Grab the offset (page) location from using the offset method */
 $offset = $pagination->offset();
+//echo "<pre>" . print_r($offset, 1) . "</pre>";
+//die();
+
 
 /*
  * Grab the data from the CMS class method *static*
  * and put the data into an array variable.
  */
-$cms = CMS::page($per_page, $offset, $_SESSION['page']);
-
+$cms = CMS::page($per_page, $offset, 'blog', $category);
+//echo "<pre>" . print_r($cms, 1) . "</pre>";
+//die();
 ?>
 <!doctype html>
 <html lang="en">
@@ -76,6 +84,7 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
     <div class="container">
         <?php foreach ($cms as $record) { ?>
             <article class="cms">
+                <img src="<?= "../" . $record['image_path'] ?>" alt="<?= $record['heading'] ?>">
                 <h2><?= $record['heading'] ?></h2>
                 <span class="author_style">Created by <?= $record['author'] ?> on
                     <time datetime="<?= htmlspecialchars(CMS::styleTime($record['date_added'])) ?>"><?= htmlspecialchars(CMS::styleDate($record['date_added'])) ?></time>
@@ -87,48 +96,26 @@ $cms = CMS::page($per_page, $offset, $_SESSION['page']);
 
         <?php } ?>
         <div class="flex_container">
-            <?php
-            $links = $pagination->links();
-            echo $links;
-            ?>
+            <?= $pagination->links('gallery.php'); ?>
         </div>
     </div>
 
 </main>
 <div class="sidebar">
-    <ul class="cards">
-        <li class="card-item">
-            <a href="https://flickr.com/photos/pepster/">
-                <figure class="cards">
-                    <img src="../assets/images/img_flickr_pictures.jpg" alt="Flickr" width="348" height="174">
-                    <figcaption class="caption">
-                        <h3 class="caption-title">Flickr Images</h3>
-                    </figcaption>
-                </figure>
-            </a>
-        </li>
-        <li class="card-item">
-            <a href="https://github.com/Strider64/phototechguru">
-                <figure class="cards">
-                    <img src="../assets/images/img_github_repository.jpg" alt="GitHub Repository">
-                    <figcaption class="caption">
-                        <h3 class="caption-title">GitHub Repository</h3>
-                    </figcaption>
-                </figure>
-            </a>
-        </li>
-        <li class="card-item">
-            <a href="https://www.facebook.com/Pepster64">
-                <figure class="cards">
-                    <img src="../assets/images/img-facebook-group.jpg" alt="FaceBook Group">
-                    <figcaption class="caption">
-                        <h3 class="caption-title">Facebook Page</h3>
-                    </figcaption>
-                </figure>
-            </a>
-        </li>
-    </ul>
-
+    <form id="formData" class="checkStyle" action="index.php" method="post">
+        <div class="category-style">
+            <select id="category" class="select-css" name="category" tabindex="1">
+                <option selected disabled>Select a Category</option>
+                <option value="general" selected>General</option>
+                <option value="halloween">Halloween</option>
+                <option value="landscape">Landscape</option>
+                <option value="wildlife">Wildlife</option>
+            </select>
+        </div>
+        <div class="submit-button">
+            <button class="form-button" type="submit" name="submit" value="enter">submit</button>
+        </div>
+    </form>
 </div>
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>

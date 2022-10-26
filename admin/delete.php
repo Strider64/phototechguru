@@ -16,7 +16,6 @@ if (!empty($id)) {
     /*
      * Delete the images from the directories
      */
-    unlink("../" . $data['thumb_path']);
     unlink("../" . $data['image_path']);
     /*
      * Delete the record from the Database Table
@@ -25,9 +24,9 @@ if (!empty($id)) {
     /*
      * Redirect to the Administrator's Home page
      */
-    header("Location: gallery.php");
+    header("Location: index.php");
     exit();
 }
 
-header("Location: gallery.php");
+header("Location: index.php");
 exit();
