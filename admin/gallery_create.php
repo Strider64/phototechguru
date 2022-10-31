@@ -116,7 +116,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
         $cms = new CMS($data);
         $result = $cms->create();
         if ($result) {
-            header("Location: ../index.php");
+            header("Location: gallery_create.php");
             exit();
         }
     } else {
@@ -182,6 +182,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
         <select id="category" class="select-css" name="cms[category]" tabindex="1">
             <option selected disabled>Select a Category</option>
             <option value="general" selected>General</option>
+            <option value="lego">LEGO</option>
             <option value="halloween">Halloween</option>
             <option value="landscape">Landscape</option>
             <option value="wildlife">Wildlife</option>

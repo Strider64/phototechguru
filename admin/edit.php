@@ -102,12 +102,12 @@ if (isset($_POST['submit'])) {
         /*
         * Set the paths to the correct folders
         */
-        $dir_path = 'assets/uploads/' . $data['category'] . '/';
+        $dir_path = 'assets/uploads/' . $database_data['category'] . '/';
 
         /*
          * Create unique name for image.
          */
-        $new_file_name = $dir_path . 'img-gallery-' . time() . '-2048x1365' . '-' . $data['category']. '.' . $file_ext;
+        $new_file_name = $dir_path . 'img-gallery-' . time() . '-2048x1365' . '-' . $database_data['category']. '.' . $file_ext;
 
         move_uploaded_file($file_tmp, "../" . $new_file_name);
 
@@ -191,6 +191,7 @@ if (isset($_POST['submit'])) {
             <select id="category" class="select-css" name="cms[category]" tabindex="1">
                 <option selected disabled>Select a Category</option>
                 <option value="general" selected>General</option>
+                <option value="lego">LEGO</option>
                 <option value="halloween">Halloween</option>
                 <option value="landscape">Landscape</option>
                 <option value="wildlife">Wildlife</option>

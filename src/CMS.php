@@ -44,14 +44,12 @@ class CMS extends DatabaseObject
 
 
 
-    public static function countAllPage($page = 'index', $category = 'blog')
+    public static function countAllPage($category = 'general')
     {
-        static::$searchItem = 'page';
-        static::$searchValue = $page;
-        $sql = "SELECT count(id) FROM " . static::$table . " WHERE page=:page AND category=:category";
+        $sql = "SELECT count(id) FROM " . static::$table . " WHERE category=:category";
         $stmt = Database::pdo()->prepare($sql);
 
-        $stmt->execute([ static::$searchItem => static::$searchValue, 'category' => $category ]);
+        $stmt->execute(['category' => $category ]);
         return $stmt->fetchColumn();
 
     }

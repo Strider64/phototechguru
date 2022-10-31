@@ -107,6 +107,7 @@ $cms = CMS::page($per_page, $offset, 'blog', $category);
             <select id="category" class="select-css" name="category" tabindex="1">
                 <option selected disabled>Select a Category</option>
                 <option value="general" selected>General</option>
+                <option value="lego">LEGO</option>
                 <option value="halloween">Halloween</option>
                 <option value="landscape">Landscape</option>
                 <option value="wildlife">Wildlife</option>

@@ -16,13 +16,16 @@ try {
 } catch (JsonException $e) {
 }
 
+$per_page = (int) $database_data['per_page']; // Total number of records to be displayed:
+$database_data['total_count'] = CMS::countAllPage($database_data['category']); // Total Records in the db table:
 
-/*
- * Grab the data from the CMS class method *static*
- * and put the data into an array variable.
- */
-$cms = CMS::page((int)$database_data['per_page'], (int)$database_data['offset'], 'blog', $database_data['category']);
-output($cms);
+/* Send the 3 variables to the Pagination class to be processed */
+$pagination = new Pagination((int)$database_data['current_page'], $per_page, $database_data['total_count']);
+
+/* Grab the offset (page) location from using the offset method */
+$database_data['offset'] = $pagination->offset();
+
+output($database_data);
 
 function output($output): void
 {
@@ -33,4 +36,3 @@ function output($output): void
     }
 
 }
-

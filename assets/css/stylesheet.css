@@ -337,6 +337,24 @@ th {
 .select-css option {
   font-weight: normal; }
 
+.links {
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.563em;
+  height: 1.563em;
+  background-color: cornflowerblue;
+  margin: 1.250em 0.625em; }
+
+.links:hover {
+  cursor: pointer;
+  background-color: #33579c; }
+
+.linkStyle {
+  font-family: Arial, sans-serif;
+  color: #fff; }
+
 figure {
   max-width: 21.75em;
   margin: auto; }
@@ -548,7 +566,6 @@ p, label, textarea {
     .sidebar {
       grid-area: sidebar;
       justify-content: center;
-      background-color: linen;
       padding: 1.250em 0;
       margin: 1.250em auto; }
 
@@ -715,7 +732,7 @@ p, label, textarea {
       grid-template-areas: "home_main home_sidebar"; }
       .main_container .home_article {
         grid-area: home_main;
-        padding: 1.250em; }
+        padding: 0 1.250em; }
         .main_container .home_article h1 {
           font-family: Georgia, serif;
           font-weight: normal;
