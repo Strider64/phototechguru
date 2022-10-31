@@ -302,6 +302,9 @@ th {
   background-color: #00b28d;
   padding: 1.250em; }
 
+img {
+  pointer-events: none; }
+
 /* Select Styling */
 .select-css {
   display: block;
@@ -354,6 +357,10 @@ th {
 .linkStyle {
   font-family: Arial, sans-serif;
   color: #fff; }
+
+.lightbox {
+  display: none;
+  cursor: pointer; }
 
 figure {
   max-width: 21.75em;
@@ -563,6 +570,9 @@ p, label, textarea {
     .nav-title {
       display: inline-block; }
 
+    img {
+      pointer-events: all; }
+
     .sidebar {
       grid-area: sidebar;
       justify-content: center;
@@ -683,10 +693,6 @@ p, label, textarea {
 
     .h-6 {
       grid-row: span 6; }
-
-    .lightbox {
-      display: none;
-      cursor: pointer; }
 
     .active {
       grid-area: main;
