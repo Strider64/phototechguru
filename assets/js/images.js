@@ -164,7 +164,7 @@
 
     const paginationUISuccess = (parsedData) => {
 
-        /* Remove Image For Screen (cleanup) */
+        /* Remove Links For Screen (cleanup) */
         while (sidebar.firstChild) {
             sidebar.removeChild(sidebar.firstChild)
         }
