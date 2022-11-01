@@ -1,6 +1,4 @@
 <?php
-require_once 'assets/config/config.php';
-require_once "vendor/autoload.php";
 
 /*
  * The Photo Tech Guru
@@ -17,41 +15,7 @@ require_once "vendor/autoload.php";
  *
  */
 
-use PhotoTech\CMS;
-use PhotoTech\Pagination_New as Pagination;
 
-$category = 'general';
-$displayFormat = ["gallery-container w-4 h-2", 'gallery-container w-3 h-2', 'gallery-container w-4 h-2', 'gallery-container w-3 h-2', 'gallery-container w-3 h-2', 'gallery-container w-2 h-2"', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container w-2 h-2', 'gallery-container w-4 h-2'];
-/*
- * Using pagination in order to have a nice looking
- * website page.
- */
-
-if (isset($_GET['page']) && !empty($_GET['page'])) {
-    $current_page = urldecode($_GET['page']);
-} else {
-    $current_page = 1;
-}
-
-$per_page = 12; // Total number of records to be displayed:
-$total_count = CMS::countAllPage('blog', $category); // Total Records in the db table:
-
-
-/* Send the 3 variables to the Pagination class to be processed */
-$pagination = new Pagination($current_page, $per_page, $total_count);
-
-
-/* Grab the offset (page) location from using the offset method */
-$offset = $pagination->offset();
-//echo "<pre>" . print_r($offset, 1) . "</pre>";
-//die();
-/*
- * Grab the data from the CMS class method *static*
- * and put the data into an array variable.
- */
-$cms = CMS::page($per_page, $offset, 'blog', $category);
-//echo "<pre>" . print_r($cms, 1) . "</pre>";
-//die();
 ?>
 <!doctype html>
 <html lang="en">
