@@ -1,9 +1,10 @@
 'use strict';
 (function () {
-    let d = document;
-    let category = d.querySelector('#category');
-    let container = d.querySelector('.container');
-    let sidebar = d.querySelector('.sidebar_pages');
+    let category = document.querySelector('#category');
+    let container = document.querySelector('.container');
+    let sidebar = document.querySelector('.sidebar_pages');
+    let lightbox = document.querySelector('.lightbox');
+
     let current_page = 1, per_page =6, offset = 0;
     let database_data = {'category':'general', 'current_page': current_page, 'per_page': per_page, 'total_count': 0, 'offset': offset };
     let pages = [{}];
@@ -31,7 +32,7 @@
 
         parsedData.forEach(slide => {
             /* Main Image Slide Block */
-            let displayDiv = d.createElement('div');
+            let displayDiv = document.createElement('div');
             /* Array of different size class names for CSS */
             let displayFormat = ["gallery-container w-3 h-2", 'gallery-container w-3 h-2',
                                  'gallery-container w-3 h-2', 'gallery-container w-3 h-2',
@@ -42,20 +43,19 @@
             /*
              * Create div for indiviual images
              */
-            let galleryItem = d.createElement('div');
+            let galleryItem = document.createElement('div');
             galleryItem.classList.add('gallery-item');
             displayDiv.appendChild(galleryItem);
             /*
              * Image div element
              */
-            let images = d.createElement('div');
+            let images = document.createElement('div');
             images.classList.add('images');
             galleryItem.appendChild(images);
             /*
              * Image itself
              */
-            let galleryImage = d.createElement('img')
-            //console.log(slide.image_path);
+            let galleryImage = document.createElement('img')
             galleryImage.src = slide.image_path;
             galleryImage.setAttribute('alt', slide.content); // Description of what image is about:
             /* Set EXIF info to data-exif attribute */
@@ -65,24 +65,24 @@
             /*
              * Hidden Paragraph
              */
-            let paragraph = d.createElement('p');
+            let paragraph = document.createElement('p');
             paragraph.classList.add('hideContent');
             paragraph.textContent = slide.content;
             images.appendChild(paragraph);
             /*
              * Title Block
              */
-            let title = d.createElement('div');
+            let title = document.createElement('div');
             title.classList.add('title');
             galleryItem.appendChild(title);
             /*
              * Heading 1
              */
-            let heading1 = d.createElement('h1');
+            let heading1 = document.createElement('h1');
             heading1.classList.add('pictureHeading');
             heading1.textContent = `${slide.heading[0].toUpperCase()}${slide.heading.slice(1)}`;
             title.appendChild(heading1);
-            let titleSpan = d.createElement('span');
+            let titleSpan = document.createElement('span');
             titleSpan.classList.add('exifInfo');
             titleSpan.textContent = slide.Model;
             title.appendChild(titleSpan);
@@ -90,13 +90,6 @@
             count += 1;
         })
 
-        /*
-         * Create Lightbox for Large Image Display
-         */
-        const lightbox = document.createElement('div')
-        lightbox.classList.add('lightbox');
-
-        document.body.appendChild(lightbox);
         const images = document.querySelectorAll('img')
 
         images.forEach(image => {
@@ -104,7 +97,6 @@
             image.addEventListener('click', () => {
                 lightbox.classList.add('active');
                 document.querySelector('.content').style.display = 'none';
-                //document.querySelector('.pagination').style.display = 'none';
 
                 /*
                  * Create Image portion of LightBox
@@ -182,7 +174,7 @@
         }
 
         pages.forEach(link_page => {
-            const links = d.createElement('div');
+            const links = document.createElement('div');
             links.className = 'links';
             sidebar.appendChild(links);
             /*
@@ -192,7 +184,7 @@
                 database_data.current_page = link_page.page;
                 createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);
             });
-            const pageText = d.createElement('p');
+            const pageText = document.createElement('p');
             pageText.className = 'linkStyle';
             pageText.id = 'page_' + link_page.page;
             pageText.textContent = link_page.page;

@@ -6,8 +6,8 @@ require_once "vendor/autoload.php";
  * The Photo Tech Guru
  * Created by John R. Pepp
  * Date Created: July, 12, 2021
- * Last Revision: September 30, 2022 @ 2:17 PM
- * Version: 3.01 ßeta
+ * Last Revision: November 1, 2022 @ 7:45am
+ * Version: 4.00 ßeta
  * Big Time Credit goes to
  * Annastasshia for the gallery design
  * https://codepen.io/annastasshia
@@ -127,18 +127,15 @@ $cms = CMS::page($per_page, $offset, 'blog', $category);
 <aside class="sidebar">
 
 </aside>
+<div class="lightbox">
+
+</div>
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
 
 <script src="assets/js/images.js"></script>
 <!--
- * Big Time Credit goes to
- * Annastasshia for the gallery design
- * https://codepen.io/annastasshia
- * without her contribution and
- * kindness of sharing this on
- * Codepen this page would not be what it is.
 
  Copyright (c) 2022 by Annastasshia (https://codepen.io/annastasshia/pen/YzpEajJ)
 
