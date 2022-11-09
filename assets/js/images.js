@@ -5,7 +5,7 @@
     let sidebar = document.querySelector('.sidebar_pages');
     let lightbox = document.querySelector('.lightbox');
 
-    let current_page = 1, per_page =6, offset = 0;
+    let current_page = 1, per_page =4, offset = 0;
     let database_data = {'category':'general', 'current_page': current_page, 'per_page': per_page, 'total_count': 0, 'offset': offset };
     let pages = [{}];
     let total_pages = 0;
@@ -226,7 +226,14 @@
 
     }, false);
 
-
-
-
 })();
+
+/*
+ * Copyright (c) 2022 by Annastasshia (https://codepen.io/annastasshia/pen/YzpEajJ)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */

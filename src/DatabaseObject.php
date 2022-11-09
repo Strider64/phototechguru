@@ -105,7 +105,7 @@ class DatabaseObject // Extended by the children class:
      * useful for tables that contain a lot of
      * records (data).
      */
-    public static function page($perPage, $offset, $page = "index", $category = "general"): array
+    public static function page($perPage, $offset, $page = "index", $category = "home"): array
     {
         $sql = 'SELECT * FROM ' . static::$table . ' WHERE page =:page AND category =:category ORDER BY id DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
         $stmt = Database::pdo()->prepare($sql); // Prepare the query:

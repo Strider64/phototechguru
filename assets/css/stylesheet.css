@@ -299,8 +299,8 @@ th {
   padding: 1.250em; }
 
 #gallery_category {
-  background-color: #00b28d;
-  padding: 1.250em; }
+  font-family: 'Rubik', sans-serif;
+  color: darkgray; }
 
 img {
   pointer-events: none; }
@@ -309,8 +309,8 @@ img {
 .select-css {
   display: block;
   font-size: 1.0em;
-  font-family: 'Rubik', sans-serif;
   font-weight: 400;
+  color: darkgray;
   line-height: 1.3;
   width: 100%;
   max-width: 100%;
@@ -332,27 +332,26 @@ img {
 
 .select-css:focus {
   border-color: #aaa;
-  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+  box-shadow: 0 0 1px 3px rgba(169, 169, 169, 0.7);
   box-shadow: 0 0 0 3px -moz-mac-focusring;
-  color: #222;
+  color: darkgray;
   outline: none; }
 
 .select-css option {
   font-weight: normal; }
 
 .links {
-  float: left;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 1.563em;
   height: 1.563em;
-  background-color: cornflowerblue;
-  margin: 1.250em 0.625em; }
+  background-color: darkgray;
+  margin: 0.625em 0.625em 0; }
 
 .links:hover {
   cursor: pointer;
-  background-color: #33579c; }
+  background-color: #909090; }
 
 .linkStyle {
   font-family: Arial, sans-serif;

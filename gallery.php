@@ -15,7 +15,6 @@
  *
  */
 
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,6 +24,16 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gallery</title>
+    <style>
+        .sidebar_pages {
+            display: flex;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            height: auto;
+            width: 100%;
+        }
+    </style>
     <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
 
 
@@ -71,13 +80,14 @@
         <div class="home_sidebar">
 
             <form id="gallery_category" action="gallery.php" method="post">
-                <label for="category">Select a Category</label><select id="category" class="select-css" name="category" tabindex="1">
+                <label for="category"></label><select id="category" class="select-css" name="category"
+                                                                       tabindex="1">
                     <option selected disabled>Select a Category</option>
                     <option value="general" selected>General</option>
+                    <option value="wildlife">Wildlife</option>
+                    <option value="landscape">Landscape</option>
                     <option value="lego">LEGO</option>
                     <option value="halloween">Halloween</option>
-                    <option value="landscape">Landscape</option>
-                    <option value="wildlife">Wildlife</option>
                 </select>
             </form>
 
