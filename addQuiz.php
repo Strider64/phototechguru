@@ -2,7 +2,7 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
-use PhotoTech\Login;
+use PhotoTech\LoginRepository;
 use PhotoTech\Trivia;
 
 if (isset($_POST['submit'])) {
@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
     $result = $trivia->create();
 }
 
-if (!isset($_SESSION['id']) || !Login::gameSecurityCheck()) {
+if (!isset($_SESSION['id']) || !LoginRepository::gameSecurityCheck()) {
     header('Location: game.php');
     exit();
 }
@@ -107,6 +107,7 @@ if (!isset($_SESSION['id']) || !Login::gameSecurityCheck()) {
                     <option value="photography">Photography</option>
                     <option value="space">Space</option>
                     <option value="movie">Movie</option>
+                    <option value="sport">Sports</option>
                 </select>
             </div>
         </div>

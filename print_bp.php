@@ -4,7 +4,7 @@ require_once "vendor/autoload.php";
 
 use PhotoTech\Measure;
 
-use PhotoTech\Pagination_New as Pagination;
+use PhotoTech\Pagination as Pagination;
 
 $perPage = $totalCount = Measure::countByUser(2);
 
@@ -47,13 +47,9 @@ $records = Measure::records($perPage, $offset);
             <thead>
             <tr>
                 <th>Date</th>
-                <th>Time</th>
                 <th>Systolic</th>
                 <th>Diastolic</th>
                 <th>Pulse</th>
-                <th>Miles Walked</th>
-                <th>Weight</th>
-                <th>Sodium</th>
             </tr>
             </thead>
             <tbody>
@@ -76,10 +72,6 @@ $records = Measure::records($perPage, $offset);
                 $totalDiastolic = $totalDiastolic + $record['diastolic'];
                 echo "<td>" . $record['pulse'] . "</td>\n";
                 $totalPulse = $totalPulse + $record['pulse'];
-                echo "<td>" . $record['miles_walked'] . "</td>\n";
-                $totalMiles = $totalMiles + $record['miles_walked'];
-                echo "<td>" . $record['weight'] . "</td>\n";
-                echo "<td>" . $record['sodium'] . "</td>\n";
                 echo "</tr>\n";
             }
 
@@ -89,11 +81,10 @@ $records = Measure::records($perPage, $offset);
             <?php
                 echo "<tr>";
                 echo "<td>Averages</td>";
-                echo "<td>&nbsp;</td>";
+
                 echo "<td>" . round($totalSystolic / count($records)) . "</td>";
                 echo "<td>" . round($totalDiastolic / count($records)) . "</td>";
                 echo "<td>" . round($totalPulse / count($records)) . "</td>";
-                echo "<td>" . $totalMiles . " total</td>";
                 echo "</tr>";
             ?>
             </tfoot>

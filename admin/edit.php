@@ -4,11 +4,11 @@ require_once "../vendor/autoload.php";
 
 use PhotoTech\Resize;
 use PhotoTech\CMS;
-use PhotoTech\Login;
+use PhotoTech\LoginRepository;
 
-Login::is_login($_SESSION['last_login']);
+LoginRepository::is_login($_SESSION['last_login']);
 
-Login::securityCheck();
+LoginRepository::securityCheck();
 
 
 $result = false;
@@ -177,7 +177,7 @@ if (isset($_POST['submit'])) {
     <form id="formData" class="form_classes" action="edit.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="cms[id]" value="<?= $id ?>">
         <input type="hidden" name="cms[user_id]" value="<?= $_SESSION['id'] ?>">
-        <input type="hidden" name="cms[author]" value="<?= Login::full_name() ?>">
+        <input type="hidden" name="cms[author]" value="<?= LoginRepository::full_name() ?>">
         <input type="hidden" name="cms[date_updated]" value="<?= $date_updated ?>">
         <input type="hidden" name="action" value="upload">
         <input type="hidden" name="cms[image_path_name]" value="<?= $cms->image_path ?>">

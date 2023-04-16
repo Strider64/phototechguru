@@ -3,10 +3,10 @@ require_once "../assets/config/config.php";
 require_once "../vendor/autoload.php";
 
 use PhotoTech\CMS;
-use PhotoTech\Login;
-Login::is_login($_SESSION['last_login']);
+use PhotoTech\LoginRepository;
+LoginRepository::is_login($_SESSION['last_login']);
 
-Login::securityCheck();
+LoginRepository::securityCheck();
 
 
 
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <form id="formData" class="checkStyle" action="create_procedure.php" method="post">
     <input type="hidden" name="cms[user_id]" value="2">
-    <input type="hidden" name="cms[author]" value="<?= Login::full_name() ?>">
+    <input type="hidden" name="cms[author]" value="<?= LoginRepository::full_name() ?>">
     <input type="hidden" name="action" value="upload">
     <input type="hidden" name="cms[page]" value="blog">
 

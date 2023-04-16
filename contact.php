@@ -2,6 +2,29 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
+/*
+ * The Photo Tech Guru
+ * Created by John R. Pepp
+ * Date Created: July, 12, 2021
+ * Last Revision: September 6, 2022 @ 8:00 AM
+ * Version: 3.50 ßeta
+ *
+ */
+
+use PhotoTech\ErrorHandler;
+use PhotoTech\Database;
+use PhotoTech\LoginRepository as Login;
+
+$errorHandler = new ErrorHandler();
+
+// Register the exception handler method
+set_exception_handler([$errorHandler, 'handleException']);
+
+$database = new Database();
+$pdo = $database->createPDO();
+
+// New Instance of Login Class
+$login = new Login($pdo);
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,16 +50,7 @@ require_once "vendor/autoload.php";
     </div>
 
     <div class="nav-links">
-        <a href="index.php">Home</a>
-        <a href="gallery.php">Gallery</a>
-        <a href="/admin/index.php">Admin</a>
-        <a href="game.php">Trivia</a>
-        <a href="contact.php">Contact</a>
-        <?php
-        if (isset($_SESSION['id'])) {
-            echo '<a href="/admin/logout.php">Logout</a>';
-        }
-        ?>
+        <?php $login->show_logoff_nav_button(); ?>
     </div>
 
     <div class="name-website">

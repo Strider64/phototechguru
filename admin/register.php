@@ -87,7 +87,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
 <div class="sidebar">
     <div class="info">
         <h2>Registration System</h2>
-        <p>The Registration is up an running and is no longer in development after a long delay of me not concentrating on this website.</p>
+        <p>The Registration is up a running and is no longer in development after a long delay of me not concentrating on this website.</p>
     </div>
 </div>
 <main id="content" class="checkStyle">

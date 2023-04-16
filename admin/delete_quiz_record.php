@@ -3,10 +3,10 @@ require_once "../assets/config/config.php";
 require_once "../vendor/autoload.php";
 
 use PhotoTech\Trivia;
-use PhotoTech\Login;
+use PhotoTech\LoginRepository;
 
-Login::is_login($_SESSION['last_login']);
-$user = Login::securityCheck();
+LoginRepository::is_login($_SESSION['last_login']);
+$user = LoginRepository::securityCheck();
 
 $delete = new Trivia();
 

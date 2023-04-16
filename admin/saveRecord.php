@@ -3,10 +3,10 @@
 require_once '../assets/config/config.php';
 require_once "../vendor/autoload.php";
 
-use PhotoTech\Login;
+use PhotoTech\LoginRepository;
 use PhotoTech\Trivia;
 
-Login::is_login($_SESSION['last_login']);
+LoginRepository::is_login($_SESSION['last_login']);
 
 $data = json_decode(file_get_contents('php://input'), true);
 

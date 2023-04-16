@@ -30,8 +30,8 @@ $args = [];
 $cms = new CMS($pdo, $args);
 // New Instance of Login Class
 $login = new Login($pdo);
-if ($login->check_login_token()) {
-    header('location: dashboard.php');
+if (!$login->check_login_token()) {
+    header('location: index.php');
     exit();
 }
 
@@ -75,7 +75,7 @@ $records = $cms->page($per_page, $offset);
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
 
 </head>

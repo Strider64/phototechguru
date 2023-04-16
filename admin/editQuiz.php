@@ -2,11 +2,11 @@
 require_once '../assets/config/config.php';
 require_once "../vendor/autoload.php";
 
-use PhotoTech\Login;
+use PhotoTech\LoginRepository;
 
-Login::is_login($_SESSION['last_login']);
+LoginRepository::is_login($_SESSION['last_login']);
 
-$user = Login::securityCheck();
+$user = LoginRepository::securityCheck();
 
 
 ?>
@@ -68,6 +68,7 @@ $user = Login::securityCheck();
             <option value="photography">Photography</option>
             <option value="movie">Movie</option>
             <option value="space">Space</option>
+            <option value="sport">Sports</option>
         </select>
     </div>
     <div class="question">

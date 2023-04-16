@@ -3,7 +3,7 @@ require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
 use PhotoTech\Measure;
-use PhotoTech\Pagination_New as Pagination;
+use PhotoTech\Pagination as Pagination;
 
 if (!isset($_SESSION['last_login'])) {
     header("Location: gallery.php");

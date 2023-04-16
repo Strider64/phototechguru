@@ -6,11 +6,12 @@ use Exception;
 use JetBrains\PhpStorm\Pure;
 use DateTime;
 use DateTimeZone;
+use PDO;
 
-class CMS extends DatabaseObject
+class CMS implements CMSInterface
 {
-    protected static string $table = "cms"; // Table Name:
-    static protected array $db_columns = ['id', 'category', 'user_id', 'thumb_path', 'image_path', 'Model', 'ExposureTime', 'Aperture', 'ISO', 'FocalLength', 'author', 'heading', 'content', 'data_updated', 'date_added'];
+    protected string $table = "cms"; // Table Name:
+    protected array $db_columns = ['id', 'category', 'user_id', 'thumb_path', 'image_path', 'Model', 'ExposureTime', 'Aperture', 'ISO', 'FocalLength', 'author', 'heading', 'content', 'data_updated', 'date_added'];
     public $id;
     public $user_id;
     public $page;
@@ -28,11 +29,31 @@ class CMS extends DatabaseObject
     public $date_updated;
     public $date_added;
 
+    protected PDO $pdo;
+
+    /*
+ * Construct the data for the CMS
+ */
+    public function __construct(PDO $pdo, array $args = [])
+    {
+        $this->pdo = $pdo;
+
+        // Caution: allows private/protected properties to be set
+        foreach ($args as $k => $v) {
+            if (property_exists($this, $k)) {
+                $v = $this->filterwords($v);
+                $this->$k = $v;
+                $this->params[$k] = $v;
+                $this->objects[] = $v;
+            }
+        }
+    } // End of construct method:
+
     /*
      * Create a short description of content and place a link button that I call 'more' at the end of the
      * shorten content.
      */
-    #[Pure] public static function intro($content = "", $count = 100): string
+    #[Pure] public function intro($content = "", $count = 100): string
     {
         return substr($content, 0, $count) . "...";
     }
@@ -43,18 +64,26 @@ class CMS extends DatabaseObject
     }
 
 
-
-    public static function countAllPage($category = 'home')
+    public function countAllPage($category = 'home')
     {
-        $sql = "SELECT count(id) FROM " . static::$table . " WHERE category=:category";
-        $stmt = Database::pdo()->prepare($sql);
+        $sql = "SELECT count(id) FROM " . $this->table . " WHERE category=:category";
+        $stmt = $this->pdo->prepare($sql);
 
         $stmt->execute(['category' => $category ]);
         return $stmt->fetchColumn();
 
     }
 
-    protected static function filterwords($text){
+    public function page($perPage, $offset, $page = "index", $category = "home"): array
+    {
+        $sql = 'SELECT * FROM ' . $this->table . ' WHERE page =:page AND category =:category ORDER BY id DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
+        $stmt = $this->pdo->prepare($sql); // Prepare the query:
+        $stmt->execute(['page' => $page, 'perPage' => $perPage, 'category' => $category, 'blogOffset' => $offset]); // Execute the query with the supplied data:
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    protected function filterwords($text) {
         $filterWords = array('fuck', 'shit', 'ass', 'asshole', 'motherfucker');
         $filterCount = sizeof($filterWords);
         for ($i = 0; $i < $filterCount; $i++) {
@@ -63,30 +92,5 @@ class CMS extends DatabaseObject
         return $text;
     }
 
-
-
-    /*
-     * Construct the data for the CMS
-     */
-    public function __construct($args = [])
-    {
-//        $this->user_id = $args['user_id'] ?? null;
-//        $this->author = $args['author'] ?? null;
-//        $this->heading = $args['heading'] ?? null;
-//        $this->content = $args['content'] ?? null;
-//        $this->date_updated = $args['date_updated'] ?? null;
-//        $this->date_added = $args['date_added'] ?? null;
-
-
-        // Caution: allows private/protected properties to be set
-        foreach ($args as $k => $v) {
-            if (property_exists($this, $k)) {
-                $v = static::filterwords($v);
-                $this->$k = $v;
-                static::$params[$k] = $v;
-                static::$objects[] = $v;
-            }
-        }
-    } // End of construct method:
 
 } // End of class:

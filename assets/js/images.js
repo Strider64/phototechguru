@@ -24,6 +24,7 @@
     const categoryUISuccess = (parsedData) => {
         //console.log(parsedData, database_data.total_count);
         /* Remove Image For Screen (cleanup) */
+        console.log('parsedData', parsedData, 'database_data', database_data);
         while (container.firstChild) {
             container.removeChild(container.firstChild)
         }
@@ -174,6 +175,7 @@
         }
 
         pages.forEach(link_page => {
+            console.log('link_page', link_page);
             const links = document.createElement('div');
             links.className = 'links';
             sidebar.appendChild(links);
@@ -204,6 +206,7 @@
 
     /* create FETCH request */
     const createRequest = (url, succeed, fail) => {
+        console.log('database_data', database_data);
         fetch(url, {
             method: 'POST', // or 'PUT'
             body: JSON.stringify(database_data)

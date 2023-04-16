@@ -367,9 +367,12 @@
     /* Populate Question, Create Answer Buttons */
     const createQuiz = (gameData) => {
 
+        //console.log('replace', temp[0].replace("\\n", "\n"));
+        //console.log('replace', gameData.question.replace("\\n", "\n"));
         startTimer(dSec);
 
         question.textContent = gameData.question;
+
 
         /*
          * Create Buttons then insert answers into buttons that were
@@ -397,7 +400,9 @@
 
     /* Success function utilizing FETCH */
     const quizUISuccess = (parsedData) => {
-        console.log('trivia data', parsedData);
+
+
+        console.log('trivia data', parsedData);;
         mainGame.style.display = 'grid';
         d.getElementById('content').scrollIntoView();
 

@@ -3,8 +3,18 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
+use PhotoTech\ErrorHandler;
+use PhotoTech\Database;
 use PhotoTech\CMS;
-use PhotoTech\Pagination_New as Pagination;
+
+
+$errorHandler = new ErrorHandler();
+$database = new Database($errorHandler);
+
+$pdo = $database->createPDO();
+
+$args = [];
+$cms = new CMS($pdo, $args);
 
 
 $database_data = [];
@@ -21,8 +31,9 @@ try {
  * Grab the data from the CMS class method *static*
  * and put the data into an array variable.
  */
-$cms = CMS::page((int)$database_data['per_page'], (int)$database_data['offset'], 'blog', $database_data['category']);
-output($cms);
+$send = $cms->page((int)$database_data['per_page'], (int)$database_data['offset'], 'blog', $database_data['category']);
+//$cms = CMS::getImages('blog', $database_data['category']);
+output($send);
 
 function output($output): void
 {

@@ -3,7 +3,7 @@ require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
 use PhotoTech\CMS;
-use PhotoTech\Pagination_New as Pagination;
+use PhotoTech\Pagination as Pagination;
 
 /*
  * Using pagination in order to have a nice looking

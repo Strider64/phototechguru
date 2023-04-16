@@ -3,12 +3,12 @@ require_once "../assets/config/config.php";
 require_once "../vendor/autoload.php";
 
 
-use PhotoTech\Login;
+use PhotoTech\LoginRepository;
 use PhotoTech\CMS;
 
-Login::is_login($_SESSION['last_login']);
+LoginRepository::is_login($_SESSION['last_login']);
 
-Login::securityCheck();
+LoginRepository::securityCheck();
 
 $save_result = false;
 
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <form id="formData" class="checkStyle" action="create.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="cms[user_id]" value="3">
-    <input type="hidden" name="cms[author]" value="<?= Login::full_name() ?>">
+    <input type="hidden" name="cms[author]" value="<?= LoginRepository::full_name() ?>">
     <input type="hidden" name="action" value="upload">
     <div class="file-style">
         <input id="file" class="file-input-style" type="file" name="image">

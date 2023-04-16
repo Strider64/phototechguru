@@ -10,19 +10,24 @@ use DateTimeZone;
 
 class DatabaseObject // Extended by the children class:
 {
-    static protected string $table = ""; // Overridden by the calling class:
-    static protected array $db_columns = []; // Overridden by the calling class:
-    static protected array $objects = [];
-    static protected array $params = [];
-    static protected $searchItem;
-    static protected $searchValue;
+    protected string $table = ""; // Overridden by the calling class:
+    protected array $db_columns = []; // Overridden by the calling class:
+    protected array $objects = [];
+    protected array $params = [];
+    protected $searchItem;
+    protected $searchValue;
 
-    public static function styleTime($prettyDate): string
+    protected PDO $pdo;
+
+    public function __construct(PDO $pdo)
     {
-        try {
-            $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
-        } catch (Exception $e) {
-        }
+        $this->pdo = $pdo;
+    }
+
+    public function styleTime($prettyDate): string
+    {
+        $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
+
 
         return $dateStylized->format("Y-m-d H:i:s");
     }
@@ -31,18 +36,17 @@ class DatabaseObject // Extended by the children class:
      * Put the date from 00-00-0000 00:00:00 that is stored in the MySQL
      * database table to a more presentable format such as January 1, 2021.
      */
-    public static function styleDate($prettyDate): string
+    public function styleDate($prettyDate): string
     {
 
-        try {
-            $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
-        } catch (Exception $e) {
-        }
+
+        $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
+
 
         return $dateStylized->format("F j, Y");
     }
 
-    public static function bpDate($prettyDate): string
+    public function bpDate($prettyDate): string
     {
         try {
             $dateStylized = new DateTime($prettyDate, new DateTimeZone("America/Detroit"));
@@ -57,47 +61,33 @@ class DatabaseObject // Extended by the children class:
      *  basically does the same thing. The query ($sql)
      *  is done in the class the calls this method.
      */
-    public static function fetch_by_column_name($sql)
+    public function fetch_by_column_name($sql)
     {
-        $stmt = Database::pdo()->prepare($sql); // Database::pdo() is the PDO Connection
+        $stmt = $this->pdo->prepare($sql); // Database::pdo() is the PDO Connection
 
-        $stmt->execute([ static::$searchItem => static::$searchValue ]);
+        $stmt->execute([ $this->searchItem => $thi->searchValue ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 
-    public static function fetch_all_by_column_name($sql): array
+    public function fetch_all_by_column_name($sql): array
     {
-        $stmt = Database::pdo()->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
 
-        $stmt->execute([ static::$searchItem => static::$searchValue ]);
+        $stmt->execute([ $this->searchItem => $this->searchValue ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function fetch_all($sql): array
-    {
-
-        $stmt = Database::pdo()->prepare($sql);
-
-        $stmt->execute([ static::$searchItem => static::$searchValue ]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function fetch_all_records($sql): array
+    public function fetch_all_records($sql): array
     {
         // execute a query
-        $statement = Database::pdo()->query($sql);
+        $statement = $this->pdo->query($sql);
 
         // fetch all rows
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /*
-     * Total rows in Database Table
-     */
-    public static function countAll() {
-        return Database::pdo()->query("SELECT count(id) FROM " . static::$table)->fetchColumn();
-    }
+
 
     /*
      * Pagination static function/method to limit
@@ -105,18 +95,26 @@ class DatabaseObject // Extended by the children class:
      * useful for tables that contain a lot of
      * records (data).
      */
-    public static function page($perPage, $offset, $page = "index", $category = "home"): array
+    public function page($perPage, $offset, $page = "index", $category = "home"): array
     {
-        $sql = 'SELECT * FROM ' . static::$table . ' WHERE page =:page AND category =:category ORDER BY id DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
-        $stmt = Database::pdo()->prepare($sql); // Prepare the query:
+        $sql = 'SELECT * FROM ' . $this->table . ' WHERE page =:page AND category =:category ORDER BY id DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
+        $stmt = $this->pdo->prepare($sql); // Prepare the query:
         $stmt->execute(['page' => $page, 'perPage' => $perPage, 'category' => $category, 'blogOffset' => $offset]); // Execute the query with the supplied data:
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function records($perPage, $offset): array
+    public function getImages($page='index', $category = 'home'):array
     {
-        $sql = 'SELECT * FROM ' . static::$table . ' ORDER BY id DESC LIMIT :perPage OFFSET :offset';
-        $stmt = Database::pdo()->prepare($sql); // Prepare the query:
+        $sql = 'SELECT * FROM ' . $this->table . ' WHERE page =:page and category =:category ORDER BY id DESC, date_added DESC';
+        $stmt = $this->pdo->prepare($sql); // Prepare the query:
+        $stmt->execute(['page' => $page, 'category' => $category]); // Execute the query with the supplied data:
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function records($perPage, $offset): array
+    {
+        $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY id DESC LIMIT :perPage OFFSET :offset';
+        $stmt = $this->pdo->prepare($sql); // Prepare the query:
         $stmt->execute(['perPage' => $perPage, 'offset' => $offset]); // Execute the query with the supplied data:
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -124,10 +122,10 @@ class DatabaseObject // Extended by the children class:
     /*
      * Grab Record will be used for editing:
      */
-    public static function fetch_by_id($id)
+    public function fetch_by_id($id)
     {
-        $sql = "SELECT * FROM " . static::$table . " WHERE id=:id LIMIT 1";
-        $stmt = Database::pdo()->prepare($sql);
+        $sql = "SELECT * FROM " . $this->table. " WHERE id=:id LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -140,17 +138,17 @@ class DatabaseObject // Extended by the children class:
     /**
      * @param mixed $searchItem
      */
-    public static function setSearchItem(mixed $searchItem): void
+    public function setSearchItem(mixed $searchItem): void
     {
-        self::$searchItem = $searchItem;
+        $this->searchItem = $searchItem;
     }
 
     /**
      * @param mixed $searchValue
      */
-    public static function setSearchValue(mixed $searchValue): void
+    public function setSearchValue(mixed $searchValue): void
     {
-        self::$searchValue = $searchValue;
+        $this->searchValue = $searchValue;
     }
 
     public function create():bool
@@ -163,20 +161,20 @@ class DatabaseObject // Extended by the children class:
              * Set up the query using prepared states with static:$params being
              * the columns and the array keys being the prepared named placeholders.
              */
-            $sql = 'INSERT INTO ' . static::$table . '(' . implode(", ", array_keys(static::$params)) . ')';
-            $sql .= ' VALUES ( :' . implode(', :', array_keys(static::$params)) . ')';
+            $sql = 'INSERT INTO ' . static::$table . '(' . implode(", ", array_keys($this->params)) . ')';
+            $sql .= ' VALUES ( :' . implode(', :', array_keys($this->params)) . ')';
 
             /*
              * Prepare the Database Table:
              */
-            $stmt = Database::pdo()->prepare($sql); // PHP Version 8.x Database::pdo()
+            $stmt = $this->pdo->prepare($sql); // PHP Version 8.x Database::pdo()
 
             /*
              * Grab the corresponding values in order to
              * insert them into the table when the script
              * is executed.
              */
-            foreach (static::$params as $key => $value)
+            foreach ($this->params as $key => $value)
             {
                 if($key === 'id') { continue; } // Don't include the id:
                 $attribute_pairs[] = $value; // Assign it to an array:
@@ -231,7 +229,7 @@ class DatabaseObject // Extended by the children class:
         $attribute_pairs = [];
 
         /* Create the prepared statement string */
-        foreach (static::$params as $key => $value)
+        foreach ($this->params as $key => $value)
         {
             if($key === 'id') { continue; } // Don't include the id:
             $attribute_pairs[] = "$key=:$key"; // Assign it to an array:
@@ -241,11 +239,11 @@ class DatabaseObject // Extended by the children class:
          * The sql implodes the prepared statement array in the proper format
          * and updates the correct record by id.
          */
-        $sql  = 'UPDATE ' . static::$table . ' SET ';
+        $sql  = 'UPDATE ' . $this->table . ' SET ';
         $sql .= implode(", ", $attribute_pairs) . ' WHERE id =:id';
 
         /* Normally in two lines, but you can daisy-chain pdo method calls */
-        Database::pdo()->prepare($sql)->execute(static::$params);
+        $this->pdo->prepare($sql)->execute($this->params);
 
         return true;
 
@@ -258,8 +256,8 @@ class DatabaseObject // Extended by the children class:
      */
     public function delete($id): bool
     {
-            $sql = 'DELETE FROM ' . static::$table . ' WHERE id=:id';
-            return Database::pdo()->prepare($sql)->execute([':id' => $id]);
+            $sql = 'DELETE FROM ' . $this->table . ' WHERE id=:id';
+            return $this->pdo->prepare($sql)->execute([':id' => $id]);
     }
 
 }

@@ -2,14 +2,14 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
-use PhotoTech\Login;
+use PhotoTech\LoginRepository;
 
 try {
     $today = new DateTime("Now", new DateTimeZone("America/Detroit"));
 } catch (Exception $e) {
 }
 if (isset($_SESSION['id'])) {
-    $username = Login::username();
+    $username = LoginRepository::username();
 } else {
     $username = "Guest Player";
 }
@@ -91,6 +91,7 @@ if (isset($_SESSION['id'])) {
                     <option value="photography">Photography</option>
                     <option value="movie">Movie</option>
                     <option value="space">Space</option>
+                    <option value="sport">Sports</option>
                 </select>
             </form>
         </div>
@@ -160,9 +161,9 @@ if (isset($_SESSION['id'])) {
                 <a href="admin/register.php" title="register">register</a>
             </form>
         </div>
-    <?php } else if (login::gameSecurityCheck()) {
+    <?php } else if (LoginRepository::gameSecurityCheck()) {
         echo '<a class="button" href="addQuiz.php">Add Question</a>';
-        if (login::adminCheck()) {
+        if (LoginRepository::adminCheck()) {
             echo '<a class="button" href="admin/editQuiz.php">Edit Question</a>';
         }
     }

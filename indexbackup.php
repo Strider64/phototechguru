@@ -10,11 +10,11 @@ require_once "vendor/autoload.php";
  */
 
 use PhotoTech\CMS;
-use PhotoTech\Pagination_New as Pagination;
-use PhotoTech\Login;
+use PhotoTech\Pagination as Pagination;
+use PhotoTech\LoginRepository;
 
 if (isset($_POST['submit'])) {
-    $login = new Login($_POST['user']);
+    $login = new LoginRepository($_POST['user']);
     $login->login();
 }
 /*

@@ -4,7 +4,7 @@
 namespace PhotoTech;
 
 
-class Register extends DatabaseObject
+class Register
 {
     protected static string $table = "admins"; // Table Name:
     static protected array $db_columns = ['first_name', 'last_name', 'email', 'username', 'phone', 'security', 'hashed_password', 'validation', 'new_date', 'update_date', 'birthday'];

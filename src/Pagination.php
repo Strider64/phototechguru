@@ -4,19 +4,21 @@ namespace PhotoTech;
 
 use JetBrains\PhpStorm\Pure;
 
-class Pagination {
-
+class Pagination
+{
     public int $current_page;
     public int $per_page;
     public int $total_count;
     static public string $links = "";
 
 
-    public function __construct($page=1, $per_page=20, $total_count=0) {
-        $this->current_page = (int) $page;
-        $this->per_page = (int) $per_page;
-        $this->total_count = (int) $total_count;
+    public function __construct($page = 1, $per_page = 20, $total_count = 0)
+    {
+        $this->current_page = (int)$page;
+        $this->per_page = (int)$per_page;
+        $this->total_count = (int)$total_count;
     }
+
 
     public function offset(): float|int
     {
@@ -40,80 +42,78 @@ class Pagination {
         return ($next <= $this->total_pages()) ? $next : false;
     }
 
+    public function total_links_per_page() {
+        return ceil($this->total_pages() / 5);
+    }
+
     public function previous_link($url=""): string
     {
         if($this->previous_page() !== false) {
-            static::$links .= '<a href="' . $url . '?page=' . $this->previous_page() . '">';
-            static::$links .= "&laquo; Previous</a>";
+            static::$links .= '<a class="flex-item word-link" href="' . $url . '?page=' . $this->previous_page() . '" data-page="' . $this->previous_page() . '">';
+            static::$links .= "&laquo;</a>";
         }
         return static::$links;
     }
 
-    public function next_link($url=""): string
+    public function next_link($url = ""): string
     {
 
-        if($this->next_page() !== false) {
-            static::$links .= '<a href="' . $url . '?page=' . $this->next_page() . '">';
-            static::$links .= "Next &raquo;</a>";
+        if ($this->next_page() !== false) {
+            static::$links .= '<a class="flex-item word-link" href="' . $url . '?page=' . $this->next_page() . '" data-page="' . $this->next_page() . '">';
+            static::$links .= "&raquo;</a>";
         }
+
         return static::$links;
     }
 
-/*    public function number_links($url=""): string
+    public function number_links($url = ""): string
     {
 
-        for($i=1; $i <= $this->total_pages(); $i++) {
-            if($i === $this->current_page) {
-                static::$links .= "<span class=\"selected\">$i</span>";
-            } else {
-                static::$links .= '<a href="' . $url . '?page=' . $i . '">' . $i . '</a>';
-            }
-        }
+        if ($this->total_pages() >= 1 && $this->current_page <= $this->total_pages()) {
 
-        return static::$links;
-    }*/
-
-
-    public function new_page_links($url): string
-    {
-
-
-        static::$links .= "<div class=\"pagination\">";
-
-        $this->previous_link();
-        if ($this->current_page <= $this->total_pages()) {
+            /* First Page Check */
             if ($this->current_page === 1) {
-                static::$links .= "<a class='selected' href=\"$url?page=1\">1</a>";
+                static::$links .= '<a class="flex-item selected" href="' . $url . '?page=1" data-page="1">1</a>';
             } else {
-                static::$links .= "<a href=\"$url?page=1\">1</a>";
+                static::$links .= '<a class="flex-item" href="?page=1" data-page="1">1</a>';
             }
 
-            $i = max(2, $this->current_page - 5);
-            if ($i > 2) {
-                static::$links .= '<span class="three-dots">' . " ... " . '</span>';
-            }
-            for (; $i < min($this->current_page + 6, $this->total_pages()); $i++) {
-                if ($this->current_page === $i) {
-                    static::$links .= "<a class='selected' href=\"$url?page=$i\">$i</a>";
+            /* Dashes */
+            $i = max(2, $this->current_page - 3);
+            if ($i > 2)
+                static::$links .= '<a class="flex-item dashes" href="#">...</a>';
+
+            /* Multiple Links For Loop */
+            for (; $i < min($this->current_page + 3, $this->total_pages()); $i++) {
+                if ($this->current_page === $i ) {
+                    static::$links .= '<a class="flex-item selected" href="' . $url . '?page=' . $i . '" data-page="' . $i . '">' . $i . '</a>';
                 } else {
-                    static::$links .= "<a href=\"$url?page=$i\">$i</a>";
+                    static::$links .= '<a class="flex-item" href="' . $url . '?page=' . $i . '" data-page="' . $i . '">' . $i . '</a>';
                 }
+            }
 
-            }
-            if ($i < $this->total_pages()) {
-                static::$links .= '<span class="three-dots">' . " ... " . '</span>';
-            }
-            if ($i === $this->total_pages()) {
-                static::$links .= "<a href=\"$url?page={$this->total_pages()}\">{$this->total_pages()}</a>";
-            } elseif ($i === $this->current_page) {
-                static::$links .= "<a class='selected' href=\"$url?page={$this->total_pages()}\">{$this->total_pages()}</a>";
+            /* Dashes */
+            if ($i != $this->total_pages())
+                static::$links .= '<a class="flex-item dashes" href="#">...</a>';
+
+            /* Last Page */
+            if ($this->current_page == $this->total_pages()) {
+                static::$links .= '<a class="flex-item selected" href="' . $url . '?page=' .$this->total_pages() . '" data-page="' . $this->total_pages() . '">' . $this->total_pages() . '</a>';
             } else {
-                static::$links .= "<a href=\"$url?page={$this->total_pages()}\">{$this->total_pages()}</a>";
+                static::$links .= '<a class="flex-item" href="' . $url . '?page=' .$this->total_pages() . '" data-page="' . $this->total_pages() . '">' . $this->total_pages() . '</a>';
             }
 
         }
-        $this->next_link();
-        static::$links .= "</div>";
+
+
+        return static::$links;
+    }
+
+    public function links($url = "")
+    {
+        $this->previous_link($url);
+        $this->number_links($url);
+        $this->next_link($url);
         return static::$links;
     }
 
