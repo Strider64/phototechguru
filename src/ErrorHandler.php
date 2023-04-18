@@ -5,6 +5,7 @@ namespace PhotoTech;
 use Exception;
 use PDOException;
 use Throwable;
+use JsonException;
 
 class ErrorHandler implements ErrorHandlerInterface
 {
@@ -12,6 +13,8 @@ class ErrorHandler implements ErrorHandlerInterface
     {
         if ($e instanceof PDOException) {
             error_log('PDO Error: ' . $e->getMessage());
+        } elseif ($e instanceof JsonException) {
+            error_log('JSON Error: ' . $e->getMessage());
         } else {
             error_log('General Error: ' . $e->getMessage());
         }

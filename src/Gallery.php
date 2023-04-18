@@ -29,6 +29,7 @@ class Gallery implements GalleryInterface
     public $date_updated;
     public $date_added;
 
+
     protected PDO $pdo;
 
     public function __construct(PDO $pdo, array $args = [])
@@ -60,7 +61,7 @@ class Gallery implements GalleryInterface
 
     }
 
-
+    // Total Record/Pages in gallery database table
     public function totalCount()
     {
         $sql = "SELECT count(id) FROM gallery";
@@ -69,7 +70,7 @@ class Gallery implements GalleryInterface
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-
+    // Total Record/Pages in category in gallery database table
     public function countAllPage($category = 'lego')
     {
         $sql = "SELECT count(id) FROM gallery WHERE category=:category";
@@ -92,15 +93,26 @@ class Gallery implements GalleryInterface
         return $text;
     }
 
+    #[Pure] public function total_pages($total_count, $per_page): float|bool
+    {
+        return ceil($total_count / $per_page);
+    }
+
+    public function offset($per_page, $current_page): float|int
+    {
+        return $per_page * ($current_page - 1);
+    }
+
 
 
     public function page($perPage, $offset, $page = "index", $category = "home"): array
     {
-        $sql = 'SELECT * FROM gallery WHERE page =:page AND category =:category ORDER BY id DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
+        $sql = 'SELECT * FROM gallery WHERE page =:page AND category =:category ORDER BY id ASC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
         $stmt = $this->pdo->prepare($sql); // Prepare the query:
         $stmt->execute(['page' => $page, 'perPage' => $perPage, 'category' => $category, 'blogOffset' => $offset]); // Execute the query with the supplied data:
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function create(): bool
     {

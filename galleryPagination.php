@@ -21,14 +21,16 @@ $args = [];
 $gallery = new Gallery($pdo, $args);
 
 
-$database_data = [];
-/*
- * The below must be used in order for the json to be decoded properly.
+/**
+ * @throws JsonException
  */
-try {
-    $database_data = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
-} catch (JsonException $e) {
+function main(): array {
+    return json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
 }
+
+$database_data = []; // Set a default value for $database_data
+$database_data = main(); // Call the function to execute your code and get the decoded JSON data
+
 
 
 $per_page = (int) $database_data['per_page']; // Total number of records to be displayed:
