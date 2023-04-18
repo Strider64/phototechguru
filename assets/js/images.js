@@ -24,7 +24,7 @@
     const categoryUISuccess = (parsedData) => {
         //console.log(parsedData, database_data.total_count);
         /* Remove Image For Screen (cleanup) */
-        console.log('parsedData', parsedData, 'database_data', database_data);
+        //console.log('parsedData', parsedData, 'database_data', database_data);
         while (container.firstChild) {
             container.removeChild(container.firstChild)
         }
@@ -228,6 +228,21 @@
         createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);
 
     }, false);
+
+    database_data = {
+        'category': category.value,
+        'current_page': current_page,
+        'per_page': per_page,
+        'total_count': 0,
+        'offset': offset
+    };
+
+    window.onload = function () {
+        database_data.current_page = 1;
+        database_data.category = category.value;
+        createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);
+    };
+
 
 })();
 

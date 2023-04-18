@@ -73,7 +73,7 @@ $cms = CMS::page($per_page, $offset, 'blog', $category);
 
     <div class="nav-links">
         <a href="../index.php">home</a>
-        <a href="gallery_create.php">create</a>
+        <a href="../gallery_create.php">create</a>
         <a href="../addQuiz.php">Quiz Maintenance</a>
         <a href="logout.php">logout</a>
     </div>

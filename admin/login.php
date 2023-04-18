@@ -8,10 +8,12 @@ use PhotoTech\Database;
 use PhotoTech\LoginRepository as Login;
 
 
-
 $errorHandler = new ErrorHandler();
-$database = new Database($errorHandler);
 
+// Register the exception handler method
+set_exception_handler([$errorHandler, 'handleException']);
+
+$database = new Database();
 $pdo = $database->createPDO();
 $loginRepository = new Login($pdo);
 
@@ -35,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         setcookie('login_token', $token, [
             'expires' => strtotime('+6 months'),
             'path' => '/',
-            'domain' => 'www.phototechguru.com',
+            'domain' => DOMAIN,
             'secure' => true,
             'httponly' => true,
             'samesite' => 'Lax'

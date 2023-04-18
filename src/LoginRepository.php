@@ -41,41 +41,6 @@ class LoginRepository implements LoginRepositoryInterface
         return $result !== false ? $result : null;
     }
 
-    public function show_logoff_nav_button(): void
-    {
-        // Get the current script's directory
-        $current_dir = dirname($_SERVER['SCRIPT_NAME']);
-
-        // Check for the presence of the cookie
-        if (isset($_COOKIE['login_token'])) {
-            // Verify the token against the stored value
-            if ($_COOKIE['login_token'] === $_SESSION['login_token']) {
-                echo '<a href="../dashboard.php">Dashboard</a>';
-                echo '<a href="/hangman/can_you_solve.php">Can You See?</a>';
-                if ($current_dir == '/hangman') {
-                    echo '<a href="../gallery.php">Gallery</a>';
-                    echo '<a href="../contact.php">Contact</a>';
-                } else {
-                    echo '<a href="gallery.php">Gallery</a>';
-                    echo '<a href="contact.php">Contact</a>';
-                }
-                echo '<a href="/admin/logout.php">Logout</a>';
-            } else {
-                echo '<a href="../index.php">Home</a>';
-                echo '<a href="/hangman/can_you_solve.php">Can You See?</a>';
-                if ($current_dir == '/hangman') {
-                    echo '<a href="../gallery.php">Gallery</a>';
-                    echo '<a href="../contact.php">Contact</a>';
-                } else {
-                    echo '<a href="gallery.php">Gallery</a>';
-                    echo '<a href="contact.php">Contact</a>';
-                }
-                echo '<a href="/admin/login.php">login</a>';
-            }
-        }
-    }
-
-
     public function store_token_in_database($user_id, $token): bool
     {
         $sql = "UPDATE " . $this->table . " SET token=:token WHERE id=:id";
@@ -84,10 +49,71 @@ class LoginRepository implements LoginRepositoryInterface
         return true;
     }
 
-    public function check_login_token(): bool
+    public function show_logoff_nav_button(): void
     {
+        // Get the current script's directory
+        $current_dir = dirname($_SERVER['SCRIPT_NAME']);
+
         // Check for the presence of the cookie
         if (isset($_COOKIE['login_token'])) {
+            // Verify the token against the stored value
+            $stored_token = $_SESSION['login_token'] ?? '';
+
+            // User is logged In
+            if (hash_equals($stored_token, $_COOKIE['login_token'])) {
+                echo '<a href="/hangman/can_you_solve.php">Can You See?</a>';
+
+                if ($current_dir == '/hangman' || $current_dir == '/admin') {
+                    echo '<a href="../gallery.php">Gallery</a>';
+                    echo '<a href="../contact.php">Contact</a>';
+                } else {
+                    echo '<a href="gallery.php">Gallery</a>';
+                    echo '<a href="contact.php">Contact</a>';
+                }
+
+                echo '<a href="../dashboard.php">Dashboard</a>';
+                echo '<a href="/hangman/add_question.php">Add Q</a>';
+                echo '<a href="/hangman/edit_question.php">Edit Q</a>';
+                echo '<a href=.."/gallery_create.php">Create G</a>';
+                echo '<a href="/admin/logout.php">Logout</a>';
+            } else {
+                echo '<a href="../index.php">Home</a>';
+                echo '<a href="/hangman/can_you_solve.php">Can You See?</a>';
+
+                if ($current_dir == '/hangman') {
+                    echo '<a href="../gallery.php">Gallery</a>';
+                    echo '<a href="../contact.php">Contact</a>';
+                } else {
+                    echo '<a href="gallery.php">Gallery</a>';
+                    echo '<a href="contact.php">Contact</a>';
+                }
+
+                echo '<a href="/admin/login.php">Login</a>';
+            }
+        } else {
+            echo '<a href="../index.php">Home</a>';
+            echo '<a href="/hangman/can_you_solve.php">Can You See?</a>';
+
+            if ($current_dir == '/hangman') {
+                echo '<a href="../gallery.php">Gallery</a>';
+                echo '<a href="../contact.php">Contact</a>';
+            } else {
+                echo '<a href="gallery.php">Gallery</a>';
+                echo '<a href="contact.php">Contact</a>';
+            }
+
+            echo '<a href="/admin/login.php">Login</a>';
+        }
+    }
+
+
+
+
+
+    public function check_login_token(): bool
+    {
+        // Check for the presence of the cookie and the session key
+        if (isset($_COOKIE['login_token']) && isset($_SESSION['login_token'])) {
             // Verify the token against the stored value
             if ($_COOKIE['login_token'] === $_SESSION['login_token']) {
                 return true;
@@ -98,6 +124,7 @@ class LoginRepository implements LoginRepositoryInterface
     }
 
 
+    // Logout Method
     #[NoReturn] public function logoff(): void
     {
         // Delete the session cookie
@@ -113,6 +140,7 @@ class LoginRepository implements LoginRepositoryInterface
         $_SESSION = [];
         // Destroy the session
         session_destroy();
+
         // Redirect the user to the login page or home page
         header('Location: /admin/login.php');
         exit;

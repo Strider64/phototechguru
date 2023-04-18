@@ -6,16 +6,19 @@ require_once "vendor/autoload.php";
 
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
-use PhotoTech\CMS;
-use PhotoTech\Pagination;
+use PhotoTech\Gallery;
+
 
 $errorHandler = new ErrorHandler();
-$database = new Database($errorHandler);
 
+// Register the exception handler method
+set_exception_handler([$errorHandler, 'handleException']);
+
+$database = new Database();
 $pdo = $database->createPDO();
 
 $args = [];
-$cms = new CMS($pdo, $args);
+$gallery = new Gallery($pdo, $args);
 
 
 $database_data = [];
@@ -27,14 +30,14 @@ try {
 } catch (JsonException $e) {
 }
 
-$per_page = (int) $database_data['per_page']; // Total number of records to be displayed:
-$database_data['total_count'] = $cms->countAllPage($database_data['category']); // Total Records in the db table:
 
-/* Send the 3 variables to the Pagination class to be processed */
-$pagination = new Pagination((int)$database_data['current_page'], $per_page, $database_data['total_count']);
+$per_page = (int) $database_data['per_page']; // Total number of records to be displayed:
+$database_data['total_count'] = $gallery->countAllPage($database_data['category']); // Total Records in the db table:
+
+
 
 /* Grab the offset (page) location from using the offset method */
-$database_data['offset'] = $pagination->offset();
+$database_data['offset'] = $per_page * ((int) $database_data['current_page'] - 1);
 
 output($database_data);
 

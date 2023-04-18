@@ -315,14 +315,13 @@ img {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  margin: 0;
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
   appearance: none;
   background-color: #fff;
   background-repeat: no-repeat, repeat;
   background-position: right .7em top 50%, 0 0;
   background-size: .65em auto, 100%;
-  margin-bottom: 1.250em; }
+  margin: 0 0 1.250em; }
 
 .select-css::-ms-expand {
   display: none; }
@@ -332,7 +331,6 @@ img {
 
 .select-css:focus {
   border-color: #aaa;
-  box-shadow: 0 0 1px 3px rgba(169, 169, 169, 0.7);
   box-shadow: 0 0 0 3px -moz-mac-focusring;
   color: darkgray;
   outline: none; }
@@ -552,6 +550,109 @@ p, label, textarea {
     font-size: 1.0em;
     color: #000; }
 
+/*
+ * Hangman Game CSS
+ */
+.hangman {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: aliceblue; }
+
+.hangman__question {
+  display: block;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.0em;
+  font-weight: normal;
+  padding: 0.625em;
+  margin-bottom: 0.625em; }
+
+.hangman__word {
+  font-size: 1.0em;
+  font-weight: normal;
+  margin-top: 0.300em;
+  margin-bottom: 0.300em; }
+
+.hangman__word span {
+  padding-left: 0.325em; }
+
+.hangman__guesses, .hangman__remaining {
+  font-size: 0.8em;
+  margin-bottom: 1.250em; }
+
+/* Display and Input for Larger Screens */
+#hangman-canvas {
+  display: none; }
+
+#hangman-form {
+  display: none; }
+
+.hangman__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 20em;
+  margin: 0 auto;
+  padding: 0; }
+
+.hangman__buttons button {
+  width: 2.5em;
+  height: 2.5em;
+  cursor: pointer;
+  border: 1px solid #fff;
+  background-color: #ccc;
+  font-size: 1.125em;
+  font-weight: bold;
+  color: #000;
+  justify-content: center;
+  margin: 0.5em;
+  padding: 0; }
+
+.hangman__buttons button:hover:not(.guessedButton) {
+  background-color: #ddd; }
+
+.hangman__buttons button.incorrectGuess {
+  background-color: red;
+  color: #fff;
+  cursor: default; }
+
+.hangman__buttons button.guessedButton {
+  background-color: blue;
+  color: #fff;
+  cursor: default; }
+
+.hangman__buttons button.guessedButton:hover {
+  background-color: blue; }
+
+.hangman__input {
+  margin-top: 1.250em; }
+
+.hangman__next {
+  float: right;
+  outline: none;
+  color: #fff;
+  border: none;
+  background-color: blue;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+  width: 11.25em;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2em;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding: 0.313em;
+  transition: background-color .5s; }
+
+.hangman__score {
+  padding: 0.625em; }
+
+.hangman__message {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.0em;
+  padding: 1.250em; }
+
 /* Approximately the size of an iPad 768px */
 @supports (grid-area: auto) {
   @media screen and (min-width: 48em) {
@@ -626,7 +727,7 @@ p, label, textarea {
       object-fit: cover;
       object-position: 50% 50%;
       cursor: pointer;
-      transition: .5s ease-in-out; }
+      transition: 1s ease-in-out; }
 
     .gallery-item:hover .images img {
       overflow: hidden; }
@@ -635,14 +736,14 @@ p, label, textarea {
       opacity: 0;
       position: absolute;
       top: 50%;
-      left: 50%;
+      left: 40%;
       transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 4;
-      transistion: .3s ease-in-out;
+      transition: 1s ease-in-out;
       -webkit-backdrop-filter: blur(5px) saturate(1.8);
       backdrop-filter: blur(5px) saturate(1.8);
-      max-width: 80%; }
+      max-width: 65%; }
 
     .gallery-item .title .pictureHeading {
       color: #fff;
@@ -651,7 +752,7 @@ p, label, textarea {
 
     .gallery-item:hover .title {
       opacity: 1;
-      animation: move-down .3s linear;
+      animation: move-down 1s linear;
       padding: 1em;
       width: 100%; }
 
@@ -735,6 +836,188 @@ p, label, textarea {
       display: grid;
       grid-template-columns: 58em 1fr;
       grid-template-areas: "home_main home_sidebar"; }
+      .main_container #gallery_form {
+        grid-area: home_main;
+        display: grid;
+        grid-template-columns: 50em;
+        grid-template-areas: "file_grid_area" "select_grid_category_area" "heading_heading_grid_area" "content_style_grid_area" "submit_picture_grid_area";
+        column-gap: 1.250em;
+        justify-content: center;
+        background-color: #8ebd94; }
+        .main_container #gallery_form #file_grid_area {
+          grid-area: file_grid_area;
+          display: flex;
+          background-color: #8dbd93;
+          padding: 1.250em; }
+          .main_container #gallery_form #file_grid_area [type="file"] {
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            height: 1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute !important;
+            white-space: nowrap;
+            width: 1px; }
+          .main_container #gallery_form #file_grid_area [type="file"] + label {
+            background-color: #000;
+            border-radius: 4rem;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            padding: 0.625em 1.250em;
+            margin-bottom: 1.25em; }
+        .main_container #gallery_form #select_grid_category_area {
+          grid-area: select_grid_category_area;
+          display: flex;
+          font-family: "Rubik", sans-serif;
+          font-size: 1.2em;
+          line-height: 1.5;
+          font-weight: normal;
+          color: #f5f5f5; }
+          .main_container #gallery_form #select_grid_category_area select-css {
+            display: block;
+            font-size: 16px;
+            font-family: sans-serif;
+            font-weight: 700;
+            color: #444;
+            line-height: 1.3;
+            padding: .6em 1.4em .5em .8em;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            border: 1px solid #aaa;
+            box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+            appearance: none;
+            background-color: #fff;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"), linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+            background-repeat: no-repeat, repeat;
+            background-position: right .7em top 50%, 0 0;
+            background-size: .65em auto, 100%; }
+        .main_container #gallery_form #heading_heading_grid_area {
+          grid-area: heading_heading_grid_area;
+          display: flex;
+          margin-bottom: 1.250em; }
+          .main_container #gallery_form #heading_heading_grid_area label {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.2em;
+            line-height: 1.5;
+            font-weight: normal;
+            padding-right: 1.250em; }
+          .main_container #gallery_form #heading_heading_grid_area input {
+            width: 100%; }
+        .main_container #gallery_form #content_style_grid_area {
+          grid-area: content_style_grid_area;
+          display: flex; }
+          .main_container #gallery_form #content_style_grid_area textarea {
+            resize: none;
+            height: 9.5em;
+            width: 100%;
+            padding: 0.625em;
+            margin-left: 1.250em; }
+        .main_container #gallery_form #submit_picture_grid_area {
+          grid-area: submit_picture_grid_area;
+          display: flex;
+          justify-content: end; }
+          .main_container #gallery_form #submit_picture_grid_area button {
+            outline: none;
+            color: #fff;
+            border: none;
+            background-color: #f12929;
+            box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+            width: 6.25em;
+            font-family: "Rubik", sans-serif;
+            font-size: 1.2em;
+            text-transform: capitalize;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0.313em;
+            margin: 0.625em;
+            transition: color 0.5s; }
+      .main_container #add_to_db_table, .main_container #edit_record {
+        grid-area: home_main;
+        display: grid;
+        grid-template-columns: 50em;
+        grid-template-areas: "file_grid_area" "question_grid_area" "answer_grid_area" "submit_grid_area";
+        column-gap: 1.250em;
+        justify-content: center; }
+        .main_container #add_to_db_table .file_grid_area, .main_container #edit_record .file_grid_area {
+          grid-area: file_grid_area;
+          display: flex;
+          background-color: aliceblue;
+          padding: 1.250em; }
+          .main_container #add_to_db_table .file_grid_area [type="file"], .main_container #edit_record .file_grid_area [type="file"] {
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            height: 1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute !important;
+            white-space: nowrap;
+            width: 1px; }
+          .main_container #add_to_db_table .file_grid_area [type="file"] + label, .main_container #edit_record .file_grid_area [type="file"] + label {
+            background-color: #000;
+            border-radius: 4rem;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            padding: 0.625em 1.250em;
+            margin-bottom: 1.25em; }
+        .main_container #add_to_db_table .question_grid_area, .main_container #edit_record .question_grid_area {
+          grid-area: question_grid_area;
+          background-color: cadetblue;
+          padding: 1.250em; }
+          .main_container #add_to_db_table .question_grid_area label, .main_container #edit_record .question_grid_area label {
+            font-family: "Rubik", sans-serif;
+            font-size: 1.2em;
+            line-height: 1.5;
+            font-weight: normal;
+            color: #2E2E2E; }
+          .main_container #add_to_db_table .question_grid_area #question_style, .main_container #edit_record .question_grid_area #question_style {
+            box-sizing: border-box;
+            resize: none;
+            height: 9.5em;
+            width: 100%;
+            padding: 0.625em; }
+        .main_container #add_to_db_table .answer_grid_area, .main_container #edit_record .answer_grid_area {
+          grid-area: answer_grid_area;
+          background-color: aliceblue;
+          padding: 1.250em; }
+          .main_container #add_to_db_table .answer_grid_area label, .main_container #edit_record .answer_grid_area label {
+            font-family: "Rubik", sans-serif;
+            font-size: 1.2em;
+            line-height: 1.5;
+            font-weight: normal;
+            color: #2E2E2E; }
+          .main_container #add_to_db_table .answer_grid_area #answer_style, .main_container #edit_record .answer_grid_area #answer_style {
+            width: 100%;
+            padding: 0.75em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 0.8em;
+            margin-top: 0.375em;
+            margin-bottom: 1em;
+            resize: vertical; }
+        .main_container #add_to_db_table .submit_grid_area, .main_container #edit_record .submit_grid_area {
+          grid-area: submit_grid_area;
+          display: flex;
+          justify-content: right; }
+          .main_container #add_to_db_table .submit_grid_area .button_style, .main_container #edit_record .submit_grid_area .button_style {
+            outline: none;
+            color: #fff;
+            border: none;
+            background-color: #f12929;
+            box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+            width: 6.25em;
+            font-family: "Rubik", sans-serif;
+            font-size: 1.2em;
+            text-transform: capitalize;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0.313em;
+            margin: 0.625em;
+            transition: color 0.5s; }
       .main_container .home_article {
         grid-area: home_main;
         padding: 0 1.250em; }

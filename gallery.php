@@ -31,9 +31,9 @@ $login = new Login($pdo);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gallery</title>
+    <title>Photo Gallery</title>
     <style>
         .sidebar_pages {
             display: flex;
@@ -81,10 +81,10 @@ $login = new Login($pdo);
         <div class="home_sidebar">
 
             <form id="gallery_category" action="gallery.php" method="post">
-                <label for="category"></label><select id="category" class="select-css" name="category"
-                                                                       tabindex="1">
-                    <option selected disabled>Select a Category</option>
-                    <option value="general" selected>General</option>
+                <label for="category"></label>
+                <select id="category" class="select-css" name="category" tabindex="1">
+                    <option selected value="wildlife" disabled>Select a Category</option>
+                    <option value="general">General</option>
                     <option value="wildlife">Wildlife</option>
                     <option value="landscape">Landscape</option>
                     <option value="lego">LEGO</option>

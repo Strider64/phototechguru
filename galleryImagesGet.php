@@ -5,16 +5,20 @@ require_once "vendor/autoload.php";
 
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
-use PhotoTech\CMS;
+use PhotoTech\Gallery;
 
 
 $errorHandler = new ErrorHandler();
-$database = new Database($errorHandler);
 
+// Register the exception handler method
+set_exception_handler([$errorHandler, 'handleException']);
+
+$database = new Database();
 $pdo = $database->createPDO();
 
 $args = [];
-$cms = new CMS($pdo, $args);
+
+$gallery = new Gallery($pdo,  $args);
 
 
 $database_data = [];
@@ -31,7 +35,7 @@ try {
  * Grab the data from the CMS class method *static*
  * and put the data into an array variable.
  */
-$send = $cms->page((int)$database_data['per_page'], (int)$database_data['offset'], 'blog', $database_data['category']);
+$send = $gallery->page((int)$database_data['per_page'], (int)$database_data['offset'], 'gallery', $database_data['category']);
 //$cms = CMS::getImages('blog', $database_data['category']);
 output($send);
 
