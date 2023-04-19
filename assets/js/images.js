@@ -15,8 +15,9 @@
         if (!response.ok) {
             throw (response.status + ' : ' + response.statusText);
         }
-        return response.json();
+        return response;
     };
+
 
     /*
      * FETCH for New Category
@@ -205,16 +206,24 @@
     };
 
     /* create FETCH request */
-    const createRequest = (url, succeed, fail) => {
+    const createRequest = async (url, succeed, fail) => {
         console.log('database_data', database_data);
-        fetch(url, {
-            method: 'POST', // or 'PUT'
-            body: JSON.stringify(database_data)
-        })
-            .then((response) => handleErrors(response))
-            .then((data) => succeed(data))
-            .catch((error) => fail(error));
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST', // or 'PUT'
+                body: JSON.stringify(database_data),
+            });
+
+            handleErrors(response);
+
+            const data = await response.json();
+            succeed(data);
+        } catch (error) {
+            fail(error);
+        }
     };
+
 
     /* Display the first page of the gallery */
     createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);

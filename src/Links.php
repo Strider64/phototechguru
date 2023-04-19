@@ -27,8 +27,8 @@ class Links
             $output .= "<ul class='pagination'>";
 
             if ($this->current_page > 1) {
-                $output .= "<li><a href='?page=1'>First</a></li>";
-                $output .= "<li><a href='?page=" . ($this->current_page - 1) . "'>&laquo; Previous</a></li>";
+                $output .= "<li><a href='?page=1'>&#10094;</a></li>";
+                $output .= "<li><a href='?page=" . ($this->current_page - 1) . "'>&laquo;</a></li>";
             }
 
             $visible_pages = 2;
@@ -52,8 +52,8 @@ class Links
             }
 
             if ($this->current_page < $this->total_pages) {
-                $output .= "<li><a href='?page=" . ($this->current_page + 1) . "'>Next &raquo;</a></li>";
-                $output .= "<li><a href='?page=" . $this->total_pages . "'>Last</a></li>";
+                $output .= "<li><a href='?page=" . ($this->current_page + 1) . "'>&raquo;</a></li>";
+                $output .= "<li><a href='?page=" . $this->total_pages . "'>&#10095;</a></li>";
             }
 
             $output .= "</ul>";

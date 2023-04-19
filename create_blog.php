@@ -197,7 +197,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
 
 </div>
 <div class="main_container">
-    <form id="gallery_form" class="checkStyle" action="gallery_create.php" method="post" enctype="multipart/form-data">
+    <form id="data_entry_form" class="checkStyle" action="create_blog.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="gallery[user_id]" value="<?= $_SESSION['user_id'] ?>">
         <input type="hidden" name="gallery[author]" value="John Pepp>">
         <input type="hidden" name="gallery[page]" value="gallery">

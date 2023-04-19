@@ -74,7 +74,8 @@ class LoginRepository implements LoginRepositoryInterface
                 echo '<a href="../dashboard.php">Dashboard</a>';
                 echo '<a href="/hangman/add_question.php">Add Q</a>';
                 echo '<a href="/hangman/edit_question.php">Edit Q</a>';
-                echo '<a href=.."/gallery_create.php">Create G</a>';
+                echo '<a href="/create_blog.php">Create B</a>';
+                echo '<a href="/edit_blog.php">Edit B</a>';
                 echo '<a href="/admin/logout.php">Logout</a>';
             } else {
                 echo '<a href="../index.php">Home</a>';

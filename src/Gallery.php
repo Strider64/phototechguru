@@ -107,7 +107,7 @@ class Gallery implements GalleryInterface
 
     public function page($perPage, $offset, $page = "index", $category = "home"): array
     {
-        $sql = 'SELECT * FROM gallery WHERE page =:page AND category =:category ORDER BY id ASC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
+        $sql = 'SELECT * FROM gallery WHERE page =:page AND category =:category ORDER BY id DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
         $stmt = $this->pdo->prepare($sql); // Prepare the query:
         $stmt->execute(['page' => $page, 'perPage' => $perPage, 'category' => $category, 'blogOffset' => $offset]); // Execute the query with the supplied data:
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

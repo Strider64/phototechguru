@@ -296,7 +296,7 @@ th {
     height: auto; }
 
 .home_sidebar {
-  padding: 1.250em; }
+  margin: 2.500em auto; }
 
 #gallery_category {
   font-family: 'Rubik', sans-serif;
@@ -403,6 +403,44 @@ p, label, textarea {
   font-family: 'Rubik', sans-serif;
   font-size: 1.0em;
   line-height: 1.0; }
+
+#searchForm {
+  display: block;
+  height: 6.750em;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1.250em;
+  margin: 1.250em; }
+
+label {
+  font-weight: 600;
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 5px; }
+
+#searchTerm {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px;
+  margin-bottom: 10px; }
+
+.search_button {
+  float: right;
+  background-color: #007BFF;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 3px;
+  cursor: pointer; }
+
+button:hover {
+  background-color: #0056b3; }
 
 /* lightbox */
 .lightbox {
@@ -836,7 +874,7 @@ p, label, textarea {
       display: grid;
       grid-template-columns: 58em 1fr;
       grid-template-areas: "home_main home_sidebar"; }
-      .main_container #gallery_form {
+      .main_container #data_entry_form {
         grid-area: home_main;
         display: grid;
         grid-template-columns: 50em;
@@ -844,12 +882,12 @@ p, label, textarea {
         column-gap: 1.250em;
         justify-content: center;
         background-color: #8ebd94; }
-        .main_container #gallery_form #file_grid_area {
+        .main_container #data_entry_form #file_grid_area {
           grid-area: file_grid_area;
           display: flex;
           background-color: #8dbd93;
           padding: 1.250em; }
-          .main_container #gallery_form #file_grid_area [type="file"] {
+          .main_container #data_entry_form #file_grid_area [type="file"] {
             border: 0;
             clip: rect(0, 0, 0, 0);
             height: 1px;
@@ -858,7 +896,7 @@ p, label, textarea {
             position: absolute !important;
             white-space: nowrap;
             width: 1px; }
-          .main_container #gallery_form #file_grid_area [type="file"] + label {
+          .main_container #data_entry_form #file_grid_area [type="file"] + label {
             background-color: #000;
             border-radius: 4rem;
             color: #fff;
@@ -866,7 +904,7 @@ p, label, textarea {
             display: inline-block;
             padding: 0.625em 1.250em;
             margin-bottom: 1.25em; }
-        .main_container #gallery_form #select_grid_category_area {
+        .main_container #data_entry_form #select_grid_category_area {
           grid-area: select_grid_category_area;
           display: flex;
           font-family: "Rubik", sans-serif;
@@ -874,7 +912,7 @@ p, label, textarea {
           line-height: 1.5;
           font-weight: normal;
           color: #f5f5f5; }
-          .main_container #gallery_form #select_grid_category_area select-css {
+          .main_container #data_entry_form #select_grid_category_area select-css {
             display: block;
             font-size: 16px;
             font-family: sans-serif;
@@ -894,32 +932,32 @@ p, label, textarea {
             background-repeat: no-repeat, repeat;
             background-position: right .7em top 50%, 0 0;
             background-size: .65em auto, 100%; }
-        .main_container #gallery_form #heading_heading_grid_area {
+        .main_container #data_entry_form #heading_heading_grid_area {
           grid-area: heading_heading_grid_area;
           display: flex;
           margin-bottom: 1.250em; }
-          .main_container #gallery_form #heading_heading_grid_area label {
+          .main_container #data_entry_form #heading_heading_grid_area label {
             font-family: 'Rubik', sans-serif;
             font-size: 1.2em;
             line-height: 1.5;
             font-weight: normal;
             padding-right: 1.250em; }
-          .main_container #gallery_form #heading_heading_grid_area input {
+          .main_container #data_entry_form #heading_heading_grid_area input {
             width: 100%; }
-        .main_container #gallery_form #content_style_grid_area {
+        .main_container #data_entry_form #content_style_grid_area {
           grid-area: content_style_grid_area;
           display: flex; }
-          .main_container #gallery_form #content_style_grid_area textarea {
+          .main_container #data_entry_form #content_style_grid_area textarea {
             resize: none;
             height: 9.5em;
             width: 100%;
             padding: 0.625em;
             margin-left: 1.250em; }
-        .main_container #gallery_form #submit_picture_grid_area {
+        .main_container #data_entry_form #submit_picture_grid_area {
           grid-area: submit_picture_grid_area;
           display: flex;
           justify-content: end; }
-          .main_container #gallery_form #submit_picture_grid_area button {
+          .main_container #data_entry_form #submit_picture_grid_area button {
             outline: none;
             color: #fff;
             border: none;

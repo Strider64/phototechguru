@@ -6,8 +6,8 @@ require_once "vendor/autoload.php";
  * The Photo Tech Guru
  * Created by John R. Pepp
  * Date Created: July, 12, 2021
- * Last Revision: September 6, 2022 @ 8:00 AM
- * Version: 3.50 ßeta
+ * Last Revision: April 19, 2023
+ * Version: 4.50 ßeta
  *
  */
 
@@ -51,7 +51,7 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
     $current_page = 1;
 }
 
-$per_page = 2; // Total number of records to be displayed:
+$per_page = 1; // Total number of records to be displayed:
 $total_count = $gallery->countAllPage('wildlife'); // Total Records in the category:
 
 //echo $total_count . "<br>";
@@ -93,6 +93,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
         .pagination > li > span {
             position: relative;
             float: left;
+            font-size: 1.0em;
             padding: 6px 12px;
             margin-left: -1px;
             line-height: 1.42857143;
@@ -142,12 +143,12 @@ $records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
             background-color: #fff;
             border: 1px solid #ddd;
             box-sizing: border-box;
-            min-height: 32px; /* Add this line */
-            line-height: 32px; /* Add this line */
+            min-height: 1.42em; /* Add this line */
+            line-height: 1.42em; /* Add this line */
         }
 
 
-}
+        }
         .pagination > li > span::before {
             content: '...';
             display: inline-block;
@@ -187,18 +188,20 @@ $records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
 
 <div class="main_container">
     <div class="home_article">
+
         <?php
 
         foreach ($records as $record) {
 
             echo '<div class="home_info">';
             echo '<h1 class="home_heading">' . $record['heading'] . '</h1>';
-            echo '<img src="' . $record['image_path'] . '" alt="Home Page">';
+            echo '<img src="' . $record['image_path'] . '" alt="' . $record['heading'] . '">';
             echo '<p class="home_paragraph">' . $record['content'] . '</p>';
             echo '</div>';
 
         }
         ?>
+
     </div>
     <div class="home_sidebar">
         <?php echo $links->display_links(); ?>
