@@ -84,8 +84,7 @@ $offset = $gallery->offset($per_page, $current_page);
 $links = new Links($current_page, $per_page, $total_count, $category);
 
 $records = $gallery->page($per_page, $offset, 'gallery', $category);
-//echo "<pre>" . print_r($records, 1) . "</pre>";
-//die();
+
 ?>
 <!doctype html>
 <html lang="en">

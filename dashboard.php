@@ -51,9 +51,27 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 }
 
 $per_page = 2; // Total number of records to be displayed:
-$total_count = $gallery->countAllPage('wildlife'); // Total Records in the category:
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['category'])) {
+        $category = $_GET['category'];
+        $total_count = $gallery->countAllPage($category);
+    } else {
+        error_log('Category is not set in the GET data');
+        $category = 'wildlife';
+        $total_count = $gallery->countAllPage($category);
+    }
+} else {
+    try {
+        $category = 'wildlife';
+        $total_count = $gallery->countAllPage($category);
+    } catch (Exception $e) {
+        error_log('Error while counting all pages: ' . $e->getMessage());
+    }
+}
 
-//echo $total_count . "<br>";
+
+
+
 
 // Grab Total Pages
 $total_pages = $gallery->total_pages($total_count, $per_page);
@@ -63,10 +81,9 @@ $total_pages = $gallery->total_pages($total_count, $per_page);
 /* Grab the offset (page) location from using the offset method */
 $offset = $gallery->offset($per_page, $current_page);
 
-$links = new Links($current_page, $per_page, $total_count);
-$records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
-//echo "<pre>" . print_r($records, 1) . "</pre>";
-//die();
+$links = new Links($current_page, $per_page, $total_count, $category);
+
+$records = $gallery->page($per_page, $offset, 'gallery', $category);
 ?>
 <!doctype html>
 <html lang="en">
@@ -194,13 +211,26 @@ $records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
             echo '<div class="home_info">';
             echo '<h1 class="home_heading">' . $record['heading'] . '</h1>';
             echo '<img src="' . $record['image_path'] . '" alt="' . $record['heading'] . '">';
-            echo '<p class="home_paragraph">' . $record['content'] . '</p>';
+            echo '<p class="home_paragraph">' . nl2br($record['content']) . '</p>';
             echo '</div>';
 
         }
         ?>
     </div>
     <div class="home_sidebar">
+        <form action="dashboard..php" method="GET">
+            <label for="category"></label>
+            <select id="category" class="select-css" name="category" onchange="this.form.submit()" tabindex="1">
+                <option selected value="<?= $category ?>"><?= ucfirst($category) ?></option>
+                <option value="general">General</option>
+                <option value="landscape">Landscape</option>
+                <option value="lego">LEGO</option>
+                <option value="halloween">Halloween</option>
+                <option value="wildlife">Wildlife</option>
+            </select>
+
+            <button type="submit" class="submit-btn" name="submit" tabindex="2">Submit</button>
+        </form>
         <?php echo $links->display_links(); ?>
         <?php $database->showAdminNavigation(); ?>
     </div>
