@@ -14,7 +14,6 @@ My websites are crafted with responsive design principles, ensuring an exception
 I use Classes, Interfaces and Traits
 <pre>
 ```php
-<?php
 // NavigationMenu.php
 
 namespace PhotoTech;
