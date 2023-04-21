@@ -312,7 +312,7 @@ img {
   font-weight: 400;
   color: darkgray;
   line-height: 1.3;
-  width: 100%;
+  width: 12.5em;
   max-width: 100%;
   box-sizing: border-box;
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
@@ -407,11 +407,11 @@ p, label, textarea {
 #searchForm {
   display: block;
   height: 6.750em;
-  background-color: #fff;
+  background-color: #8dbd93;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 1.250em;
-  margin: 1.250em; }
+  margin: 2.500em auto; }
 
 label {
   font-weight: 600;
@@ -567,6 +567,26 @@ button:hover {
   .nav > #nav-check:checked ~ .nav-links {
     height: calc(100vh - 3.125em);
     overflow-y: auto; } }
+/* Vertical Navigation */
+.admin-navigation {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  background-color: #f1f1f1;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px; }
+
+.admin-navigation a {
+  text-decoration: none;
+  color: #000;
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 4px; }
+
+.admin-navigation a:hover {
+  background-color: #ddd; }
+
 .container {
   width: 100%;
   padding: 0; }
@@ -881,12 +901,15 @@ button:hover {
         grid-template-areas: "file_grid_area" "select_grid_category_area" "heading_heading_grid_area" "content_style_grid_area" "submit_picture_grid_area";
         column-gap: 1.250em;
         justify-content: center;
-        background-color: #8ebd94; }
+        background-color: #8ebd94;
+        margin: 2.500em auto;
+        width: 90%; }
         .main_container #data_entry_form #file_grid_area {
           grid-area: file_grid_area;
           display: flex;
+          box-sizing: border-box;
           background-color: #8dbd93;
-          padding: 1.250em; }
+          padding: 1.250em 1.250em 0; }
           .main_container #data_entry_form #file_grid_area [type="file"] {
             border: 0;
             clip: rect(0, 0, 0, 0);
@@ -907,12 +930,14 @@ button:hover {
         .main_container #data_entry_form #select_grid_category_area {
           grid-area: select_grid_category_area;
           display: flex;
+          box-sizing: border-box;
           font-family: "Rubik", sans-serif;
           font-size: 1.2em;
           line-height: 1.5;
           font-weight: normal;
-          color: #f5f5f5; }
-          .main_container #data_entry_form #select_grid_category_area select-css {
+          color: #f5f5f5;
+          padding: 0 1.250em; }
+          .main_container #data_entry_form #select_grid_category_area .select-css {
             display: block;
             font-size: 16px;
             font-family: sans-serif;
@@ -935,7 +960,9 @@ button:hover {
         .main_container #data_entry_form #heading_heading_grid_area {
           grid-area: heading_heading_grid_area;
           display: flex;
-          margin-bottom: 1.250em; }
+          box-sizing: border-box;
+          margin-bottom: 1.250em;
+          padding: 0.625em 1.250em; }
           .main_container #data_entry_form #heading_heading_grid_area label {
             font-family: 'Rubik', sans-serif;
             font-size: 1.2em;
@@ -946,7 +973,9 @@ button:hover {
             width: 100%; }
         .main_container #data_entry_form #content_style_grid_area {
           grid-area: content_style_grid_area;
-          display: flex; }
+          display: flex;
+          box-sizing: border-box;
+          padding: 0 1.250em; }
           .main_container #data_entry_form #content_style_grid_area textarea {
             resize: none;
             height: 9.5em;

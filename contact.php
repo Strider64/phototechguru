@@ -13,7 +13,7 @@ require_once "vendor/autoload.php";
 
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
-use PhotoTech\LoginRepository as Login;
+
 
 $errorHandler = new ErrorHandler();
 
@@ -23,8 +23,7 @@ set_exception_handler([$errorHandler, 'handleException']);
 $database = new Database();
 $pdo = $database->createPDO();
 
-// New Instance of Login Class
-$login = new Login($pdo);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -50,7 +49,7 @@ $login = new Login($pdo);
     </div>
 
     <div class="nav-links">
-        <?php $login->show_logoff_nav_button(); ?>
+        <?php $database->regular_navigation(); ?>
     </div>
 
     <div class="name-website">

@@ -9,13 +9,15 @@ class Links
     private $current_page;
     private $per_page;
     private $total_count;
-    private  $total_pages;
+    private $total_pages;
+    private $category;
 
-    public function __construct($current_page, $per_page, $total_count)
+    public function __construct($current_page, $per_page, $total_count, $category)
     {
         $this->current_page = $current_page;
         $this->per_page = $per_page;
         $this->total_count = $total_count;
+        $this->category = $category;
         $this->total_pages = ceil($this->total_count / $this->per_page);
     }
 
@@ -27,8 +29,8 @@ class Links
             $output .= "<ul class='pagination'>";
 
             if ($this->current_page > 1) {
-                $output .= "<li><a href='?page=1'>&#10094;</a></li>";
-                $output .= "<li><a href='?page=" . ($this->current_page - 1) . "'>&laquo;</a></li>";
+                $output .= "<li><a href='?category=" . urlencode($this->category) . "&page=1'>&#10094;</a></li>";
+                $output .= "<li><a href='?category=" . urlencode($this->category) . "&page=" . ($this->current_page - 1) . "'>&laquo;</a></li>";
             }
 
             $visible_pages = 2;
@@ -41,9 +43,9 @@ class Links
 
             for ($i = $window_start; $i <= $window_end; $i++) {
                 if ($i == $this->current_page) {
-                    $output .= "<li class='active'><a href='?page=$i'>{$i}</a></li>";
+                    $output .= "<li class='active'><a href='?category=" . urlencode($this->category) . "&page=$i'>{$i}</a></li>";
                 } else {
-                    $output .= "<li><a href='?page={$i}'>{$i}</a></li>";
+                    $output .= "<li><a href='?category=" . urlencode($this->category) . "&page={$i}'>{$i}</a></li>";
                 }
             }
 
@@ -52,8 +54,8 @@ class Links
             }
 
             if ($this->current_page < $this->total_pages) {
-                $output .= "<li><a href='?page=" . ($this->current_page + 1) . "'>&raquo;</a></li>";
-                $output .= "<li><a href='?page=" . $this->total_pages . "'>&#10095;</a></li>";
+                $output .= "<li><a href='?category=" . urlencode($this->category) . "&page=" . ($this->current_page + 1) . "'>&raquo;</a></li>";
+                $output .= "<li><a href='?category=" . urlencode($this->category) . "&page=" . $this->total_pages . "'>&#10095;</a></li>";
             }
 
             $output .= "</ul>";
@@ -61,7 +63,4 @@ class Links
 
         return $output;
     }
-
-
-
 }

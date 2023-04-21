@@ -2,7 +2,7 @@
 
 namespace PhotoTech;
 
-interface GalleryInterface
+interface ImageContentManagerInterface
 {
     public function intro($content = "", $count = 100): string;
     public function setImagePath($image_path);

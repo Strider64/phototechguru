@@ -5,7 +5,7 @@ require_once "vendor/autoload.php";
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
 use PhotoTech\LoginRepository as Login;
-use PhotoTech\Gallery;
+use PhotoTech\ImageContentManager;
 
 $errorHandler = new ErrorHandler();
 
@@ -150,7 +150,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
         $today = $todayDate = new DateTime('today', new DateTimeZone("America/Detroit"));
 
         $data['date_updated'] = $data['date_added'] = $today->format("Y-m-d H:i:s");
-        $gallery = new Gallery($pdo, $data);
+        $gallery = new ImageContentManager($pdo, $data);
         $result = $gallery->create();
         if ($result) {
             header("Location: dashboard.php");
@@ -188,7 +188,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
     </div>
 
     <div class="nav-links">
-        <?php $login->show_logoff_nav_button(); ?>
+        <?php $database->regular_navigation(); ?>
     </div>
 
     <div class="name-website">
@@ -197,38 +197,44 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
 
 </div>
 <div class="main_container">
-    <form id="data_entry_form" class="checkStyle" action="create_blog.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="gallery[user_id]" value="<?= $_SESSION['user_id'] ?>">
-        <input type="hidden" name="gallery[author]" value="John Pepp>">
-        <input type="hidden" name="gallery[page]" value="gallery">
-        <input type="hidden" name="action" value="upload">
-        <div id="file_grid_area">
-            <input id="file" class="file-input-style" type="file" name="image">
-            <label for="file">Select file</label>
-        </div>
-        <label id="select_grid_category_area">
-            <select class="select-css" name="gallery[category]">
-                <option disabled>Select a Category</option>
-                <option value="general">General</option>
-                <option value="lego">LEGO</option>
-                <option value="halloween">Halloween</option>
-                <option value="landscape">Landscape</option>
-                <option selected value="wildlife">Wildlife</option>
-            </select>
-        </label>
-        <div id="heading_heading_grid_area">
-            <label class="heading_label_style" for="heading">Heading</label>
-            <input class="enter_input_style" id="heading" type="text" name="gallery[heading]" value="" tabindex="1" required
-                   autofocus>
-        </div>
-        <div id="content_style_grid_area">
-            <label class="text_label_style" for="content">Content</label>
-            <textarea class="text_input_style" id="content" name="gallery[content]" tabindex="2"></textarea>
-        </div>
-        <div id="submit_picture_grid_area">
-            <button class="form-button" type="submit" name="submit" value="enter">submit</button>
-        </div>
-    </form>
+    <div class="home_article">
+        <form id="data_entry_form" class="checkStyle" action="create_blog.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="gallery[user_id]" value="<?= $_SESSION['user_id'] ?>">
+            <input type="hidden" name="gallery[author]" value="John Pepp>">
+            <input type="hidden" name="gallery[page]" value="gallery">
+            <input type="hidden" name="action" value="upload">
+            <div id="file_grid_area">
+                <input id="file" class="file-input-style" type="file" name="image">
+                <label for="file">Select file</label>
+            </div>
+            <label id="select_grid_category_area">
+                <select class="select-css" name="gallery[category]">
+                    <option disabled>Select a Category</option>
+                    <option value="general">General</option>
+                    <option value="lego">LEGO</option>
+                    <option value="halloween">Halloween</option>
+                    <option value="landscape">Landscape</option>
+                    <option selected value="wildlife">Wildlife</option>
+                </select>
+            </label>
+            <div id="heading_heading_grid_area">
+                <label class="heading_label_style" for="heading">Heading</label>
+                <input class="enter_input_style" id="heading" type="text" name="gallery[heading]" value="" tabindex="1" required
+                       autofocus>
+            </div>
+            <div id="content_style_grid_area">
+                <label class="text_label_style" for="content">Content</label>
+                <textarea class="text_input_style" id="content" name="gallery[content]" tabindex="2"></textarea>
+            </div>
+            <div id="submit_picture_grid_area">
+                <button class="form-button" type="submit" name="submit" value="enter">submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="home_sidebar">
+        <?php $database->showAdminNavigation(); ?>
+    </div>
+
 </div>
 <aside class="sidebar">
 

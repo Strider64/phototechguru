@@ -5,8 +5,14 @@
     let sidebar = document.querySelector('.sidebar_pages');
     let lightbox = document.querySelector('.lightbox');
 
-    let current_page = 1, per_page =4, offset = 0;
-    let database_data = {'category':'general', 'current_page': current_page, 'per_page': per_page, 'total_count': 0, 'offset': offset };
+    let current_page = 1, per_page = 4, offset = 0;
+    let database_data = {
+        'category': 'general',
+        'current_page': current_page,
+        'per_page': per_page,
+        'total_count': 0,
+        'offset': offset
+    };
     let pages = [{}];
     let total_pages = 0;
 
@@ -22,7 +28,7 @@
     /*
      * FETCH for New Category
      */
-    const categoryUISuccess = (parsedData) => {
+    const categoryUISuccess = async (parsedData) => {
         //console.log(parsedData, database_data.total_count);
         /* Remove Image For Screen (cleanup) */
         //console.log('parsedData', parsedData, 'database_data', database_data);
@@ -32,13 +38,13 @@
 
         let count = 0; // For different class names for size boxes in CSS
 
-        parsedData.forEach(slide => {
+        await parsedData.forEach(slide => {
             /* Main Image Slide Block */
             let displayDiv = document.createElement('div');
             /* Array of different size class names for CSS */
             let displayFormat = ["gallery-container w-3 h-2", 'gallery-container w-3 h-2',
-                                 'gallery-container w-3 h-2', 'gallery-container w-3 h-2',
-                                 'gallery-container w-3 h-2', 'gallery-container w-3 h-2'];
+                'gallery-container w-3 h-2', 'gallery-container w-3 h-2',
+                'gallery-container w-3 h-2', 'gallery-container w-3 h-2'];
             displayDiv.className = `${displayFormat[count]}`; //Assign Class Names to Div:
             container.appendChild(displayDiv); //Append Child to Parent Div:
 
@@ -155,16 +161,39 @@
     const categoryUIError = (error) => {
         console.log("Database Table did not load", error);
     }
+    /* create FETCH request */
+    const createImageRequest = async (url, succeed, fail) => {
+        //console.log('database_data', database_data);
 
-    const paginationUISuccess = (parsedData) => {
+        try {
+            const response = await fetch(url, {
+                method: 'POST', // or 'PUT'
+                body: JSON.stringify(database_data),
+            });
 
-        /* Remove Links For Screen (cleanup) */
-        while (sidebar.firstChild) {
-            sidebar.removeChild(sidebar.firstChild)
+            handleErrors(response);
+
+            const data = await response.json();
+            succeed(data);
+        } catch (error) {
+            fail(error);
         }
-        database_data.total_count = parsedData.total_count; // Total Pages of Category
-        database_data.offset = parsedData.offset;
-        total_pages = Math.ceil(database_data.total_count/database_data.per_page);
+    };
+
+    const restLinks = () => {
+        /* Remove Links For Screen (cleanup) */
+
+            while (sidebar.firstChild) {
+                sidebar.removeChild(sidebar.firstChild)
+            }
+    }
+    const paginationUISuccess = async (parsedData) => {
+
+        restLinks();
+
+        console.log('total_count - Parsed Data', database_data.total_count);
+        database_data.offset = await parsedData.offset;
+        total_pages = Math.ceil(database_data.total_count / database_data.per_page);
 
         /* Create the Display Links and add an event listener */
         pages = [{}];
@@ -172,11 +201,11 @@
          * Creating the array of page object(s)
          */
         for (let x = 0; x < total_pages; x++) {
-            pages[x] = {page: x+1};
+            pages[x] = {page: x + 1};
         }
 
         pages.forEach(link_page => {
-            console.log('link_page', link_page);
+            //console.log('link_page', link_page);
             const links = document.createElement('div');
             links.className = 'links';
             sidebar.appendChild(links);
@@ -186,6 +215,7 @@
             links.addEventListener('click', () => {
                 database_data.current_page = link_page.page;
                 createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);
+
             });
             const pageText = document.createElement('p');
             pageText.className = 'linkStyle';
@@ -197,7 +227,7 @@
             }
         })
 
-        createRequest('galleryImagesGet.php', categoryUISuccess, categoryUIError);
+        await createImageRequest('galleryImagesGet.php', categoryUISuccess, categoryUIError);
 
     };
 
@@ -207,7 +237,7 @@
 
     /* create FETCH request */
     const createRequest = async (url, succeed, fail) => {
-        console.log('database_data', database_data);
+        //console.log('database_data', database_data);
 
         try {
             const response = await fetch(url, {
@@ -228,15 +258,10 @@
     /* Display the first page of the gallery */
     createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);
 
-    /*
-     * Create an event listener to allow the user to change categories
-     */
-    category.addEventListener('change', () => {
-        database_data.current_page = 1; // When changing category change current page to 1:
-        database_data.category = category.value;
-        createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);
-
-    }, false);
+    // Add a new function to update the total count and refresh the pagination links
+    const updateTotalCountAndPagination = async () => {
+        createRequest('getTotalCount.php', totalCountUISuccess, totalCountUIError);
+    };
 
     database_data = {
         'category': category.value,
@@ -246,13 +271,31 @@
         'offset': offset
     };
 
-    window.onload = function () {
-        database_data.current_page = 1;
+    /*
+     * Create an event listener to allow the user to change categories
+     */
+// Update category.addEventListener
+    category.addEventListener('change', () => {
+        database_data.current_page = 1; // When changing category change current page to 1:
         database_data.category = category.value;
+        updateTotalCountAndPagination(); // Call the new function to update the total count and refresh the pagination links
+    }, false);
+
+
+
+
+    const totalCountUISuccess = async (parsedData) => {
+        database_data.total_count = await parsedData.total_count; // Total Pages of Category
         createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);
     };
 
+    const totalCountUIError = (error) => {
+        console.log("Database Table did not load", error);
+    };
 
+    document.addEventListener('DOMContentLoaded', () => {
+        createRequest('getTotalCount.php', totalCountUISuccess, totalCountUIError);
+    });
 })();
 
 /*

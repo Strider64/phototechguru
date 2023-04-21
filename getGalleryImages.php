@@ -5,7 +5,7 @@ require_once "vendor/autoload.php";
 
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
-use PhotoTech\Gallery;
+use PhotoTech\ImageContentManager;
 
 
 $errorHandler = new ErrorHandler();
@@ -18,7 +18,7 @@ $pdo = $database->createPDO();
 
 $args = [];
 
-$gallery = new Gallery($pdo,  $args);
+$gallery = new ImageContentManager($pdo,  $args);
 
 
 $database_data = [];

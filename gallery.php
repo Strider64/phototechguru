@@ -14,6 +14,7 @@ require_once "vendor/autoload.php";
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
 use PhotoTech\LoginRepository as Login;
+use PhotoTech\ImageContentManager;
 
 $errorHandler = new ErrorHandler();
 
@@ -23,6 +24,9 @@ set_exception_handler([$errorHandler, 'handleException']);
 $database = new Database();
 $pdo = $database->createPDO();
 
+$count = new ImageContentManager($pdo);
+
+$total = $count->countAllPage('wildlife');
 // New Instance of Login Class
 $login = new Login($pdo);
 ?>
@@ -47,6 +51,7 @@ $login = new Login($pdo);
     <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
 
 
+
 </head>
 <body class="site">
 
@@ -63,7 +68,7 @@ $login = new Login($pdo);
     </div>
 
     <div class="nav-links">
-        <?php $login->show_logoff_nav_button(); ?>
+        <?php $database->regular_navigation(); ?>
     </div>
 
     <div class="name-website">
@@ -71,7 +76,7 @@ $login = new Login($pdo);
     </div>
 
 </div>
-<main class="content">
+<main class="content" data-count="<?= $total ?>">
     <div class="main_container">
         <div class="home_article">
             <div class="container">
@@ -79,22 +84,26 @@ $login = new Login($pdo);
             </div>
         </div>
         <div class="home_sidebar">
-
+            <?php
+            if ($login->check_login_token()) {
+                $database->showAdminNavigation();
+            }
+            ?>
             <form id="gallery_category" action="gallery.php" method="post">
                 <label for="category"></label>
                 <select id="category" class="select-css" name="category" tabindex="1">
-                    <option selected value="wildlife" disabled>Select a Category</option>
+
                     <option value="general">General</option>
-                    <option value="wildlife">Wildlife</option>
+                    <option selected value="wildlife">Wildlife</option>
                     <option value="landscape">Landscape</option>
                     <option value="lego">LEGO</option>
                     <option value="halloween">Halloween</option>
                 </select>
             </form>
-
             <div class="sidebar_pages">
 
             </div>
+
         </div>
     </div>
 
@@ -109,7 +118,7 @@ $login = new Login($pdo);
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
 
-<script src="assets/js/images.js"></script>
+
 <!--
 
  Copyright (c) 2022 by Annastasshia (https://codepen.io/annastasshia/pen/YzpEajJ)
@@ -122,5 +131,6 @@ $login = new Login($pdo);
 
 
 -->
+<script src="assets/js/images.js"></script>
 </body>
 </html>

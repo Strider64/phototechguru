@@ -6,6 +6,8 @@ use PDO;
 
 class Database implements DatabaseInterface
 {
+    use CheckStatus;
+    use NavigationMenu;
     private string $dsn;
     private string $username;
     private string $password;

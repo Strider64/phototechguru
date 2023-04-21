@@ -6,17 +6,17 @@ require_once "vendor/autoload.php";
  * The Photo Tech Guru
  * Created by John R. Pepp
  * Date Created: July, 12, 2021
- * Last Revision: April 19, 2023
- * Version: 4.50 ßeta
+ * Last Revision: April 20, 2023
+ * Version: 5.01 ßeta
  *
  */
 
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
 
-use PhotoTech\Gallery;
+use PhotoTech\ImageContentManager;
 use PhotoTech\Links;
-use PhotoTech\LoginRepository as Login;
+
 
 $errorHandler = new ErrorHandler();
 
@@ -29,11 +29,10 @@ $pdo = $database->createPDO();
 $args = [];
 // New Instance of CMS Class
 
-$gallery = new Gallery($pdo, $args);
+$gallery = new ImageContentManager($pdo, $args);
 
-// New Instance of Login Class
-$login = new Login($pdo);
-if ($login->check_login_token()) {
+
+if ($database->check_login_token()) {
     header('location: dashboard.php');
     exit();
 }
@@ -52,9 +51,27 @@ if (isset($_GET['page']) && !empty($_GET['page'])) {
 }
 
 $per_page = 1; // Total number of records to be displayed:
-$total_count = $gallery->countAllPage('wildlife'); // Total Records in the category:
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['category'])) {
+        $category = $_GET['category'];
+        $total_count = $gallery->countAllPage($category);
+    } else {
+        error_log('Category is not set in the GET data');
+        $category = 'wildlife';
+        $total_count = $gallery->countAllPage($category);
+    }
+} else {
+    try {
+        $category = 'wildlife';
+        $total_count = $gallery->countAllPage($category);
+    } catch (Exception $e) {
+        error_log('Error while counting all pages: ' . $e->getMessage());
+    }
+}
 
-//echo $total_count . "<br>";
+
+
+
 
 // Grab Total Pages
 $total_pages = $gallery->total_pages($total_count, $per_page);
@@ -64,8 +81,9 @@ $total_pages = $gallery->total_pages($total_count, $per_page);
 /* Grab the offset (page) location from using the offset method */
 $offset = $gallery->offset($per_page, $current_page);
 
-$links = new Links($current_page, $per_page, $total_count);
-$records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
+$links = new Links($current_page, $per_page, $total_count, $category);
+
+$records = $gallery->page($per_page, $offset, 'gallery', $category);
 //echo "<pre>" . print_r($records, 1) . "</pre>";
 //die();
 ?>
@@ -177,7 +195,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
     </div>
 
     <div class="nav-links">
-        <?php $login->show_logoff_nav_button(); ?>
+        <?php $database->regular_navigation(); ?>
     </div>
 
     <div class="name-website">
@@ -196,7 +214,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
             echo '<div class="home_info">';
             echo '<h1 class="home_heading">' . $record['heading'] . '</h1>';
             echo '<img src="' . $record['image_path'] . '" alt="' . $record['heading'] . '">';
-            echo '<p class="home_paragraph">' . $record['content'] . '</p>';
+            echo '<p class="home_paragraph">' . nl2br($record['content']) . '</p>';
             echo '</div>';
 
         }
@@ -204,6 +222,20 @@ $records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
 
     </div>
     <div class="home_sidebar">
+        <form action="index.php" method="GET">
+            <label for="category"></label>
+            <select id="category" class="select-css" name="category" onchange="this.form.submit()" tabindex="1">
+                <option selected value="<?= $category ?>"><?= ucfirst($category) ?></option>
+                <option value="general">General</option>
+                <option value="landscape">Landscape</option>
+                <option value="lego">LEGO</option>
+                <option value="halloween">Halloween</option>
+                <option value="wildlife">Wildlife</option>
+            </select>
+
+            <button type="submit" class="submit-btn" name="submit" tabindex="2">Submit</button>
+        </form>
+
         <?php echo $links->display_links(); ?>
     </div>
 </div>

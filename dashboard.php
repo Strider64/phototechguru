@@ -14,7 +14,7 @@ require_once "vendor/autoload.php";
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
 
-use PhotoTech\Gallery;
+use PhotoTech\ImageContentManager;
 use PhotoTech\Links;
 use PhotoTech\LoginRepository as Login;
 
@@ -29,11 +29,10 @@ $pdo = $database->createPDO();
 $args = [];
 // New Instance of CMS Class
 
-$gallery = new Gallery($pdo, $args);
+$gallery = new ImageContentManager($pdo, $args);
 
 // New Instance of Login Class
-$login = new Login($pdo);
-if (!$login->check_login_token()) {
+if (!$database->check_login_token()) {
     header('location: index.php');
     exit();
 }
@@ -177,7 +176,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
     </div>
 
     <div class="nav-links">
-        <?php $login->show_logoff_nav_button(); ?>
+        <?php $database->regular_navigation(); ?>
     </div>
 
     <div class="name-website">
@@ -203,6 +202,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', 'wildlife');
     </div>
     <div class="home_sidebar">
         <?php echo $links->display_links(); ?>
+        <?php $database->showAdminNavigation(); ?>
     </div>
 </div>
 

@@ -8,7 +8,7 @@ use JetBrains\PhpStorm\Pure;
 use DateTime;
 use DateTimeZone;
 
-class Gallery implements GalleryInterface
+class ImageContentManager implements ImageContentManagerInterface
 {
     protected string $table = "gallery"; // Table Name:
     protected $db_columns = ['id', 'category', 'user_id', 'thumb_path', 'image_path', 'Model', 'ExposureTime', 'Aperture', 'ISO', 'FocalLength', 'author', 'heading', 'content', 'data_updated', 'date_added'];
@@ -70,16 +70,7 @@ class Gallery implements GalleryInterface
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-    // Total Record/Pages in category in gallery database table
-    public function countAllPage($category = 'lego')
-    {
-        $sql = "SELECT count(id) FROM gallery WHERE category=:category";
-        $stmt = $this->pdo->prepare($sql);
 
-        $stmt->execute(['category' => $category]);
-        return $stmt->fetchColumn();
-
-    }
 
     protected function filterwords($text)
     {
@@ -104,6 +95,16 @@ class Gallery implements GalleryInterface
     }
 
 
+    // Total Record/Pages in category in gallery database table
+    public function countAllPage($category = 'wildlife')
+    {
+        $sql = "SELECT count(id) FROM gallery WHERE category=:category";
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute(['category' => $category]);
+        return $stmt->fetchColumn();
+
+    }
 
     public function page($perPage, $offset, $page = "index", $category = "home"): array
     {
