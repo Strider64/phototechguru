@@ -1,4 +1,5 @@
 <?php
+// NavigationMenu.php
 
 namespace PhotoTech;
 

@@ -1,5 +1,5 @@
 <?php
-
+// Links.php
 namespace PhotoTech;
 
 use JetBrains\PhpStorm\Pure;
