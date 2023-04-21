@@ -48,32 +48,7 @@ trait NavigationMenu
         }
     }
 
-    public function showAdminNavigation(): void
-    {
-        $navItems = [
-            'Dashboard' => '../dashboard.php',
-            'Add Game' => '/hangman/add_question.php',
-            'Edit Game' => '/hangman/edit_question.php',
-            'Add Blog' => '/create_blog.php',
-            'Edit Blog' => '/edit_blog.php',
-            'Logout' => '/admin/logout.php',
-        ];
-
-        echo '<div class="admin-navigation">';
-        foreach ($navItems as $title => $path) {
-            echo "<a href=\"{$path}\">{$title}</a>";
-        }
-        echo '</div>';
-    }
-
-    private function generateHref(string $current_dir, string $path): string
-    {
-        if ($current_dir == '/hangman') {
-            $path = '../' . $path;
-        }
-
-        return $path;
-    }
+    // More code...
 }
 
 ```
