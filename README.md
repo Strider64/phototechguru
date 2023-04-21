@@ -6,8 +6,10 @@ Updated on April 20, 2024
 A responsive website that deals with photography and website development using the latest coding practices.
 
 # Website Development and Photography
-I am a photographer, and a website developer that uses no framework or library. I use HTML5, CSS3 and Vanilla JavaScript for the client side using grids/flex to make for a fluid changeable style. I use PHP and Object-Oriented Programming for the server-side, so I can incorporate a fully functional Content Management System (CMS) where the owner or system administrator can change the content with ease. The website will look great on a smartphone, tablet or a PC/Mac computer as I use responsive design. I can also incorporate Ajax (Fetch) that will make for a seamless experience for people using the website. Feel free to check around this website and if interested just use the contact page, and I will get back to you as soon as I can.
- 
+As a photographer and web developer, I specialize in creating custom websites without relying on frameworks or libraries. Utilizing HTML5, CSS3, and Vanilla JavaScript on the client side, I employ grid and flex techniques to achieve a fluid, adaptable design. On the server side, I leverage PHP and Object-Oriented Programming to seamlessly integrate a comprehensive Content Management System (CMS), allowing owners or administrators to effortlessly modify content.
+
+My websites are crafted with responsive design principles, ensuring an exceptional user experience on smartphones, tablets, or desktop computers. By incorporating Ajax (Fetch), I provide a seamless browsing experience for visitors. Feel free to explore this website, and if you're interested in collaborating, simply reach out via the contact page. I'll respond as soon as possible.
+
 # New and Improve PHP Obect Oriented Programming
 I use Classes, Interfaces and Traits
 <pre>
