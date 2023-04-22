@@ -46,6 +46,7 @@ class ImageContentManager implements ImageContentManagerInterface
             }
         }
     } // End of construct method:
+
     /*
      * Create a short description of content and place a link button that I call 'more' at the end of the
      * shorten content.
@@ -71,7 +72,7 @@ class ImageContentManager implements ImageContentManagerInterface
         return $stmt->fetchColumn();
     }
 
-
+    // Filter Dirty Words Method
     protected function filterwords($text)
     {
         $filterWords = array('fuck', 'shit', 'ass', 'asshole', 'motherfucker');
@@ -106,6 +107,7 @@ class ImageContentManager implements ImageContentManagerInterface
 
     }
 
+    // Display Record(s) by Pagination
     public function page($perPage, $offset, $page = "index", $category = "home"): array
     {
         $sql = 'SELECT * FROM gallery WHERE page =:page AND category =:category ORDER BY id DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
@@ -114,7 +116,7 @@ class ImageContentManager implements ImageContentManagerInterface
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
+    // Create new Record
     public function create(): bool
     {
         /* Initialize an array */
@@ -147,9 +149,7 @@ class ImageContentManager implements ImageContentManagerInterface
         return $stmt->execute($attribute_pairs); // Execute and send boolean true:
     }
 
-    /*
- * Grab Record will be used for editing:
- */
+    // Grab Record by id
     public function fetch_by_id()
     {
         $sql = "SELECT * FROM gallery WHERE id=:id LIMIT 1";
@@ -158,6 +158,7 @@ class ImageContentManager implements ImageContentManagerInterface
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    // Delete Record by id
     public function delete(): bool
     {
         $sql = 'DELETE FROM gallery WHERE id=:id';

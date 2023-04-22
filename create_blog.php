@@ -20,6 +20,12 @@ if (!$login->check_login_token()) {
     exit();
 }
 
+function is_ajax_request(): bool
+{
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+}
+
+
 $save_result = false;
 
 if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
@@ -91,30 +97,30 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
     move_uploaded_file($file_tmp, $image_path);
     move_uploaded_file($thumb_tmp, $thumb_path);
 
-// Load the image
+    // Load the image
     $image = imagecreatefromjpeg($image_path);
 
-// Get the original dimensions
+    // Get the original dimensions
     $original_width = imagesx($image);
     $original_height = imagesy($image);
 
-// Calculate the new dimensions
+    // Calculate the new dimensions
     $new_width = 2048;
     $new_height = 1365;
     $scale = min($new_width / $original_width, $new_height / $original_height);
     $width = intval($original_width * $scale);
     $height = intval($original_height * $scale);
 
-// Create a new image with the new dimensions
+    // Create a new image with the new dimensions
     $new_image = imagecreatetruecolor($width, $height);
 
-// Copy and resize the original image to the new image
+    // Copy and resize the original image to the new image
     imagecopyresampled($new_image, $image, 0, 0, 0, 0, $width, $height, $original_width, $original_height);
 
-// Save the new image
+    // Save the new image
     imagejpeg($new_image, $image_path, 100);
 
-// Create a thumbnail
+    // Create a thumbnail
     $new_width = 205;
     $new_height = 137;
     $scale = min($new_width / $original_width, $new_height / $original_height);
@@ -124,11 +130,10 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
     imagecopyresampled($thumb_image, $image, 0, 0, 0, 0, $width, $height, $original_width, $original_height);
     imagejpeg($thumb_image, $thumb_path, 100);
 
-// Clean up
+    // Clean up
     imagedestroy($image);
     imagedestroy($new_image);
     imagedestroy($thumb_image);
-
 
 
     $today = $todayDate = new DateTime('today', new DateTimeZone("America/Detroit"));
@@ -145,20 +150,25 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
      * database table.
      */
     if (empty($errors) === true) {
-        /* Save to Database Table CMS */
-
+        // Save to Database Table CMS
         $today = $todayDate = new DateTime('today', new DateTimeZone("America/Detroit"));
-
         $data['date_updated'] = $data['date_added'] = $today->format("Y-m-d H:i:s");
         $gallery = new ImageContentManager($pdo, $data);
         $result = $gallery->create();
+
         if ($result) {
-            header("Location: dashboard.php");
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'success']);
             exit();
         }
     } else {
-        return $errors;
+        if (is_ajax_request()) {
+            // Send a JSON response with errors for AJAX requests
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'error', 'errors' => $errors]);
+        }
     }
+
 }
 ?>
 <!doctype html>
@@ -198,11 +208,18 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
 </div>
 <div class="main_container">
     <div class="home_article">
-        <form id="data_entry_form" class="checkStyle" action="create_blog.php" method="post" enctype="multipart/form-data">
+        <form id="data_entry_form" class="checkStyle" action="create_blog.php" method="post"
+              enctype="multipart/form-data">
             <input type="hidden" name="gallery[user_id]" value="<?= $_SESSION['user_id'] ?>">
             <input type="hidden" name="gallery[author]" value="John Pepp>">
             <input type="hidden" name="gallery[page]" value="gallery">
             <input type="hidden" name="action" value="upload">
+            <div id="progress_bar_container" class="progress-bar-container">
+                <h2 id="progress_bar_title" class="progress-bar-title">Upload Progress</h2>
+                <div id="progress_bar" class="progress-bar"></div>
+            </div>
+
+
             <div id="file_grid_area">
                 <input id="file" class="file-input-style" type="file" name="image">
                 <label for="file">Select file</label>
@@ -219,7 +236,8 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
             </label>
             <div id="heading_heading_grid_area">
                 <label class="heading_label_style" for="heading">Heading</label>
-                <input class="enter_input_style" id="heading" type="text" name="gallery[heading]" value="" tabindex="1" required
+                <input class="enter_input_style" id="heading" type="text" name="gallery[heading]" value="" tabindex="1"
+                       required
                        autofocus>
             </div>
             <div id="content_style_grid_area">
@@ -242,5 +260,87 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
+<script>
+    document.getElementById('data_entry_form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        // Get references to the progress bar elements
+        const progressBarContainer = document.getElementById('progress_bar_container');
+        const progressBarTitle = document.getElementById('progress_bar_title');
+        const progressBar = document.getElementById('progress_bar');
+
+        // Show the progress bar container, title, and progress bar
+        progressBarContainer.style.display = 'flex';
+        progressBarTitle.style.display = 'block';
+        progressBar.style.display = 'block';
+
+        // Fetch doesn't expose the `progress` event directly. To handle it, you need to create a custom request function.
+        function fetchWithProgress(url, options) {
+            const controller = new AbortController();
+            const signal = controller.signal;
+            const xhr = new XMLHttpRequest();
+            // Add the signal to the options object
+            options.signal = signal;
+            return new Promise((resolve, reject) => {
+                xhr.open(options.method || 'get', url, true);
+
+                xhr.upload.addEventListener('progress', options.onProgress || (() => {
+                }));
+
+                xhr.addEventListener('load', () => {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        resolve(xhr.responseText);
+                    } else {
+                        reject(new Error(xhr.statusText));
+                    }
+                });
+
+                xhr.addEventListener('error', () => reject(new Error(xhr.statusText)));
+                xhr.addEventListener('abort', () => reject(new Error('Request aborted')));
+
+                xhr.send(options.body);
+            });
+        }
+
+        // Submit the form data using Fetch API
+        fetchWithProgress('https://www.phototechguru.com/create_blog.php', {
+            method: 'POST',
+            body: formData,
+            onProgress: function (event) {
+                if (event.lengthComputable) {
+                    const percentage = (event.loaded / event.total) * 100;
+                    progressBar.style.width = percentage + '%';
+                }
+            },
+        })
+            .then(responseText => {
+                console.log('Upload complete:', responseText);
+
+                // Hide the progress bar container, title, and progress bar
+                progressBarContainer.style.display = 'none';
+                progressBarTitle.style.display = 'none';
+                progressBar.style.display = 'none';
+
+                // Reset the progress bar
+                progressBar.style.width = '0%';
+
+                // Handle the server response here (e.g., display a success message or redirect the user)
+                // Redirect to a new page after 5 seconds
+
+                window.location.href = "https://www.phototechguru.com/";
+
+
+            })
+            .catch(error => {
+                console.error('An error occurred during the upload:', error.message);
+
+                // Handle the error here (e.g., display an error message)
+            });
+    });
+
+</script>
 </body>
 </html>
