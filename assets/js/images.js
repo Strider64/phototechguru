@@ -127,12 +127,12 @@
                  * Create Text portion of Lightbox
                  */
 
-                //let nextSibling = image.nextElementSibling; // Grab the next sibling:
-                //let galleryText = document.createElement('p');
-                //galleryText.classList.add('galleryText');
-                //console.log(nextSibling.textContent);
-                //galleryText.textContent = nextSibling.textContent;
+                let nextSibling = image.nextElementSibling; // Grab the next sibling:
+                let galleryText = document.createElement('p');
+                galleryText.classList.add('galleryText');
 
+                galleryText.textContent = nextSibling.textContent;
+                console.log('galleryText', galleryText);
                 /* Remove large Image For Screen (cleanup) */
                 while (lightbox.firstChild) {
                     lightbox.removeChild(lightbox.firstChild)
@@ -145,7 +145,7 @@
                 lightbox.appendChild(galleryExif);
 
                 /* Add Content to Screen */
-                //lightbox.appendChild(galleryText);
+                lightbox.appendChild(galleryText);
             })
         })
         lightbox.addEventListener('click', () => {

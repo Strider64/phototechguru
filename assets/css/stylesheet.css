@@ -3,6 +3,7 @@ CSS Reset
 --------------------------------------------------------------*/
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;1,500&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,500;1,600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 html {
   font-family: sans-serif; }
 
@@ -855,7 +856,7 @@ button:hover {
     .active {
       grid-area: main;
       display: grid;
-      grid-template-columns: minmax(40em, 50em) fit-content(1fr);
+      grid-template-columns: minmax(40em, 50em) 1fr;
       grid-template-areas: "lightboxImage lightboxText" "lightboxExif lightboxText";
       justify-content: center;
       margin-top: 1.250em;
@@ -898,12 +899,17 @@ button:hover {
         grid-area: home_main;
         display: grid;
         grid-template-columns: 50em;
-        grid-template-areas: "file_grid_area" "select_grid_category_area" "heading_heading_grid_area" "content_style_grid_area" "submit_picture_grid_area";
+        grid-template-areas: "image_display_area" "file_grid_area" "select_grid_category_area" "heading_heading_grid_area" "content_style_grid_area" "submit_picture_grid_area";
         column-gap: 1.250em;
         justify-content: center;
         background-color: #8ebd94;
         margin: 2.500em auto;
         width: 90%; }
+        .main_container #data_entry_form #image_display_area {
+          grid-area: image_display_area;
+          width: 205px;
+          height: 137px;
+          margin: 0.625em auto; }
         .main_container #data_entry_form #file_grid_area {
           grid-area: file_grid_area;
           display: flex;
@@ -978,10 +984,14 @@ button:hover {
           padding: 0 1.250em; }
           .main_container #data_entry_form #content_style_grid_area textarea {
             resize: none;
-            height: 9.5em;
+            height: 25.000em;
             width: 100%;
             padding: 0.625em;
-            margin-left: 1.250em; }
+            margin-left: 1.250em;
+            font-family: 'Roboto', sans-serif;
+            /* You can replace 'Roboto' with your desired font */
+            font-size: 1em;
+            /* Adjust the size as needed */ }
         .main_container #data_entry_form #submit_picture_grid_area {
           grid-area: submit_picture_grid_area;
           display: flex;

@@ -2,6 +2,7 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
+// dashhboard.php
 /*
  * The Photo Tech Guru
  * Created by John R. Pepp
@@ -26,10 +27,9 @@ set_exception_handler([$errorHandler, 'handleException']);
 $database = new Database();
 $pdo = $database->createPDO();
 
-$args = [];
-// New Instance of CMS Class
 
-$gallery = new ImageContentManager($pdo, $args);
+
+$gallery = new ImageContentManager($pdo);
 
 // New Instance of Login Class
 if (!$database->check_login_token()) {
@@ -70,12 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 
-
-
-
 // Grab Total Pages
 $total_pages = $gallery->total_pages($total_count, $per_page);
-
 
 
 /* Grab the offset (page) location from using the offset method */
@@ -85,7 +81,7 @@ $links = new Links($current_page, $per_page, $total_count, $category);
 
 $records = $gallery->page($per_page, $offset, 'gallery', $category);
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -94,6 +90,24 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
     <title>Dashboard</title>
     <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
     <style>
+
+        #myButton {
+            outline: none;
+            color: #fff;
+            border: none;
+            background-color: #f12929;
+            box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+            width: 6.25em;
+            font-family: "Rubik", sans-serif;
+            font-size: 1.2em;
+            text-transform: capitalize;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0.313em;
+            margin: 0.625em;
+            transition: color 0.5s;
+        }
+
         .pagination {
             display: inline-block;
             padding-left: 0;
@@ -153,24 +167,22 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
         }
 
         .pagination > li > span {
-            display: inline-block; /* Change this line */
+            display: inline-block;
             padding: 6px 12px;
             color: #999;
             background-color: #fff;
             border: 1px solid #ddd;
             box-sizing: border-box;
-            min-height: 1.42em; /* Add this line */
-            line-height: 1.42em; /* Add this line */
+            height: 2.313em;
         }
 
-
-        }
         .pagination > li > span::before {
             content: '...';
             display: inline-block;
             vertical-align: middle;
             line-height: 34px;
         }
+
 
 
     </style>
@@ -210,15 +222,19 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
 
             echo '<div class="home_info">';
             echo '<h1 class="home_heading">' . $record['heading'] . '</h1>';
+
             echo '<img src="' . $record['image_path'] . '" alt="' . $record['heading'] . '">';
             echo '<p class="home_paragraph">' . nl2br($record['content']) . '</p>';
+            echo '<a id="myButton" href="delete.php?id=' . $record['id'] . '" class="delete-link">Delete</a>';
+
+
             echo '</div>';
 
         }
         ?>
     </div>
     <div class="home_sidebar">
-        <form action="dashboard..php" method="GET">
+        <form action="/dashboard..php" method="GET">
             <label for="category"></label>
             <select id="category" class="select-css" name="category" onchange="this.form.submit()" tabindex="1">
                 <option selected value="<?= $category ?>"><?= ucfirst($category) ?></option>
@@ -243,6 +259,23 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var deleteLinks = document.querySelectorAll('.delete-link');
+
+        deleteLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                if (confirm("Are you sure you want to delete this item?")) {
+                    window.location.href = this.href;
+                }
+            });
+        });
+    });
+
+</script>
+
+
 <script src="assets/js/lightbox.js"></script>
 </body>
 </html>

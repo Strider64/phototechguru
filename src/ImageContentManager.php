@@ -147,5 +147,22 @@ class ImageContentManager implements ImageContentManagerInterface
         return $stmt->execute($attribute_pairs); // Execute and send boolean true:
     }
 
+    /*
+ * Grab Record will be used for editing:
+ */
+    public function fetch_by_id()
+    {
+        $sql = "SELECT * FROM gallery WHERE id=:id LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $this->id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function delete(): bool
+    {
+        $sql = 'DELETE FROM gallery WHERE id=:id';
+        return $this->pdo->prepare($sql)->execute([':id' => $this->id]);
+    }
+
 } // End of class:
 

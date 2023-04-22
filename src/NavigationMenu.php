@@ -3,12 +3,12 @@
 
 namespace PhotoTech;
 
+use htmlspecialchars;
+
 trait NavigationMenu
 {
     public function regular_navigation(): void
     {
-        $current_dir = dirname($_SERVER['SCRIPT_NAME']);
-
         $navItems = [
             'Home' => 'index.php',
             'Can You See?' => 'hangman/can_you_solve.php',
@@ -17,8 +17,9 @@ trait NavigationMenu
         ];
 
         foreach ($navItems as $title => $path) {
-            $href = $this->generateHref($current_dir, $path);
-            echo "<a href=\"{$href}\">{$title}</a>";
+            $href = $this->generateHref($path);
+            $safeTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+            echo "<a href=\"{$href}\">{$safeTitle}</a>";
         }
 
         // Check for the presence of the cookie
@@ -28,9 +29,21 @@ trait NavigationMenu
 
             // User is Not logged In
             if (!hash_equals($stored_token, $_COOKIE['login_token'])) {
-                echo '<a href="/admin/login.php">Login</a>';
+                $loginHref = $this->generateHref('admin/login.php');
+                echo "<a href=\"{$loginHref}\">Login</a>";
             }
         }
+    }
+
+    private function generateLoginHref(string $current_dir): string
+    {
+        if ($current_dir == '/admin') {
+            $path = 'login.php';
+        } else {
+            $path = 'admin/login.php';
+        }
+
+        return $path;
     }
 
     public function showAdminNavigation(): void
@@ -46,17 +59,15 @@ trait NavigationMenu
 
         echo '<div class="admin-navigation">';
         foreach ($navItems as $title => $path) {
-            echo "<a href=\"{$path}\">{$title}</a>";
+            $safeTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+            echo "<a href=\"{$path}\">{$safeTitle}</a>";
         }
         echo '</div>';
     }
 
-    private function generateHref(string $current_dir, string $path): string
+    private function generateHref(string $path): string
     {
-        if ($current_dir == '/hangman') {
-            $path = '../' . $path;
-        }
-
-        return $path;
+        $base_url = 'https://' . $_SERVER['HTTP_HOST'];
+        return $base_url . '/' . $path;
     }
 }

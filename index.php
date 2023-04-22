@@ -160,12 +160,9 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
             background-color: #fff;
             border: 1px solid #ddd;
             box-sizing: border-box;
-            min-height: 1.42em; /* Add this line */
-            line-height: 1.42em; /* Add this line */
+            height: 2.313em;
         }
 
-
-        }
         .pagination > li > span::before {
             content: '...';
             display: inline-block;
@@ -221,9 +218,9 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
 
     </div>
     <div class="home_sidebar">
-        <form action="index.php" method="GET">
+        <form id="myForm" action="index.php" method="GET">
             <label for="category"></label>
-            <select id="category" class="select-css" name="category" onchange="this.form.submit()" tabindex="1">
+            <select id="category" class="select-css" name="category" tabindex="1">
                 <option selected value="<?= $category ?>"><?= ucfirst($category) ?></option>
                 <option value="general">General</option>
                 <option value="landscape">Landscape</option>
@@ -232,7 +229,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
                 <option value="wildlife">Wildlife</option>
             </select>
 
-            <button type="submit" class="submit-btn" name="submit" tabindex="2">Submit</button>
+            <button type="submit" class="submit-btn" name="enter" tabindex="2">Submit</button>
         </form>
 
         <?php echo $links->display_links(); ?>
@@ -246,6 +243,14 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
+<script>
+    const selectElement = document.getElementById("category");
+
+    selectElement.addEventListener("change", (event) => {
+        // Code to handle the change event
+        event.target.form.submit();
+    });
+</script>
 <script src="assets/js/lightbox.js"></script>
 </body>
 </html>
