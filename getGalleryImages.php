@@ -37,6 +37,8 @@ try {
  */
 $send = $gallery->page((int)$database_data['per_page'], (int)$database_data['offset'], 'gallery', $database_data['category']);
 //$cms = CMS::getImages('blog', $database_data['category']);
+// add a carriage return to the text
+$send['content'] = str_replace("\n", "<br>", $send['content']);
 output($send);
 
 function output($output): void

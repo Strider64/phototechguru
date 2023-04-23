@@ -599,6 +599,12 @@ button:hover {
   padding: 1.250em;
   margin: 0 auto; }
 
+.galleryText::before {
+  content: "\D" !important;
+  /* inserts a line break */
+  white-space: pre !important;
+  /* preserves white space */ }
+
 .colophon {
   display: none;
   height: auto;
@@ -872,7 +878,8 @@ button:hover {
       height: 3.200em; }
 
     .galleryText {
-      grid-area: lightboxText; }
+      grid-area: lightboxText !important;
+      white-space: break-spaces !important; }
 
     .colophon {
       grid-area: footer;
@@ -1160,5 +1167,64 @@ button:hover {
   font-weight: bolder;
   color: #fff;
   padding-left: 0.313em; }
+
+/* Basic styling resets */
+.checkStyle {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+/* Container for the form */
+.checkStyle {
+  width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  font-family: Arial, sans-serif; }
+
+/* Style labels */
+.text_username,
+.text_password {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333; }
+
+/* Style input fields */
+.io_username,
+.io_password {
+  width: 94%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: Arial, sans-serif; }
+
+/* Style input fields on focus */
+.io_username:focus,
+.io_password:focus {
+  border-color: #0b79f7;
+  outline: none; }
+
+/* Style submit button */
+.submitBtn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #0b79f7;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; }
+
+/* Change button color on hover */
+.submitBtn:hover {
+  background-color: #0969cc; }
 
 /*# sourceMappingURL=stylesheet.css.map */

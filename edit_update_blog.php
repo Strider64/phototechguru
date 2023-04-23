@@ -26,6 +26,7 @@ try {
 
     // Get form data
     $id = (int) $_POST['id'];
+    $category = $_POST['category'];
     $heading= $_POST['heading'];
     $content = $_POST['content'];
 
@@ -139,12 +140,13 @@ try {
 
     } else {
         // Prepare the SQL query with placeholders
-        $sql = "UPDATE gallery SET heading = :heading, content = :content WHERE id = :id";
+        $sql = "UPDATE gallery SET category = :category, heading = :heading, content = :content WHERE id = :id";
         $stmt = $pdo->prepare($sql);
     }
 
     // Bind the values to the placeholders
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':category', $category);
     $stmt->bindParam(':heading', $heading);
     $stmt->bindParam(':content', $content);
 

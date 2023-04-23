@@ -1,11 +1,11 @@
 <?php
-// NavigationMenu.php
+// NavigationMenuTrait.php
 
 namespace PhotoTech;
 
 use htmlspecialchars;
 
-trait NavigationMenu
+trait NavigationMenuTrait
 {
     public function regular_navigation(): void
     {

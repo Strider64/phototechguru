@@ -1,61 +1,94 @@
 <?php
+// Load required configuration and libraries
 require_once "../assets/config/config.php";
 require_once "../vendor/autoload.php";
 
+/*
+ * The Photo Tech Guru
+ * Created by John R. Pepp
+ * Date Created: July, 12, 2021
+ * Last Revision: April 23, 2023
+ * Version: 6.02 ßeta
+ *
+ */
 
+// Import classes
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
 use PhotoTech\LoginRepository as Login;
 
-
+// Create an ErrorHandler instance
 $errorHandler = new ErrorHandler();
-
-// Register the exception handler method
+// Set the exception handler to use the ErrorHandler instance
 set_exception_handler([$errorHandler, 'handleException']);
 
+// Create a Database instance and establish a connection
 $database = new Database();
 $pdo = $database->createPDO();
+// Create a LoginRepository instance with the database connection
 $loginRepository = new Login($pdo);
 
-
+// Redirect to dashboard if the user is already logged in
 if ($loginRepository->check_login_token()) {
     header('Location: ../dashboard.php');
     exit();
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-    // Verify the username and password
-    if ($loginRepository->verify_credentials($username, $password)) {
-        // Generate a unique token
-        $token = bin2hex(random_bytes(32));
 
-        // Store the token in the user's database record (or other persistent storage mechanism)
-        $loginRepository->store_token_in_database($_SESSION['user_id'], $token);
-
-        // Set a cookie with the token and a 6-month expiration time
-        setcookie('login_token', $token, [
-            'expires' => strtotime('+6 months'),
-            'path' => '/',
-            'domain' => DOMAIN,
-            'secure' => true,
-            'httponly' => true,
-            'samesite' => 'Lax'
-        ]);
-
-        // Store the token in the user's session
-        $_SESSION['login_token'] = $token;
-
-        header('Location: ../dashboard.php');
-        exit;
-    } else {
-        // Invalid username or password
-        $error = 'Invalid username or password';
-    }
-
+// Generate a CSRF token if it doesn't exist and store it in the session
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
+// Process the login form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Check if the submitted CSRF token matches the one stored in the session
+    if (hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        // Sanitize the username and password input
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+        // Verify the user's credentials
+        if ($loginRepository->verify_credentials($username, $password)) {
+            // Generate a secure login token
+            $token = bin2hex(random_bytes(32));
+            // Store the login token in the database
+            $loginRepository->store_token_in_database($_SESSION['user_id'], $token);
+
+            // Set a secure cookie with the login token
+            setcookie('login_token', $token, [
+                'expires' => strtotime('+6 months'),
+                'path' => '/',
+                'domain' => DOMAIN,
+                'secure' => true,
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]);
+
+            // Store the login token in the session
+            $_SESSION['login_token'] = $token;
+
+            // Redirect the user to the dashboard
+            header('Location: ../dashboard.php');
+            exit;
+        } else {
+            // Display an error message for invalid username or password
+            $error = 'Invalid username or password';
+            error_log("Login error: " . $error);
+        }
+    } else {
+        // Display an error message
+        $error = 'Invalid CSRF token';
+        error_log("Login error: " . $error);
+        $error = 'An error occurred. Please try again.';
+    }
+}
+
+// Set the Content Security Policy header
+header("Content-Security-Policy: default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com;");
+
 ?>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -64,74 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" media="all" href="../assets/css/stylesheet.css">
-    <style>
-        /* Basic styling resets */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
 
-        /* Container for the form */
-        .checkStyle {
-            width: 400px;
-            margin: 100px auto;
-            padding: 30px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-family: Arial, sans-serif;
-        }
-
-        /* Style labels */
-        .text_username,
-        .text_password {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* Style input fields */
-        .io_username,
-        .io_password {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Style input fields on focus */
-        .io_username:focus,
-        .io_password:focus {
-            border-color: #0b79f7;
-            outline: none;
-        }
-
-        /* Style submit button */
-        .submitBtn {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background-color: #0b79f7;
-            color: #fff;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        /* Change button color on hover */
-        .submitBtn:hover {
-            background-color: #0969cc;
-        }
-
-    </style>
 </head>
 <body class="site">
 <div class="nav">
@@ -161,6 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="main_container">
         <div class="home_article">
             <form class="checkStyle" method="post" action="login.php">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div class="screenName">
                     <label class="text_username" for="username">Username</label>
                     <input id="username" class="io_username" type="text" name="username" value="" required>
@@ -210,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </main>
-</div>
+
 
 <aside class="sidebar">
 
