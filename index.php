@@ -95,6 +95,30 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
     <title>Home Page</title>
     <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
     <style>
+
+        #myButton {
+            outline: none;
+            color: #fff;
+            border: none;
+            background-color: #f12929;
+            box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+            width: 6.25em;
+            font-family: "Rubik", sans-serif;
+            font-size: 1.2em;
+            text-transform: capitalize;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0.313em;
+            margin: 0.625em;
+            transition: background-color 0.5s;
+            float: right;
+            text-align: center;
+        }
+
+        #myButton:hover {
+            background-color: #009578;
+        }
+
         .pagination {
             display: inline-block;
             padding-left: 0;
@@ -154,7 +178,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
         }
 
         .pagination > li > span {
-            display: inline-block; /* Change this line */
+            display: inline-block;
             padding: 6px 12px;
             color: #999;
             background-color: #fff;
@@ -167,8 +191,8 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
             content: '...';
             display: inline-block;
             vertical-align: middle;
-            line-height: 34px;
         }
+
 
 
     </style>

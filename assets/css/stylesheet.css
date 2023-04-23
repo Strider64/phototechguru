@@ -863,13 +863,13 @@ button:hover {
       z-index: 2000; }
 
     .galleryImage {
-      grid-area: lightboxImage;
-      margin: auto; }
+      grid-area: lightboxImage; }
 
     .galleryExif {
       grid-area: lightboxExif;
       display: flex;
-      justify-content: center; }
+      justify-content: center;
+      height: 3.200em; }
 
     .galleryText {
       grid-area: lightboxText; }

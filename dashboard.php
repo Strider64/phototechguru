@@ -105,7 +105,13 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
             cursor: pointer;
             padding: 0.313em;
             margin: 0.625em;
-            transition: color 0.5s;
+            transition: background-color 0.5s;
+            float: right;
+            text-align: center;
+        }
+
+        #myButton:hover {
+            background-color: #009578;
         }
 
         .pagination {
@@ -180,7 +186,6 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
             content: '...';
             display: inline-block;
             vertical-align: middle;
-            line-height: 34px;
         }
 
 
@@ -219,16 +224,17 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
         <?php
 
         foreach ($records as $record) {
-
+            echo '<a id="myButton" href="delete.php?id=' . $record['id'] . '" class="delete-link">Delete</a>';
             echo '<div class="home_info">';
             echo '<h1 class="home_heading">' . $record['heading'] . '</h1>';
 
             echo '<img src="' . $record['image_path'] . '" alt="' . $record['heading'] . '">';
             echo '<p class="home_paragraph">' . nl2br($record['content']) . '</p>';
-            echo '<a id="myButton" href="delete.php?id=' . $record['id'] . '" class="delete-link">Delete</a>';
+
 
 
             echo '</div>';
+            echo '<br>';
 
         }
         ?>

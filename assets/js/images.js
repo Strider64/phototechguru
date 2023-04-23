@@ -120,8 +120,15 @@
                  * Create EXIF portion of LightBox
                  */
                 let galleryExif = document.createElement('p');
-                galleryExif.classList.add('galleryExif');
-                galleryExif.textContent = image.getAttribute('data-exif');
+
+                if  (image.getAttribute('data-exif') === 'null null null null null') {
+                    galleryExif.classList.add('galleryExif');
+                    galleryExif.textContent = 'No EXIF data available';
+                } else {
+                    galleryExif.classList.add('galleryExif');
+                    galleryExif.textContent = image.getAttribute('data-exif');
+                }
+
 
                 /*
                  * Create Text portion of Lightbox
@@ -141,8 +148,12 @@
                 /* Add Image to Screen */
                 lightbox.appendChild(galleryImage);
 
-                /* Add EXIF to Screen */
-                lightbox.appendChild(galleryExif);
+
+
+                    /* Add EXIF to Screen */
+                    lightbox.appendChild(galleryExif);
+
+
 
                 /* Add Content to Screen */
                 lightbox.appendChild(galleryText);
@@ -260,7 +271,7 @@
 
     // Add a new function to update the total count and refresh the pagination links
     const updateTotalCountAndPagination = async () => {
-        createRequest('getTotalCount.php', totalCountUISuccess, totalCountUIError);
+        await createRequest('getTotalCount.php', totalCountUISuccess, totalCountUIError);
     };
 
     database_data = {
@@ -286,7 +297,7 @@
 
     const totalCountUISuccess = async (parsedData) => {
         database_data.total_count = await parsedData.total_count; // Total Pages of Category
-        createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);
+        await createRequest('galleryPagination.php', paginationUISuccess, paginationUIError);
     };
 
     const totalCountUIError = (error) => {
