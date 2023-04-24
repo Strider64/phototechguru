@@ -2,7 +2,6 @@
 // ErrorHandler.php
 namespace PhotoTech;
 
-use Exception;
 use PDOException;
 use Throwable;
 use JsonException;

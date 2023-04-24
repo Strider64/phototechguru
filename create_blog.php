@@ -2,10 +2,13 @@
 require_once "assets/config/config.php";
 require_once "vendor/autoload.php";
 
-use PhotoTech\ErrorHandler;
-use PhotoTech\Database;
-use PhotoTech\LoginRepository as Login;
-use PhotoTech\ImageContentManager;
+use Intervention\Image\ImageManagerStatic as Image;
+use PhotoTech\{
+    ErrorHandler,
+    Database,
+    LoginRepository as Login,
+    ImageContentManager
+};
 
 $errorHandler = new ErrorHandler();
 
@@ -38,6 +41,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
     $thumb_tmp = $_FILES['image']['tmp_name'];
     $file_type = $_FILES['image']['type'];
     $file_ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+
 
     /*
      * Set EXIF data info of image for database table that is
@@ -91,49 +95,38 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
     /*
      * Create unique name for image.
      */
-    $image_path = 'assets/image_path/img-gallery-' . time() . '-2048x1365' . '.' . $file_ext;
-    $thumb_path = 'assets/thumb_path/thumb-gallery-' . time() . '-205x137' . '.' . $file_ext;
+    $image_random_string = bin2hex(random_bytes(16));
+    $image_path = 'assets/image_path/img-gallery-' . $image_random_string . '-2048x1365' . '.' . $file_ext;
+    $thumb_path = 'assets/thumb_path/thumb-gallery-' . $image_random_string . '-205x137' . '.' . $file_ext;
+
 
     move_uploaded_file($file_tmp, $image_path);
     move_uploaded_file($thumb_tmp, $thumb_path);
 
+
     // Load the image
-    $image = imagecreatefromjpeg($image_path);
+    $image = Image::make($image_path);
 
-    // Get the original dimensions
-    $original_width = imagesx($image);
-    $original_height = imagesy($image);
+    // Resize the image
+    $image->resize(2048, 1365, function ($constraint) {
+        $constraint->aspectRatio();
+        $constraint->upsize();
+    });
 
-    // Calculate the new dimensions
-    $new_width = 2048;
-    $new_height = 1365;
-    $scale = min($new_width / $original_width, $new_height / $original_height);
-    $width = intval($original_width * $scale);
-    $height = intval($original_height * $scale);
+   // Save the new image
+    $image->save($image_path, 100);
 
-    // Create a new image with the new dimensions
-    $new_image = imagecreatetruecolor($width, $height);
+    // Load the image with Intervention Image
+    $image = Image::make($image_path);
 
-    // Copy and resize the original image to the new image
-    imagecopyresampled($new_image, $image, 0, 0, 0, 0, $width, $height, $original_width, $original_height);
+    // Resize the image while maintaining the aspect ratio
+    $image->resize(205, 137, function ($constraint) {
+        $constraint->aspectRatio();
+        $constraint->upsize();
+    });
 
-    // Save the new image
-    imagejpeg($new_image, $image_path, 100);
-
-    // Create a thumbnail
-    $new_width = 205;
-    $new_height = 137;
-    $scale = min($new_width / $original_width, $new_height / $original_height);
-    $width = intval($original_width * $scale);
-    $height = intval($original_height * $scale);
-    $thumb_image = imagecreatetruecolor($width, $height);
-    imagecopyresampled($thumb_image, $image, 0, 0, 0, 0, $width, $height, $original_width, $original_height);
-    imagejpeg($thumb_image, $thumb_path, 100);
-
-    // Clean up
-    imagedestroy($image);
-    imagedestroy($new_image);
-    imagedestroy($thumb_image);
+    // Save the thumbnail
+    $image->save($thumb_path, 100);
 
 
     $today = $todayDate = new DateTime('today', new DateTimeZone("America/Detroit"));
@@ -218,8 +211,6 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
                 <h2 id="progress_bar_title" class="progress-bar-title">Upload Progress</h2>
                 <div id="progress_bar" class="progress-bar"></div>
             </div>
-
-
             <div id="file_grid_area">
                 <input id="file" class="file-input-style" type="file" name="image">
                 <label for="file">Select file</label>
@@ -260,87 +251,6 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
-<script>
-    document.getElementById('data_entry_form').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const form = event.target;
-        const formData = new FormData(form);
-
-        // Get references to the progress bar elements
-        const progressBarContainer = document.getElementById('progress_bar_container');
-        const progressBarTitle = document.getElementById('progress_bar_title');
-        const progressBar = document.getElementById('progress_bar');
-
-        // Show the progress bar container, title, and progress bar
-        progressBarContainer.style.display = 'flex';
-        progressBarTitle.style.display = 'block';
-        progressBar.style.display = 'block';
-
-        // Fetch doesn't expose the `progress` event directly. To handle it, you need to create a custom request function.
-        function fetchWithProgress(url, options) {
-            const controller = new AbortController();
-            const signal = controller.signal;
-            const xhr = new XMLHttpRequest();
-            // Add the signal to the options object
-            options.signal = signal;
-            return new Promise((resolve, reject) => {
-                xhr.open(options.method || 'get', url, true);
-
-                xhr.upload.addEventListener('progress', options.onProgress || (() => {
-                }));
-
-                xhr.addEventListener('load', () => {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        resolve(xhr.responseText);
-                    } else {
-                        reject(new Error(xhr.statusText));
-                    }
-                });
-
-                xhr.addEventListener('error', () => reject(new Error(xhr.statusText)));
-                xhr.addEventListener('abort', () => reject(new Error('Request aborted')));
-
-                xhr.send(options.body);
-            });
-        }
-
-        // Submit the form data using Fetch API
-        fetchWithProgress('https://www.phototechguru.com/create_blog.php', {
-            method: 'POST',
-            body: formData,
-            onProgress: function (event) {
-                if (event.lengthComputable) {
-                    const percentage = (event.loaded / event.total) * 100;
-                    progressBar.style.width = percentage + '%';
-                }
-            },
-        })
-            .then(responseText => {
-                console.log('Upload complete:', responseText);
-
-                // Hide the progress bar container, title, and progress bar
-                progressBarContainer.style.display = 'none';
-                progressBarTitle.style.display = 'none';
-                progressBar.style.display = 'none';
-
-                // Reset the progress bar
-                progressBar.style.width = '0%';
-
-                // Handle the server response here (e.g., display a success message or redirect the user)
-                // Redirect to a new page after 5 seconds
-
-                window.location.href = "https://www.phototechguru.com/";
-
-
-            })
-            .catch(error => {
-                console.error('An error occurred during the upload:', error.message);
-
-                // Handle the error here (e.g., display an error message)
-            });
-    });
-
-</script>
+<script src="assets/js/upload_form_with_progress_bar.js"></script>
 </body>
 </html>

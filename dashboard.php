@@ -240,7 +240,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
         ?>
     </div>
     <div class="home_sidebar">
-        <form action="/dashboard..php" method="GET">
+        <form action="dashboard..php" method="GET">
             <label for="category"></label>
             <select id="category" class="select-css" name="category" onchange="this.form.submit()" tabindex="1">
                 <option selected value="<?= $category ?>"><?= ucfirst($category) ?></option>
@@ -266,8 +266,14 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
 <script>
+    const selectElement = document.getElementById("category");
+
+    selectElement.addEventListener("change", (event) => {
+        // Code to handle the change event
+        event.target.form.submit();
+    });
     document.addEventListener('DOMContentLoaded', function () {
-        var deleteLinks = document.querySelectorAll('.delete-link');
+        let deleteLinks = document.querySelectorAll('.delete-link');
 
         deleteLinks.forEach(function (link) {
             link.addEventListener('click', function (event) {
@@ -277,11 +283,15 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
                 }
             });
         });
+
     });
 
+
+
+
 </script>
-
-
 <script src="assets/js/lightbox.js"></script>
+
+
 </body>
 </html>

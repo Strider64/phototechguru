@@ -6,17 +6,16 @@ require_once "vendor/autoload.php";
  * The Photo Tech Guru
  * Created by John R. Pepp
  * Date Created: July, 12, 2021
- * Last Revision: April 23, 2023
- * Version: 6.02 ßeta
+ * Last Revision: April 20, 2023
+ * Version: 5.01 ßeta
  *
  */
-
-use PhotoTech\ErrorHandler;
-use PhotoTech\Database;
-
-use PhotoTech\ImageContentManager;
-use PhotoTech\Links;
-
+use PhotoTech\{
+    ErrorHandler,
+    Database,
+    Links,
+    ImageContentManager
+};
 
 $errorHandler = new ErrorHandler();
 

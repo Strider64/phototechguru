@@ -19,9 +19,7 @@ class Trivia extends DatabaseObject
     public $day_of_week;
     public $day_of_year;
 
-    static protected string $table = "trivia_questions";
-    static protected array $db_columns = ['id', 'user_id', 'hidden', 'question', 'answer1', 'answer2', 'answer3',
-        'answer4', 'correct', 'category', 'play_date', 'day_of-week', 'day_of_year'];
+
 
     public function __construct($args = [])
     {

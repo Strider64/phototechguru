@@ -108,7 +108,7 @@ class ImageContentManager implements ImageContentManagerInterface
     }
 
     // Display Record(s) by Pagination
-    public function page($perPage, $offset, $page = "index", $category = "home"): array
+    public function page($perPage, $offset, $page = "index", $category = "wildlife"): array
     {
         $sql = 'SELECT * FROM gallery WHERE page =:page AND category =:category ORDER BY id DESC, date_added DESC LIMIT :perPage OFFSET :blogOffset';
         $stmt = $this->pdo->prepare($sql); // Prepare the query:
@@ -116,15 +116,14 @@ class ImageContentManager implements ImageContentManagerInterface
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Create new Record
+// Create new Record
     public function create(): bool
     {
         /* Initialize an array */
         $attribute_pairs = [];
 
         /*
-         * Set up the query using prepared states with static:$params being
-         * the columns and the array keys being the prepared named placeholders.
+         * Set up the query using prepared statements with named placeholders.
          */
         $sql = 'INSERT INTO gallery (' . implode(", ", array_keys($this->params)) . ')';
         $sql .= ' VALUES ( :' . implode(', :', array_keys($this->params)) . ')';
@@ -135,19 +134,28 @@ class ImageContentManager implements ImageContentManagerInterface
         $stmt = $this->pdo->prepare($sql); // PHP Version 8.x Database::pdo()
 
         /*
-         * Grab the corresponding values in order to
+         * Bind the corresponding values in order to
          * insert them into the table when the script
          * is executed.
          */
         foreach ($this->params as $key => $value) {
             if ($key === 'id') {
-                continue; // Don't include the id:
+                continue; // Don't include the id
             }
-            $attribute_pairs[] = $value; // Assign it to an array:
+            $stmt->bindValue(':' . $key, $value); // Bind values to the named placeholders
         }
 
-        return $stmt->execute($attribute_pairs); // Execute and send boolean true:
+        // Execute the statement and return true if successful, otherwise false
+        return $stmt->execute();
     }
+
+    public function fetch_by_heading() {
+        $sql = "SELECT heading FROM gallery WHERE category= :category LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['category' => $this->category]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     // Grab Record by id
     public function fetch_by_id()

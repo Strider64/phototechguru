@@ -8,6 +8,7 @@ require_once "vendor/autoload.php";
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
 use PhotoTech\LoginRepository as Login;
+use Intervention\Image\ImageManagerStatic as Image;
 
 $errorHandler = new ErrorHandler();
 
@@ -40,31 +41,34 @@ try {
         $destinationPath = $destinationDirectory . $destinationFilename;
         $target_file = $destinationPath;
 
+        // Load the image
+        $loadedImage = Image::make($image['tmp_name']);
 
+        // Resize the image
+        $loadedImage->resize(2048, 1365, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
 
-        // Get original image dimensions
-        list($original_width, $original_height) = getimagesize($image['tmp_name']);
+        // Save the new image
+        $loadedImage->save($destinationPath, 100);
 
-        // Calculate the new dimensions
-        $new_width = 2048;
-        $new_height = 1365;
-        $scale = min($new_width / $original_width, $new_height / $original_height);
-        $width = intval($original_width * $scale);
-        $height = intval($original_height * $scale);
+        // Create a thumbnail
+        $new_width = 205;
+        $new_height = 137;
 
-        // Create a new image with the new dimensions
-        $resized_image = imagecreatetruecolor($width, $height);
+        // Load the image with Intervention Image
+        $image = Image::make($destinationPath);
 
-        // Detect image type and create image from uploaded file
-        $image_type = exif_imagetype($image['tmp_name']);
-        $source_image = match ($image_type) {
-            IMAGETYPE_JPEG => imagecreatefromjpeg($image['tmp_name']),
-            IMAGETYPE_PNG => imagecreatefrompng($image['tmp_name']),
-            IMAGETYPE_GIF => imagecreatefromgif($image['tmp_name']),
-            default => throw new Exception('Unsupported image type.'),
-        };
+        // Resize the image while maintaining the aspect ratio
+        $image->resize($new_width, $new_height, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
 
-
+        // Save the thumbnail
+        $thumb_path = 'assets/thumb_path/thumb-gallery-' . time() . '-205x137' . '.' . pathinfo($destinationFilename, PATHINFO_EXTENSION);
+        $image->save($thumb_path, 100);
 
         // Retrieve the current image file path from the database
         $current_image_query = "SELECT image_path FROM gallery WHERE id = :id";
@@ -80,57 +84,8 @@ try {
             unlink($current_image_abs_path);
         }
 
-        // Resize the main image
-        imagecopyresampled($resized_image, $source_image, 0, 0, 0, 0, $width, $height, $original_width, $original_height);
-
-        // Save the resized main image to the target file
-        switch ($image_type) {
-            case IMAGETYPE_JPEG:
-                imagejpeg($resized_image, $target_file);
-                break;
-            case IMAGETYPE_PNG:
-                imagepng($resized_image, $target_file);
-                break;
-            case IMAGETYPE_GIF:
-                imagegif($resized_image, $target_file);
-                break;
-        }
-
-        // Create a thumbnail from the resized main image
-        $new_width = 205;
-        $new_height = 137;
-        $scale = min($new_width / $width, $new_height / $height);
-        $thumb_width = intval($width * $scale);
-        $thumb_height = intval($height * $scale);
-        $thumb_image = imagecreatetruecolor($thumb_width, $thumb_height);
-        $thumb_path = 'assets/thumb_path/thumb-gallery-' . time() . '-205x137' . '.' . pathinfo($destinationFilename, PATHINFO_EXTENSION);
-
-        imagecopyresampled($thumb_image, $resized_image, 0, 0, 0, 0, $thumb_width, $thumb_height, $width, $height);
-
-        // Save the resized thumbnail image to the target file
-        switch ($image_type) {
-            case IMAGETYPE_JPEG:
-                imagejpeg($thumb_image, $thumb_path);
-                break;
-            case IMAGETYPE_PNG:
-                imagepng($thumb_image, $thumb_path);
-                break;
-            case IMAGETYPE_GIF:
-                imagegif($thumb_image, $thumb_path);
-                break;
-        }
-
-        // Free up memory
-        imagedestroy($source_image);
-        imagedestroy($resized_image);
-        imagedestroy($thumb_image);
-
-
-        move_uploaded_file($image['tmp_name'], $target_file);
-
         // Prepare the SQL query with placeholders
-        $sql = "UPDATE gallery SET heading = :heading, content = :content, image_path = :image_path, thumb_path = :thumb_path WHERE id = :id";
-
+        $sql = "UPDATE gallery SET category = :category, heading = :heading, content = :content, image_path = :image_path, thumb_path = :thumb_path WHERE id = :id";
         $stmt = $pdo->prepare($sql);
 
         // Bind the values to the placeholders
@@ -164,3 +119,4 @@ try {
 } catch (Exception $e) {
     echo json_encode(['error' => $e->getMessage()]);
 }
+

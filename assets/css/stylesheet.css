@@ -623,7 +623,8 @@ button:hover {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: aliceblue; }
+  background-color: aliceblue;
+  margin: 1.250em; }
 
 .hangman__question {
   display: block;
@@ -746,7 +747,7 @@ button:hover {
 
     .cards {
       display: grid;
-      width: 130%;
+      width: 100%;
       margin-top: 1.250em; }
 
     .cards img,
@@ -900,8 +901,8 @@ button:hover {
     .main_container {
       grid-area: main;
       display: grid;
-      grid-template-columns: 58em 1fr;
-      grid-template-areas: "home_main home_sidebar"; }
+      grid-template-columns: 1fr 58em;
+      grid-template-areas: "home_sidebar home_main"; }
       .main_container #data_entry_form {
         grid-area: home_main;
         display: grid;
