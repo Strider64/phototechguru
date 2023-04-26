@@ -1,49 +1,28 @@
 <?php
 require_once "../assets/config/config.php";
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 require_once "../vendor/autoload.php";
+use Intervention\Image\ImageManagerStatic as Image;
+use PhotoTech\{
+    ErrorHandler,
+    Database,
+    Links,
+    ImageContentManager
+};
 
-use PhotoTech\Register;
-use PhotoTech\sendMail;
+// Create an ErrorHandler instance
+$errorHandler = new ErrorHandler();
+// Set the exception handler to use the ErrorHandler instance
+set_exception_handler([$errorHandler, 'handleException']);
 
+// Create a Database instance and establish a connection
+$database = new Database();
+$pdo = $database->createPDO();
 
-if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_POST['submit'])) {
-
-    $send = new sendMail();
-    $data = [];
-
-    $data['name'] = trim($_POST['user']['first_name'] . ' ' . $_POST['user']['last_name']);
-    $data['validation'] = $send->validationFCN(20);
-    $_POST['user']['validation'] = $data['validation'];
-
-    $data['email'] = $_POST['user']['email'];
-    $data['phone'] = $_POST['user']['phone'];
-    $data['birthday'] = $_POST['user']['birthday'];
-
-    $data['message'] =
-        '<html lang="en">' .
-        '<body style=\'background: #eee;\'>' .
-        '<p style="font-size: 1.8em; line-height: 1.5;">Full Name : ' . $data['name'] .
-        '<br>Email Address : ' . $data['email'] .
-        '<br>Phone : ' . $data['phone'] .
-        '<br>Birthday : ' . $data['birthday'] . '</p>' .
-        '<p style="font-size: 1.4em; line-height: 1.5;">Please click on link: https://www.phototechguru.com/admin/activate.php?confirmation=' . $data['validation'] . ' in order to have access to The Photo Tech Guru Website.</p>' .
-        '<p style="font-size: 1.4em; line-height: 1.5;">In addition please answer the question "Meet Me Under the [blank] Clock" with the name of the clock in the image that was sent.</p>' .
-        '</body>' .
-        '</html>';
-
-
-
-    $register = new Register($_POST['user']);
-    $result = $register->create();
-    if ($result) {
-        $send->verificationEmail($data);
-        header("Location: success.php");
-        exit();
-    }
-
-    header("Location: register.php");
-    exit();
-}
 
 ?>
 

@@ -33,6 +33,9 @@ trait NavigationMenuTrait
                 echo "<a href=\"{$loginHref}\">Login</a>";
             }
         }
+
+        // Add this line for testing purposes
+        //echo "<a href=\"https://www.phototechguru.com/admin/login.php\">Test Login</a>";
     }
 
     private function generateLoginHref(string $current_dir): string

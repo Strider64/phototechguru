@@ -38,27 +38,14 @@ if ($database->check_login_token()) {
 
 
 $displayFormat = ["gallery-container w-2 h-2", 'gallery-container w-2 h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2"', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2', 'gallery-container h-2', 'gallery-container h-2', 'gallery-container w-2 h-2'];
-/*
- * Using pagination in order to have a nice looking
- * website page.
- */
-
-if (isset($_GET['page']) && !empty($_GET['page'])) {
-    $current_page = urldecode($_GET['page']);
-} else {
-    $current_page = 1;
-}
-
-$per_page = 1; // Total number of records to be displayed:
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['category'])) {
         $category = $_GET['category'];
-        $total_count = $gallery->countAllPage($category);
     } else {
         error_log('Category is not set in the GET data');
         $category = 'wildlife';
-        $total_count = $gallery->countAllPage($category);
     }
+    $total_count = $gallery->countAllPage($category);
 } else {
     try {
         $category = 'wildlife';
@@ -69,19 +56,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 
+/*
+ * Using pagination in order to have a nice looking
+ * website page.
+ */
 
+// Grab the current page the user is on
+if (isset($_GET['page']) && !empty($_GET['page'])) {
+    $current_page = urldecode($_GET['page']);
+} else {
+    $current_page = 1;
+}
+
+$per_page = 1; // Total number of records to be displayed:
 
 
 // Grab Total Pages
 $total_pages = $gallery->total_pages($total_count, $per_page);
 
 
-
 /* Grab the offset (page) location from using the offset method */
+/* $per_page * ($current_page - 1) */
 $offset = $gallery->offset($per_page, $current_page);
 
+// Figure out the Links that you want the display to look like
 $links = new Links($current_page, $per_page, $total_count, $category);
 
+// Finally grab the records that are actually going to be displayed on the page
 $records = $gallery->page($per_page, $offset, 'gallery', $category);
 
 ?>
@@ -202,18 +203,17 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
 
 <div class="nav">
 
-    <input type="checkbox" id="nav-check">
 
-
-    <div class="nav-btn">
-        <label for="nav-check">
+    <div class="nav-btn" onclick="toggleNavMenu()">
+        <label>
             <span></span>
             <span></span>
             <span></span>
         </label>
     </div>
 
-    <div class="nav-links">
+
+    <div class="nav-links" id="nav-links">
         <?php $database->regular_navigation(); ?>
     </div>
 
@@ -252,7 +252,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
                 <option value="wildlife">Wildlife</option>
             </select>
 
-            <button type="submit" class="submit-btn" name="enter" tabindex="2">Submit</button>
+            <button style="display: none" type="submit" class="submit-btn" name="enter" tabindex="2">Submit</button>
         </form>
 
         <?php echo $links->display_links(); ?>
@@ -275,5 +275,18 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
     });
 </script>
 <script src="assets/js/lightbox.js"></script>
+<script>
+    function toggleNavMenu() {
+        let navLinks = document.getElementById('nav-links');
+        if (navLinks.style.height === '0px' || navLinks.style.height === '') {
+            navLinks.style.height = 'calc(100vh - 3.125em)';
+            navLinks.style.overflowY = 'auto';
+        } else {
+            navLinks.style.height = '0px';
+            navLinks.style.overflowY = 'hidden';
+        }
+    }
+</script>
+
 </body>
 </html>

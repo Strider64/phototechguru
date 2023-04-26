@@ -1,163 +1,163 @@
-<?php return array(
-    'root' => array(
-        'name' => 'vendor_name/phototechguru',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '9e961ef4901c2368318e07dd97d051eb7bd1a487',
-        'type' => 'library',
-        'install_path' => __DIR__ . '/../../',
-        'aliases' => array(),
-        'dev' => true,
+<?php return array (
+  'root' => 
+  array (
+    'pretty_version' => 'dev-develop',
+    'version' => 'dev-develop',
+    'aliases' => 
+    array (
     ),
-    'versions' => array(
-        'doctrine/lexer' => array(
-            'pretty_version' => '1.2.1',
-            'version' => '1.2.1.0',
-            'reference' => 'e864bbf5904cb8f5bb334f99209b48018522f042',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../doctrine/lexer',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'egulias/email-validator' => array(
-            'pretty_version' => '3.1.1',
-            'version' => '3.1.1.0',
-            'reference' => 'c81f18a3efb941d8c4d2e025f6183b5c6d697307',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../egulias/email-validator',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'guzzlehttp/psr7' => array(
-            'pretty_version' => '2.5.0',
-            'version' => '2.5.0.0',
-            'reference' => 'b635f279edd83fc275f822a1188157ffea568ff6',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../guzzlehttp/psr7',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'intervention/image' => array(
-            'pretty_version' => '2.7.2',
-            'version' => '2.7.2.0',
-            'reference' => '04be355f8d6734c826045d02a1079ad658322dad',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../intervention/image',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'psr/http-factory' => array(
-            'pretty_version' => '1.0.2',
-            'version' => '1.0.2.0',
-            'reference' => 'e616d01114759c4c489f93b099585439f795fe35',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../psr/http-factory',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'psr/http-factory-implementation' => array(
-            'dev_requirement' => false,
-            'provided' => array(
-                0 => '1.0',
-            ),
-        ),
-        'psr/http-message' => array(
-            'pretty_version' => '2.0',
-            'version' => '2.0.0.0',
-            'reference' => '402d35bcb92c70c026d1a6a9883f06b2ead23d71',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../psr/http-message',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'psr/http-message-implementation' => array(
-            'dev_requirement' => false,
-            'provided' => array(
-                0 => '1.0',
-            ),
-        ),
-        'ralouphie/getallheaders' => array(
-            'pretty_version' => '3.0.3',
-            'version' => '3.0.3.0',
-            'reference' => '120b605dfeb996808c31b6477290a714d356e822',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../ralouphie/getallheaders',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'roave/security-advisories' => array(
-            'pretty_version' => 'dev-latest',
-            'version' => 'dev-latest',
-            'reference' => '6b458abe955f78a76ebe1ab22c8739ae625221f8',
-            'type' => 'metapackage',
-            'install_path' => NULL,
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
-            'dev_requirement' => true,
-        ),
-        'swiftmailer/swiftmailer' => array(
-            'pretty_version' => 'v6.2.7',
-            'version' => '6.2.7.0',
-            'reference' => '15f7faf8508e04471f666633addacf54c0ab5933',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../swiftmailer/swiftmailer',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'symfony/polyfill-iconv' => array(
-            'pretty_version' => 'v1.23.0',
-            'version' => '1.23.0.0',
-            'reference' => '63b5bb7db83e5673936d6e3b8b3e022ff6474933',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/polyfill-iconv',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'symfony/polyfill-intl-idn' => array(
-            'pretty_version' => 'v1.23.0',
-            'version' => '1.23.0.0',
-            'reference' => '65bd267525e82759e7d8c4e8ceea44f398838e65',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/polyfill-intl-idn',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'symfony/polyfill-intl-normalizer' => array(
-            'pretty_version' => 'v1.23.0',
-            'version' => '1.23.0.0',
-            'reference' => '8590a5f561694770bdcd3f9b5c69dde6945028e8',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/polyfill-intl-normalizer',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'symfony/polyfill-mbstring' => array(
-            'pretty_version' => 'v1.23.0',
-            'version' => '1.23.0.0',
-            'reference' => '2df51500adbaebdc4c38dea4c89a2e131c45c8a1',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/polyfill-mbstring',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'symfony/polyfill-php72' => array(
-            'pretty_version' => 'v1.23.0',
-            'version' => '1.23.0.0',
-            'reference' => '9a142215a36a3888e30d0a9eeea9766764e96976',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/polyfill-php72',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'vendor_name/phototechguru' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '9e961ef4901c2368318e07dd97d051eb7bd1a487',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
+    'reference' => '9183ce02ee76733be855860ead29a842ab70f47f',
+    'name' => 'vendor_name/phototechguru',
+  ),
+  'versions' => 
+  array (
+    'guzzlehttp/guzzle' => 
+    array (
+      'pretty_version' => '7.5.1',
+      'version' => '7.5.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b964ca597e86b752cd994f27293e9fa6b6a95ed9',
     ),
+    'guzzlehttp/promises' => 
+    array (
+      'pretty_version' => '1.5.2',
+      'version' => '1.5.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b94b2807d85443f9719887892882d0329d1e2598',
+    ),
+    'guzzlehttp/psr7' => 
+    array (
+      'pretty_version' => '2.5.0',
+      'version' => '2.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b635f279edd83fc275f822a1188157ffea568ff6',
+    ),
+    'intervention/image' => 
+    array (
+      'pretty_version' => '2.7.2',
+      'version' => '2.7.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '04be355f8d6734c826045d02a1079ad658322dad',
+    ),
+    'league/oauth2-client' => 
+    array (
+      'pretty_version' => '2.7.0',
+      'version' => '2.7.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '160d6274b03562ebeb55ed18399281d8118b76c8',
+    ),
+    'paragonie/random_compat' => 
+    array (
+      'pretty_version' => 'v9.99.100',
+      'version' => '9.99.100.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+    ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.8.0',
+      'version' => '6.8.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'df16b615e371d81fb79e506277faea67a1be18f1',
+    ),
+    'psr/http-client' => 
+    array (
+      'pretty_version' => '1.0.2',
+      'version' => '1.0.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '0955afe48220520692d2d09f7ab7e0f93ffd6a31',
+    ),
+    'psr/http-client-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'psr/http-factory' => 
+    array (
+      'pretty_version' => '1.0.2',
+      'version' => '1.0.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e616d01114759c4c489f93b099585439f795fe35',
+    ),
+    'psr/http-factory-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'psr/http-message' => 
+    array (
+      'pretty_version' => '2.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '402d35bcb92c70c026d1a6a9883f06b2ead23d71',
+    ),
+    'psr/http-message-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'ralouphie/getallheaders' => 
+    array (
+      'pretty_version' => '3.0.3',
+      'version' => '3.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '120b605dfeb996808c31b6477290a714d356e822',
+    ),
+    'roave/security-advisories' => 
+    array (
+      'pretty_version' => 'dev-latest',
+      'version' => 'dev-latest',
+      'aliases' => 
+      array (
+        0 => '9999999-dev',
+      ),
+      'reference' => '5eb9b0587e4625150e4892e569bb223714c86256',
+    ),
+    'symfony/deprecation-contracts' => 
+    array (
+      'pretty_version' => 'v3.0.2',
+      'version' => '3.0.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '26954b3d62a6c5fd0ea8a2a00c0353a14978d05c',
+    ),
+    'vendor_name/phototechguru' => 
+    array (
+      'pretty_version' => 'dev-develop',
+      'version' => 'dev-develop',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9183ce02ee76733be855860ead29a842ab70f47f',
+    ),
+  ),
 );

@@ -28,7 +28,6 @@ $database = new Database();
 $pdo = $database->createPDO();
 
 
-
 $gallery = new ImageContentManager($pdo);
 
 // New Instance of Login Class
@@ -189,7 +188,6 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
         }
 
 
-
     </style>
 
 
@@ -232,7 +230,6 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
             echo '<p class="home_paragraph">' . nl2br($record['content']) . '</p>';
 
 
-
             echo '</div>';
             echo '<br>';
 
@@ -242,7 +239,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
     <div class="home_sidebar">
         <form action="dashboard..php" method="GET">
             <label for="category"></label>
-            <select id="category" class="select-css" name="category" onchange="this.form.submit()" tabindex="1">
+            <select id="category" class="select-css" name="category" tabindex="1">
                 <option selected value="<?= $category ?>"><?= ucfirst($category) ?></option>
                 <option value="general">General</option>
                 <option value="landscape">Landscape</option>
@@ -266,12 +263,7 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
 <script>
-    const selectElement = document.getElementById("category");
 
-    selectElement.addEventListener("change", (event) => {
-        // Code to handle the change event
-        event.target.form.submit();
-    });
     document.addEventListener('DOMContentLoaded', function () {
         let deleteLinks = document.querySelectorAll('.delete-link');
 
@@ -288,9 +280,15 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
 
 
 
-
 </script>
-<script src="assets/js/lightbox.js"></script>
+<script>
+    let selectElement = document.getElementById("category");
+
+    selectElement.addEventListener("change", (event) => {
+        // Code to handle the change event
+        event.target.form.submit();
+    });
+</script>
 
 
 </body>
