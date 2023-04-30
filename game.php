@@ -158,7 +158,7 @@ if (isset($_SESSION['id'])) {
                 <label class="text_password" for="password">Password</label>
                 <input id="password" class="io_password" type="password" name="user[hashed_password]" required>
                 <button class="form_button" type="submit" name="submit" value="login">Login</button>
-                <a href="admin/register.php" title="register">register</a>
+                <a href="register.php" title="register">register</a>
             </form>
         </div>
     <?php } else if (LoginRepository::gameSecurityCheck()) {

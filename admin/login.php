@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the submitted CSRF token matches the one stored in the session
     if (hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
         // Sanitize the username and password input
-        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+        $username = strip_tags($_POST['username']);
+        $password = $_POST['password'];
 
         // Verify the user's credentials
         if ($loginRepository->verify_credentials($username, $password)) {

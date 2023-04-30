@@ -296,6 +296,82 @@ th {
     width: auto;
     height: auto; }
 
+#qr-code-container {
+  position: relative;
+  background-color: #ffffff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  text-align: center;
+  width: 11em;
+  padding: 1.5em;
+  margin-bottom: 1.250em; }
+  #qr-code-container #qr-code-image {
+    width: 80%;
+    height: auto;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+  #qr-code-container #qr-code-info {
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #333; }
+
+.d-none {
+  display: none; }
+
+.registerStyle {
+  background-color: #2E2E2E;
+  padding: 0.938em; }
+  .registerStyle label {
+    color: #F5F5F5; }
+  .registerStyle p, .registerStyle a, .registerStyle label, .registerStyle textarea {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+    line-height: 1.5;
+    font-weight: normal; }
+  .registerStyle input[type=text], .registerStyle input[type=tel], .registerStyle input[type=email], .registerStyle input[type="password"], .registerStyle select, .registerStyle textarea {
+    width: 100%;
+    padding: 0.750em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 0.375em;
+    margin-bottom: 1em;
+    resize: vertical; }
+  .registerStyle .emailLabel .emailError {
+    display: none; }
+  .registerStyle .text_username .error {
+    display: none; }
+  .registerStyle textarea {
+    resize: none;
+    height: 12.50em; }
+  .registerStyle input[type=submit] {
+    background-color: #2E2E2E;
+    color: white;
+    text-transform: capitalize;
+    border: none;
+    border-radius: 0.250em;
+    cursor: pointer;
+    padding: 0.750em 1.250em;
+    margin-top: 0.625em; }
+  .registerStyle input[type=submit]:hover {
+    background-color: #545454; }
+  .registerStyle button, .registerStyle a {
+    outline: none;
+    color: #fff;
+    border: none;
+    background-color: #6e6e6e;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+    width: 6.25em;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 0.313em;
+    margin: 0.625em;
+    transition: background-color .5s; }
+    .registerStyle button:hover, .registerStyle button:active, .registerStyle a:hover, .registerStyle a:active {
+      background-color: #545454; }
+
 .home_sidebar {
   margin: 2.500em auto; }
 
@@ -1123,6 +1199,66 @@ button:hover {
       .main_container .home_article {
         grid-area: home_main;
         padding: 0 1.250em; }
+        .main_container .home_article .registerStyle {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-areas: "qrContainer qrContainer" "email email" "first last" "screenName telephone" "password1 password2" "labelshow showpassword" "birthday birthday" "submitForm submitForm";
+          justify-content: center;
+          margin: 1.250em; }
+          .main_container .home_article .registerStyle #qr-code-container {
+            grid-area: qrContainer; }
+          .main_container .home_article .registerStyle .emailStyle {
+            grid-area: email;
+            margin: 0 0.625em; }
+          .main_container .home_article .registerStyle .first {
+            grid-area: first;
+            margin: 0 0.625em; }
+          .main_container .home_article .registerStyle .last {
+            grid-area: last;
+            margin: 0 0.625em; }
+          .main_container .home_article .registerStyle .screenName {
+            grid-area: screenName;
+            margin: 0 0.625em; }
+          .main_container .home_article .registerStyle .telephone {
+            grid-area: telephone;
+            margin: 0 0.625em; }
+          .main_container .home_article .registerStyle .password1 {
+            grid-area: password1;
+            margin: 0.3125em 0.625em; }
+          .main_container .home_article .registerStyle .password2 {
+            grid-area: password2;
+            margin: 0.3125em 0.625em; }
+          .main_container .home_article .registerStyle .labelShow {
+            grid-area: labelshow;
+            font-size: 1.0em;
+            margin-left: 0.5em; }
+          .main_container .home_article .registerStyle #passwordVisibility {
+            grid-area: showpassword; }
+          .main_container .home_article .registerStyle .birthday {
+            grid-area: birthday;
+            text-transform: capitalize;
+            margin: 0.3125em 0.625em; }
+          .main_container .home_article .registerStyle .submitForm {
+            grid-area: submitForm; }
+          .main_container .home_article .registerStyle .submitForm button {
+            float: right;
+            outline: none;
+            color: #fff;
+            border: none;
+            background-color: #4b81f8;
+            box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+            width: 6.25em;
+            font-family: "Rubik", sans-serif;
+            font-size: 1.2em;
+            text-transform: capitalize;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0.313em;
+            margin: 0.625em;
+            transition: background-color 0.5s;
+            text-align: center; }
+            .main_container .home_article .registerStyle .submitForm button:hover {
+              background-color: #8ebd94; }
         .main_container .home_article h1 {
           font-family: Georgia, serif;
           font-weight: normal;

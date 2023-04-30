@@ -57,6 +57,7 @@ trait NavigationMenuTrait
             'Edit Game' => '/hangman/edit_question.php',
             'Add Blog' => '/create_blog.php',
             'Edit Blog' => '/edit_blog.php',
+            'Register' => '/register.php',
             'Logout' => '/admin/logout.php',
         ];
 

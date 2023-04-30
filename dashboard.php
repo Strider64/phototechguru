@@ -30,7 +30,7 @@ $pdo = $database->createPDO();
 
 $gallery = new ImageContentManager($pdo);
 
-// New Instance of Login Class
+// Check to see if user is Logged In
 if (!$database->check_login_token()) {
     header('location: index.php');
     exit();
@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $category = $_GET['category'];
         $total_count = $gallery->countAllPage($category);
     } else {
-        error_log('Category is not set in the GET data');
-        $category = 'wildlife';
+        //error_log('Category is not set in the GET data');
+        $category = 'general';
         $total_count = $gallery->countAllPage($category);
     }
 } else {

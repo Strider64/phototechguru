@@ -6,11 +6,38 @@
     'aliases' => 
     array (
     ),
-    'reference' => '9183ce02ee76733be855860ead29a842ab70f47f',
+    'reference' => '9705af702750485c4ef4b01edd8ae1793087c1d9',
     'name' => 'vendor_name/phototechguru',
   ),
   'versions' => 
   array (
+    'chillerlan/php-qrcode' => 
+    array (
+      'pretty_version' => '4.3.4',
+      'version' => '4.3.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2ca4bf5ae048af1981d1023ee42a0a2a9d51e51d',
+    ),
+    'chillerlan/php-settings-container' => 
+    array (
+      'pretty_version' => '2.1.4',
+      'version' => '2.1.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1beb7df3c14346d4344b0b2e12f6f9a74feabd4a',
+    ),
+    'firebase/php-jwt' => 
+    array (
+      'pretty_version' => 'v6.4.0',
+      'version' => '6.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4dd1e007f22a927ac77da5a3fbb067b42d3bc224',
+    ),
     'guzzlehttp/guzzle' => 
     array (
       'pretty_version' => '7.5.1',
@@ -56,6 +83,15 @@
       ),
       'reference' => '160d6274b03562ebeb55ed18399281d8118b76c8',
     ),
+    'paragonie/constant_time_encoding' => 
+    array (
+      'pretty_version' => 'v2.6.3',
+      'version' => '2.6.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '58c3f47f650c94ec05a151692652a868995d2938',
+    ),
     'paragonie/random_compat' => 
     array (
       'pretty_version' => 'v9.99.100',
@@ -73,6 +109,15 @@
       array (
       ),
       'reference' => 'df16b615e371d81fb79e506277faea67a1be18f1',
+    ),
+    'pragmarx/google2fa' => 
+    array (
+      'pretty_version' => 'v8.0.1',
+      'version' => '8.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '80c3d801b31fe165f8fe99ea085e0a37834e1be3',
     ),
     'psr/http-client' => 
     array (
@@ -139,7 +184,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '5eb9b0587e4625150e4892e569bb223714c86256',
+      'reference' => 'b065269da224a0dde2d900eb597eb0e9072f550f',
     ),
     'symfony/deprecation-contracts' => 
     array (
@@ -157,7 +202,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '9183ce02ee76733be855860ead29a842ab70f47f',
+      'reference' => '9705af702750485c4ef4b01edd8ae1793087c1d9',
     ),
   ),
 );

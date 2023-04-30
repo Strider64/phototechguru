@@ -70,7 +70,7 @@
             // Create a FormData object from the edit form
             const formData = new FormData(editForm);
             //console.log("form data", formData);
-            // Send a POST request to the update_question.php endpoint with the form data
+            // Send a POST request to the edit_update_blog.php endpoint with the form data
             const response = await fetch("edit_update_blog.php", {
                 method: "POST",
                 body: formData,

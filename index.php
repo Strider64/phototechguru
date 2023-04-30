@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $category = $_GET['category'];
     } else {
         error_log('Category is not set in the GET data');
-        $category = 'wildlife';
+        $category = 'general';
     }
     $total_count = $gallery->countAllPage($category);
 } else {

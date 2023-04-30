@@ -301,17 +301,17 @@ th {
   font-weight: normal;
   padding: 1.250em; }
 
-form.registerStyle {
+registerStyle {
   background-color: #2E2E2E;
   padding: 0.938em; }
-  form.registerStyle label {
+  registerStyle label {
     color: #F5F5F5; }
-  form.registerStyle p, form.registerStyle a, form.registerStyle label, form.registerStyle textarea {
+  registerStyle p, registerStyle a, registerStyle label, registerStyle textarea {
     font-family: 'Rubik', sans-serif;
     font-size: 1.2em;
     line-height: 1.5;
     font-weight: normal; }
-  form.registerStyle input[type=text], form.registerStyle input[type=tel], form.registerStyle input[type=email], form.registerStyle input[type="password"], form.registerStyle select, form.registerStyle textarea {
+  registerStyle input[type=text], registerStyle input[type=tel], registerStyle input[type=email], registerStyle input[type="password"], registerStyle select, registerStyle textarea {
     width: 100%;
     padding: 0.750em;
     border: 1px solid #ccc;
@@ -320,14 +320,14 @@ form.registerStyle {
     margin-top: 0.375em;
     margin-bottom: 1em;
     resize: vertical; }
-  form.registerStyle .emailLabel .emailError {
+  registerStyle .emailLabel .emailError {
     display: none; }
-  form.registerStyle .text_username .error {
+  registerStyle .text_username .error {
     display: none; }
-  form.registerStyle textarea {
+  registerStyle textarea {
     resize: none;
     height: 12.50em; }
-  form.registerStyle input[type=submit] {
+  registerStyle input[type=submit] {
     background-color: #2E2E2E;
     color: white;
     text-transform: capitalize;
@@ -336,9 +336,9 @@ form.registerStyle {
     cursor: pointer;
     padding: 0.750em 1.250em;
     margin-top: 0.625em; }
-  form.registerStyle input[type=submit]:hover {
+  registerStyle input[type=submit]:hover {
     background-color: #545454; }
-  form.registerStyle button, form.registerStyle a {
+  registerStyle button, registerStyle a {
     outline: none;
     color: #fff;
     border: none;
@@ -352,7 +352,7 @@ form.registerStyle {
     padding: 0.313em;
     margin: 0.625em;
     transition: background-color .5s; }
-    form.registerStyle button:hover, form.registerStyle button:active, form.registerStyle a:hover, form.registerStyle a:active {
+    registerStyle button:hover, registerStyle button:active, registerStyle a:hover, registerStyle a:active {
       background-color: #545454; }
 
 .addTriviaInfo {

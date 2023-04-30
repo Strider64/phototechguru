@@ -8,17 +8,31 @@ use PDO;
 
 class Validation extends DatabaseObject
 {
-    public static string $table = "admins"; // Table Name:
+    public string $table = "admins"; // Table Name:
+    protected PDO $pdo;
 
+    public function __construct(PDO $pdo, array $args = [])
+    {
+        $this->pdo = $pdo;
 
-    public static function usernameCheck($username): array
+        // Caution: allows private/protected properties to be set
+        foreach ($args as $k => $v) {
+            if (property_exists($this, $k)) {
+                $this->$k = $v;
+                $this->params[$k] = $v;
+                $this->objects[] = $v;
+            }
+        }
+    } // End of construct method:
+
+    public function usernameCheck($username): array
     {
 
 
-        if (isset(static::$table)) {
-            $query = "SELECT username FROM " . static::$table ." WHERE username = :username";
-        }
-        $stmt = Database::pdo()->prepare($query);
+
+        $query = "SELECT username FROM " . $this->table ." WHERE username = :username";
+
+        $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         if ($stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -32,7 +46,7 @@ class Validation extends DatabaseObject
 
     }
 
-    public static function verifyPassword($password, $redo): bool
+    public function verifyPassword($password, $redo): bool
     {
         return $password === $redo;
     }
