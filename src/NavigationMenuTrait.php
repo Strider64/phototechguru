@@ -13,7 +13,7 @@ trait NavigationMenuTrait
             'Home' => 'index.php',
             'Can You See?' => 'hangman/can_you_solve.php',
             'Gallery' => 'gallery.php',
-            'Contact' => 'contact.php',
+            //'Contact' => 'contact.php',
         ];
 
         foreach ($navItems as $title => $path) {

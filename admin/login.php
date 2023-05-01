@@ -103,18 +103,17 @@ header("Content-Security-Policy: default-src 'self'; font-src 'self' https://fon
 <body class="site">
 <div class="nav">
 
-    <input type="checkbox" id="nav-check">
 
-
-    <div class="nav-btn">
-        <label for="nav-check">
+    <div class="nav-btn" onclick="toggleNavMenu()">
+        <label>
             <span></span>
             <span></span>
             <span></span>
         </label>
     </div>
 
-    <div class="nav-links">
+
+    <div class="nav-links" id="nav-links">
         <?php $database->regular_navigation(); ?>
     </div>
 
@@ -186,6 +185,17 @@ header("Content-Security-Policy: default-src 'self'; font-src 'self' https://fon
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
-
+<script>
+    function toggleNavMenu() {
+        let navLinks = document.getElementById('nav-links');
+        if (navLinks.style.height === '0px' || navLinks.style.height === '') {
+            navLinks.style.height = 'calc(100vh - 3.125em)';
+            navLinks.style.overflowY = 'auto';
+        } else {
+            navLinks.style.height = '0px';
+            navLinks.style.overflowY = 'hidden';
+        }
+    }
+</script>
 </body>
 </html>

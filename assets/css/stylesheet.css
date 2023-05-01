@@ -608,7 +608,8 @@ button:hover {
     display: inline-block;
     position: absolute;
     right: 0;
-    top: 0; }
+    top: 0;
+    z-index: 10000; }
 
   .nav > .nav-btn > label {
     display: inline-block;
