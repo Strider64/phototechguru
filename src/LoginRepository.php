@@ -88,8 +88,8 @@ class LoginRepository implements LoginRepositoryInterface
         // Destroy the session
         session_destroy();
 
-        // Redirect the user to the login page or home page
-        header('Location: /admin/login.php');
+        // Redirect the user to the home page
+        header('Location: ../index.php');
         exit;
     }
 

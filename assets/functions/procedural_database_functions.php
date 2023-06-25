@@ -7,7 +7,7 @@
  */
 
 
-function insertData(array $data, $pdo, $table) {
+function create(array $data, $pdo, $table) {
     try {
         /* Initialize an array */
         $attribute_pairs = [];
@@ -39,27 +39,6 @@ function insertData(array $data, $pdo, $table) {
         return $stmt->execute($attribute_pairs); // Execute and send boolean true:
 
     } catch (PDOException $e) {
-
-        /*
-         * echo "unique index" . $e->errorInfo[1] . "<br>";
-         *
-         * An error has occurred if the error number is for something that
-         * this code is designed to handle, i.e. a duplicate index, handle it
-         * by telling the user what was wrong with the data they submitted
-         * failure due to a specific error number that can be recovered
-         * from by the visitor submitting a different value
-         *
-         * return false;
-         *
-         * else the error is for something else, either due to a
-         * programming mistake or not validating input data properly,
-         * that the visitor cannot do anything about or needs to know about
-         *
-         * throw $e;
-         *
-         * re-throw the exception and let the next higher exception
-         * handler, php in this case, catch and handle it
-         */
 
         if ($e->errorInfo[1] === 1062) {
             return false;

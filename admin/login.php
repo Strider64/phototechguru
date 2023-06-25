@@ -39,7 +39,6 @@ if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-// From login.php
 // Process the login form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the submitted CSRF token matches the one stored in the session
@@ -84,9 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Set the Content Security Policy header
-header("Content-Security-Policy: default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com;");
+// Generate a random nonce value
+$nonce = base64_encode(random_bytes(16));
 
+// Set the CSP header
+header("Content-Security-Policy: default-src 'self' 'nonce-{$nonce}'; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com;");
 ?>
 
 
@@ -185,7 +186,7 @@ header("Content-Security-Policy: default-src 'self'; font-src 'self' https://fon
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
-<script>
+<script nonce="<?php echo $nonce; ?>">
     function toggleNavMenu() {
         let navLinks = document.getElementById('nav-links');
         if (navLinks.style.height === '0px' || navLinks.style.height === '') {

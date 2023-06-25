@@ -783,6 +783,7 @@ body {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
+    width: 12.50em;
     background-color: #cccccc;
     box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
     padding: 1.250em;
@@ -830,7 +831,7 @@ body {
     .contact {
       display: grid;
       grid-template-columns: 2fr;
-      grid-template-areas: "owner owner" "horizontal_line horizontal_line" "contact_name  contact_email" "contact_phone contact_website" "contact_comment contact_comment" "recaptcha message" "submit_comment submit_comment";
+      grid-template-areas: "owner owner" "horizontal_line horizontal_line" "contact_name  contact_email" "contact_phone contact_website" "contact_comment contact_comment" "message message" "submit_comment submit_comment";
       grid-column-gap: 1.250em; }
       .contact .owner {
         grid-area: owner;

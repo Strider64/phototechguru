@@ -1,0 +1,426 @@
+@import "partials/_reset";
+
+@import "partials/color_theme_1";
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;1,500&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+
+.site {
+  background-color: #f1f1f1;
+}
+
+.left-side {
+  float: left;
+  width: 25%;
+  padding: 3% 2% 1%
+}
+
+.right-side {
+  float: right;
+  width: 25%;
+  padding: 1%;
+}
+
+
+h1, h2, h3, h4, h5, h6, legend, label {
+  font-family: 'Noto Serif JP', serif;
+}
+
+p, label, textarea {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-weight: normal;
+}
+
+/* Navigational CSS 9/30/2022 */
+.nav {
+  position: relative;
+  width: 100%;
+  height: 2.700em;
+  border-bottom: 1px solid #4b81f8;
+  padding-bottom: 0.625em;
+}
+
+.nav-title {
+  display: none;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1.2em;
+  color: #efefef;
+  padding-left: 0.625em;
+}
+
+.name-website {
+  display: flex;
+  justify-content: center;
+  margin: -1.300em;
+
+  .webtitle {
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 1.8em;
+    color: #4b81f8;
+  }
+}
+
+.nav > .nav-btn {
+  display: none;
+}
+
+.nav > .nav-links {
+  display: inline;
+  float: right;
+  font-size: 1.250em;
+  padding-right: 3.125em;
+}
+
+.nav > .nav-links > a {
+  display: inline-block;
+  line-height: 1.875em;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: #4b81f8;
+  padding: 0.313em 0.625em;
+}
+
+.nav > .nav-links > a:hover {
+  color: darken(#e6e6e6, 60%);
+}
+
+.nav > #nav-check {
+  display: none;
+}
+
+/* Navigation CSS Media Query */
+@media screen and (max-width: 77em) {
+  .name-website {
+    display: none;
+  }
+  .nav > .nav-btn {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10000;
+  }
+  .nav > .nav-btn > label {
+    display: inline-block;
+    cursor: pointer;
+    width: 3.125em;
+    height: 3.125em;
+    padding: 0.875em;
+  }
+
+  .nav > .nav-btn > label > span {
+    display: block;
+    width: 1.563em;
+    height: 0.500em;
+    border-top: 0.125em solid darken(#e6e6e6, 30%);
+  }
+  .nav > .nav-links {
+    position: absolute;
+    display: block;
+    width: 100%;
+    z-index: 30000;
+    background-color: rgba(#333, 0.70);
+    height: 0;
+    transition: all 0.3s ease-in;
+    overflow-y: hidden;
+    top: 3.125em;
+    left: 0;
+  }
+  .nav > .nav-links > a {
+    display: block;
+    width: 100%;
+    color: #fff;
+  }
+
+  /* Add this to your CSS file */
+  .nav-links {
+    height: 0;
+    overflow-y: hidden;
+  }
+
+}
+
+/* Vertical Navigation */
+.admin-navigation {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  background-color: #f1f1f1;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.admin-navigation a {
+  text-decoration: none;
+  color: #000;
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+}
+
+.admin-navigation a:hover {
+  background-color: #ddd;
+}
+
+/* High Score Table */
+.styled-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin: auto;
+}
+
+.styled-table thead tr.tableTitle {
+  background-color: #fff;
+}
+
+.styled-table thead tr.tableTitle th {
+  text-align: center;
+}
+
+.styled-table thead tr.subTitle {
+  background-color: #2E2E2E;
+  color: #ffffff;
+  text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+  text-align: left;
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: silver;
+}
+
+.styled-table tbody tr:nth-of-type(odd) {
+  background-color: #fff;
+}
+
+.styled-table tbody tr:last-of-type {
+
+}
+
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #00b28d;
+}
+
+#totals h2 {
+  color: #fff;
+}
+
+#totals p {
+  color: #fff;
+  line-height: 0.6;
+}
+
+.main {
+  background-color: #fff;
+  padding: 1.250em;
+}
+
+.sidebar {
+  background-color: #fff;
+  padding: 1.250em;
+}
+
+.disable {
+  pointer-events: none;
+}
+
+#quiz {
+  display: none;
+}
+
+/* Trivia Game Styling */
+.triviaContainer {
+
+  /* Answer Buttons */
+  .buttonStyle {
+    display: block;
+    width: 100%;
+    height: 3.125em;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: #F5F5F5;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+    color: #2E2E2E;
+    text-transform: capitalize;
+    text-align: left;
+    padding-left: 0.625em;
+    margin: 0.625em auto;
+    &:hover {
+      background-color: #00b28d;
+      color: #fff;
+    }
+  }
+  #next {
+    float: right;
+    outline: none;
+    color: #fff;
+    border: none;
+    background-color: #4CAF50;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+    width: 6.25em;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 0.313em;
+    margin: 0.625em 0;
+    transition: background-color .5s;
+    &:hover {
+      background-color: #2e6b31;
+    }
+  }
+
+} // End of Trivia CSS
+
+.catHeading {
+  font-size: 1.4em;
+  color: #4CAF50;
+}
+/* Trivia Game Sidebar Styling */
+.vertical-nav {
+  background-color: aliceblue;
+  height: auto;
+  padding: 0.625em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+  ul {
+    list-style: none;
+    li a {
+      text-decoration: none;
+      display: block;
+      width: 15.625em;
+      background-color: white;
+      color: black;
+      box-shadow: 2px 2px 2px cadetblue;
+      border-radius: 0.500em;
+      margin: 0.313em;
+      padding: 0.625em;
+      &:hover {
+        background-color: rgb(142, 175, 237);
+        color: white;
+        transform: scale(1.1, 1.5);
+      }
+    }
+  }
+}
+
+/* Approximately the size of an iPad 800px */
+@supports (grid-area: auto) {
+  @media screen and (min-width: 26em) {
+    .site {
+      display: grid;
+      grid-template-columns: 25em 25em;
+      grid-template-areas:
+                "nav nav"
+				"header header"
+				"sidebar main"
+				"footer footer";
+      justify-content: center;
+      width: 50em;
+      margin: 0 auto;
+    }
+
+    .nav {
+      grid-area: nav;
+
+    }
+
+    .headerStyle {
+      grid-area: header;
+      display: block;
+      width: 100%;
+      max-width: 800px;
+      height: 15.625em;
+      background-repeat: no-repeat;
+      background-size: 50.000em 15.625em;
+      background-position: center center;
+      background-image: url("../images/img-lego-header-800-250.jpg");
+    }
+
+    .sidebar {
+      grid-area: sidebar;
+    }
+
+    .main {
+      grid-area: main;
+    }
+
+    .footer {
+      grid-area: footer;
+    }
+  }
+}
+
+/* Approximately the size of a 1248px large display monitor */
+@supports (grid-area: auto) {
+  @media screen and (min-width: 64em) {
+    .site {
+      display: grid;
+      grid-template-columns: 36em 1fr;
+      grid-template-areas:
+                "nav nav"
+                "main sidebar"
+				"footer footer";
+      justify-content: center;
+      grid-gap: 1.250em;
+      width: 64em;
+      margin: 0 auto;
+    }
+    .nav {
+      grid-area: nav;
+    }
+    .displayStatus h4, .displayStatus p {
+      display: block;
+    }
+    .headerStyle {
+      grid-area: header;
+      display: block;
+      width: 100%;
+      max-width: 1024px;
+      height: 15.625em;
+      background-repeat: no-repeat;
+      background-size: 64.000em 15.625em;
+      background-image: url("../images/img-lego-header-1024-250.jpg");
+    }
+
+    .sidebar {
+      grid-area: sidebar;
+    }
+
+    .main {
+      grid-area: main;
+    }
+
+    .footer {
+      grid-area: footer;
+      background-color: azure;
+      text-align: center;
+      margin-top: 1.250em;
+
+      p {
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 1.0em;
+        color: #2e2e2e;
+      }
+    }
+  }
+}

@@ -2,41 +2,41 @@
 //edit_blog.js
 (function () {
     document.addEventListener("DOMContentLoaded", function () {
-        // Get references to the search form and edit form elements
         const searchForm = document.getElementById("searchForm");
         const editForm = document.getElementById("data_entry_form");
-
-        // Get references to the input elements for ID, question, and answer
         const idInput = document.getElementById("id");
         const image_for_edit_record = document.getElementById("image_for_edited_record");
         const category = document.getElementById("category");
-        const heading = document.getElementById("heading");
+        const heading = document.querySelector('.heading');
         const content = document.getElementById("content");
         const resultInput = document.getElementById("searchTerm");
-        // Define an asynchronous function to display a record based on a search term
-        async function displayRecord(searchTerm) {
+
+        const headingDropdown = document.querySelector('select[name="heading"]');
+
+        async function displayRecord(searchTerm = null, selectedHeading = null) {
+            const requestData = {};
+            if(searchTerm !== null) requestData.searchTerm = searchTerm;
+            if(selectedHeading !== null) requestData.heading = selectedHeading;
+
             try {
-                // Send a POST request to the search_records.php endpoint with the search term
                 const response = await fetch("search_blog_records.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({searchTerm: searchTerm}),
+                    body: JSON.stringify(requestData),
                 });
 
-                // Get the response as JSON
                 const data = await response.json();
+                console.log(data); // Add this line
                 if (data.message) {
-                    resultInput.value = '';          // Clear the current value of the input field
-                    resultInput.placeholder = data.message; // Set the placeholder attribute to data.message
-
+                    resultInput.value = '';
+                    resultInput.placeholder = data.message;
                 } else if (data.error) {
                     console.error(data.error);
                 } else {
-                    // If data is found, display the first row in the console and update the input fields
                     const row = data[0];
-                    //console.log("Record", row);
+                    console.log(row);
                     idInput.value = row.id;
                     image_for_edit_record.src = row.thumb_path;
                     image_for_edit_record.alt = row.heading;
@@ -44,22 +44,33 @@
                     category.textContent = `${row.category.charAt(0).toUpperCase()}${row.category.slice(1)}`;
                     heading.value = row.heading;
                     content.value = row.content;
-
                 }
             } catch (error) {
-                // Log any errors that occur during the request
                 console.error("Error:", error);
             }
         }
 
-        // Add an event listener to the search form's submit event
         searchForm.addEventListener("submit", function (event) {
             // Prevent the default form submit behavior
             event.preventDefault();
-            // Get the value of the search term input field
-            const searchTerm = document.getElementById("searchTerm").value;
-            // Call the displayRecord function with the search term
-            displayRecord(searchTerm);
+
+            // Get the value of the search term input field and the select box
+            const searchTermInput = document.getElementById("searchTerm").value;
+            const selectedHeading = document.querySelector('select[name="heading"]').value;
+
+            // Use the input value if it's not empty, otherwise use the select value
+            const searchTerm = searchTermInput !== "" ? searchTermInput : null;
+            const heading = selectedHeading !== "" ? selectedHeading : null;
+
+            // Call the displayRecord function with the search term and selected heading
+            displayRecord(searchTerm, heading);
+        });
+
+
+        // New event listener for the dropdown change
+        headingDropdown.addEventListener("change", function() {
+            const selectedHeading = headingDropdown.options[headingDropdown.selectedIndex].value;
+            displayRecord(null, selectedHeading);
         });
 
         // Add an event listener to the edit form's submit event
@@ -82,12 +93,18 @@
                 console.log(result);
                 // If the response has a "success" property and its value is true, clear the form
                 if (result.success) {
-                    resultInput.value = '';          // Clear the current value of the input field
+                    resultInput.value = '';          // Clear the current value of the search input field
                     resultInput.placeholder = "New Search"; // Set the placeholder to `New Search`
                     image_for_edit_record.src = "";
                     image_for_edit_record.alt = "";
-                    editForm.reset(); // Updated line: call reset() method on the form element
+                    editForm.reset(); // Resetting the edit form
+                    searchForm.reset(); // Resetting the search form
+
+                    // Reset select box to default (first) option
+                    const selectBox = document.querySelector('select[name="heading"]');
+                    selectBox.selectedIndex = 0;
                 }
+
             } else {
                 console.error(
                     "Error submitting the form:",

@@ -7,7 +7,6 @@ document.body.appendChild(lightbox);
 
 
 const images = document.querySelectorAll('img')
-console.log(images);
 images.forEach(image => {
     /* Add Event Listener to Images and setting css class to active */
     image.addEventListener('click', () => {
@@ -38,8 +37,6 @@ images.forEach(image => {
         let nextSibling = image.nextElementSibling; // Grab the next sibling:
         let galleryText = document.createElement('p');
         galleryText.classList.add('galleryText');
-        //console.log(nextSibling.textContent);
-        //galleryText.textContent = nextSibling.textContent;
 
 
         /* Remove Image For Screen (cleanup) */
@@ -52,10 +49,6 @@ images.forEach(image => {
 
         /* Add EXIF to Screen */
         lightbox.appendChild(galleryExif);
-
-        /* Add Content to Screen */
-        //lightbox.appendChild(galleryText);
-
 
     })
 

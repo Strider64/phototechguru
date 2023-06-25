@@ -2,7 +2,9 @@
 
 namespace PhotoTech;
 
-class Trivia extends DatabaseObject
+use PDO;
+
+class Trivia
 {
 
     public $id;
@@ -19,87 +21,102 @@ class Trivia extends DatabaseObject
     public $day_of_week;
     public $day_of_year;
 
+    protected PDO $pdo;
+    protected $params;
+    protected $objects;
 
-
-    public function __construct($args = [])
+    public function __construct(PDO $pdo, $args = [])
     {
+        $this->pdo = $pdo;
+
         foreach ($args as $k => $v) {
             if (property_exists($this, $k)) {
                 $this->$k = $v;
-                static::$params[$k] = $v;
-                static::$objects[] = $v;
+                $this->params[$k] = $v;
+                $this->objects[] = $v;
             }
         }
     }
 
-    public static function fetch_data($searchTerm): array
+    public function fetch_data($searchTerm): array
     {
         static::$searchItem = 'category';
         static::$searchValue = $searchTerm;
-        $sql = "SELECT id, user_id, hidden, question, answer1, answer2, answer3, answer4, category FROM " . static::$table . " WHERE category=:category";
-        return static::fetch_all_by_column_name($sql);
+        $sql = "SELECT id, user_id, hidden, question, answer1, answer2, answer3, answer4, category FROM trivia_questions WHERE category=:category";
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute([ $this->searchItem => $this->searchValue ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     /*
      * Grab all the columns from table in order
      * to edit:
      */
-    public static function fetch_all_data($searchTerm): array
+    public function fetch_all_data($searchTerm): array
     {
         static::$searchItem = 'category';
         static::$searchValue = $searchTerm;
-        $sql = "SELECT * FROM " . static::$table . " WHERE category=:category";
-        return  static::fetch_all_by_column_name($sql);
+        $sql = "SELECT * FROM trivia_questions WHERE category=:category";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([ $this->searchItem => $this->searchValue ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
-    public static function fetch_all_categories(): array
+    public function fetch_all_categories(): array
     {
-        $sql = "SELECT * FROM " .static::$table;
-        return static::fetch_all_records($sql);
+        $sql = "SELECT * FROM trivia_questions";
+        // execute a query
+        $statement = $this->pdo->query($sql);
+
+        // fetch all rows
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /*
      * Fetch correct answer:
      */
-    public static function fetch_correct_answer($searchTerm):array
+    public function fetch_correct_answer($searchTerm):array
     {
         static::$searchItem = 'id';
         static::$searchValue = $searchTerm;
-        $sql = "SELECT id, correct FROM " . static::$table . " WHERE id=:id";
-        return static::fetch_by_column_name($sql);
+        $sql = "SELECT id, correct FROM trivia_questions WHERE id=:id";
+        $stmt = $this->pdo->prepare($sql); // Database::pdo() is the PDO Connection
+
+        $stmt->execute([ $this->searchItem => $thi->searchValue ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function create():bool
+    public function create(): bool
     {
-
         /* Initialize an array */
         $attribute_pairs = [];
 
         /*
-         * Setup the query using prepared states with static:$params being
-         * the columns and the array keys being the prepared named placeholders.
+         * Set up the query using prepared statements with named placeholders.
          */
-        $sql = 'INSERT INTO ' . static::$table . '(' . implode(", ", array_keys(static::$params)) . ', play_date)';
-        $sql .= ' VALUES ( :' . implode(', :', array_keys(static::$params)) . ', NOW() )'; // Notice the 2 NOW() calls for dates:
+        $sql = 'INSERT INTO trivia_questions (' . implode(", ", array_keys($this->params)) . ')';
+        $sql .= ' VALUES ( :' . implode(', :', array_keys($this->params)) . ')';
 
         /*
          * Prepare the Database Table:
          */
-        $stmt = Database::pdo()->prepare($sql);
+        $stmt = $this->pdo->prepare($sql); // PHP Version 8.x Database::pdo()
 
         /*
-         * Grab the corresponding values in order to
+         * Bind the corresponding values in order to
          * insert them into the table when the script
          * is executed.
          */
-        foreach (static::$params as $key => $value)
-        {
-            if($key === 'id') { continue; } // Don't include the id:
-            $attribute_pairs[] = $value; // Assign it to an array:
+        foreach ($this->params as $key => $value) {
+            if ($key === 'id') {
+                continue; // Don't include the id
+            }
+            $stmt->bindValue(':' . $key, $value); // Bind values to the named placeholders
         }
 
-        return $stmt->execute($attribute_pairs); // Execute and send boolean true:
-
+        // Execute the statement and return true if successful, otherwise false
+        return $stmt->execute();
     }
 
     public function update(): bool
@@ -121,10 +138,10 @@ class Trivia extends DatabaseObject
          * class if you needed too.
          */
         $sql  = 'UPDATE ' . static::$table . ' SET ';
-        $sql .= implode(", ", $attribute_pairs) . ', play_date=NOW() WHERE id =:id';
+        $sql .= implode(", ", $attribute_pairs) . ' WHERE id =:id';
 
         /* Normally in two lines, but you can daisy chain pdo method calls */
-        Database::pdo()->prepare($sql)->execute(static::$params);
+        $this->pdo->prepare($sql)->execute(static::$params);
 
         return true;
 
@@ -132,26 +149,26 @@ class Trivia extends DatabaseObject
 
     public function readHighScores($maximum) {
         $query = 'SELECT * FROM hs_table ORDER BY score DESC LIMIT :maximum';
-        $stmt = Database::pdo()->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute(['maximum' => (int) $maximum['max_limit']]);
         $output = $stmt->fetchAll();
 
         return $output;
     }
 
-    static public function insertHighScores($data) {
+    public function insertHighScores($data) {
         $query = 'INSERT INTO hs_table( player, score, played, correct, totalQuestions, day_of_year ) VALUES ( :player, :score, NOW(), :correct, :totalQuestions, :day_of_year )';
-        $stmt = Database::pdo()->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $result = $stmt->execute(['player' => $data['player'], 'score' => $data['score'], 'correct' => $data['correct'], 'totalQuestions' => $data['totalQuestions'], 'day_of_year' => $data['day_of_year']]);
         return $result;
     }
 
-    static public function clearTable() {
+    public function clearTable() {
 
 
         $sql = "DELETE FROM hs_table WHERE played < CURDATE()";
 
-        $stmt = Database::pdo()->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
 
         return $stmt->execute();
     }

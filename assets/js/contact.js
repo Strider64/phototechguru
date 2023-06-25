@@ -1,201 +1,193 @@
 'use strict';
 /* Convert RGBa to HEX  */
-const rgba2hex = (orig) => {
-    let a,
-        rgb = orig.replace(/\s/g, '').match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
-        alpha = (rgb && rgb[4] || "").trim(),
-        hex = rgb ?
-            (rgb[1] | 1 << 8).toString(16).slice(1) +
-            (rgb[2] | 1 << 8).toString(16).slice(1) +
-            (rgb[3] | 1 << 8).toString(16).slice(1) : orig;
 
-    if (alpha !== "") {
-        a = alpha;
+
+console.log("Hello, World");
+const sendUrl = 'send_email.php';
+const submit = document.querySelector('#submitForm');
+const radioBtn = document.querySelector('#message-type');
+const buttons = document.getElementsByName("reason");
+const message = document.querySelector('#message');
+const messageSuccess = document.querySelector('#messageSuccess');
+
+let name = document.querySelector('#name');
+let email = document.querySelector('#email');
+let phone = document.querySelector('#phone');
+let website = document.querySelector('#web');
+let notice = document.querySelector('.notice');
+let sendEmail = {};
+let sendStatus = {
+    name: false,
+    email: false,
+    comments: false
+};
+sendEmail.reason = 'message';
+//sendEmail.token = document.querySelector('#token').value;
+
+let comments = document.querySelector("textarea");
+let output = document.querySelector("#length");
+
+
+name.addEventListener('input', () => {
+    const value = name.value.trim();
+
+    if (value) {
+        name.style.borderColor = 'green';
+        sendEmail.name = name.value;
+        sendStatus.name = true;
     } else {
-        a = "01";
+        name.style.borderColor = "red";
+        name.value = "";
+        name.placeholder = "Name Required";
+        name.focus();
+
     }
-    // multiply before convert to HEX
-    a = ((a * 255) | 1 << 8).toString(16).slice(1);
-    hex = hex + a;
 
-    return hex;
+});
+
+const emailIsValid = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
-const myColor = (colorcode) => {
-    let hexColor = rgba2hex(colorcode);
-    return '#' + hexColor;
-};
+email.addEventListener('change', () => {
+    let status = emailIsValid(email.value);
+    //console.log('Email Address', email.value, 'Status', status);
+    if (!status) {
+        email.value = "";
+        email.placeholder = "Email Address is Invalid!";
+        email.style.borderColor = "red";
+        email.focus();
+    } else {
+        email.style.borderColor = 'green';
+        sendEmail.email = email.value;
+        sendStatus.email = true;
+    }
+});
+
 
 /*
- * Constants & Variables Initialization Section.
+ * Selection Element
  */
-const myGreen = myColor("rgba(29, 100, 31, 0.70)"); /* Green with 70% transparency */
-const myRed = myColor("rgba(84, 0, 30, 0.50)"); /* Red with 70% transparency */
-const myBorder = myColor("rgba(85, 85, 85, 1.00");
-const contact = () => {
-    const d = document;
-    const sendUrl = 'sendMsg.php';
-    const submit = d.querySelector('#submitForm');
-    const radioBtn = d.querySelector('#message-type');
-    const buttons = d.getElementsByName("reason");
-    const message = d.querySelector('#message');
-    const messageSuccess = d.querySelector('#messageSuccess');
-
-    let name = d.querySelector('#name');
-    let email = d.querySelector('#email');
-    let phone = d.querySelector('#phone');
-    let website = d.querySelector('#web');
-    let notice = d.querySelector('.notice');
-    let sendEmail = {};
-    let sendStatus = {
-        name: false,
-        email: false,
-        comments: false
-    };
-    sendEmail.reason = 'message';
-    sendEmail.token = d.querySelector('#token').value;
-
-
-
-    let comments = d.querySelector("textarea");
-    let output = d.querySelector("#length");
-
-    //d.getElementById('contact').scrollIntoView();
-
-
-    name.addEventListener('input', () => {
-        const value = name.value.trim();
-
-        if (value) {
-            name.style.borderColor = myBorder;
-            sendEmail.name = name.value;
-            sendStatus.name = true;
-        } else {
-            name.style.borderColor = "red";
-            name.value = "";
-            name.placeholder = "Name Required";
-            name.focus();
-
-        }
-
+buttons.forEach((value, index) => {
+    //console.log(value, index);
+    buttons[index].addEventListener('change', (e) => {
+        sendEmail.reason = e.target.value;
+        //console.log('Reason:', sendEmail.reason);
     });
+});
 
-    const emailIsValid = (email) => {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    };
 
-    email.addEventListener('change', () => {
-        let status = emailIsValid(email.value);
-        console.log('Email Address', email.value, 'Status', status);
-        if (!status) {
-            email.value = "";
-            email.placeholder = "Email Address is Invalid!";
-            email.style.borderColor = "red";
-            email.focus();
-        } else {
-            email.style.borderColor = myBorder;
-            sendEmail.email = email.value;
-            sendStatus.email = true;
-        }
+comments.addEventListener("input", () => {
+    // noinspection JSValidateTypes
+    output.textContent = comments.value.length;
+    const value = comments.value.trim();
+
+    if (value) {
+        comments.style.borderColor = 'green';
+        sendEmail.comments = comments.value;
+        sendStatus.comments = true;
+    } else {
+        comments.style.borderColor = "red";
+        comments.placeholder = "Message Required!";
+        comments.focus();
+    }
+});
+
+function handleSaveErrors(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return response.text().then((text) => {
+        console.log("Raw response text:", text);
+        return JSON.parse(text);
     });
+}
 
 
-    /*
-     * Selection Element
-     */
-    buttons.forEach((value, index) => {
-        //console.log(value, index);
-        buttons[index].addEventListener('change', (e) => {
-            sendEmail.reason = e.target.value;
-            //console.log('Reason:', sendEmail.reason);
+
+/* Success function utilizing FETCH */
+const sendUISuccess = function (result) {
+    //console.log('Result', result);
+    if (result) {
+        //d.querySelector('#recaptcha').style.display = "none";
+        submit.style.display = "none";
+
+        // Change graphic again when successful send
+        document.querySelector('.pen').setAttribute('src', 'assets/images/target.png');
+        // Show the success message
+        document.getElementById('successMessage').style.display = "block";
+        // Disable form elements
+        document.querySelectorAll('form > *').forEach(function (a) {
+            a.disabled = true;
         });
-    });
-
-
-    comments.addEventListener("input", () => {
-        // noinspection JSValidateTypes
-        output.textContent = comments.value.length;
-        const value = comments.value.trim();
-
-        if (value) {
-            comments.style.borderColor = myBorder;
-            sendEmail.comments = comments.value;
-            sendStatus.comments = true;
-        } else {
-            comments.style.borderColor = "red";
-            comments.placeholder = "Message Required!";
-            comments.focus();
-        }
-    });
-
-
-    /* Success function utilizing FETCH */
-    const sendUISuccess = function (result) {
-        //console.log('Result', result);
-        if (result) {
-            d.querySelector('#recaptcha').style.display = "none";
-            submit.style.display = "none";
-            d.querySelector('.pen').setAttribute('src', 'assets/images/target.png');
-            //messageSuccess.style.display = "block";
-            d.querySelectorAll('form > *').forEach(function (a) {
-                a.disabled = true;
-            });
-        }
-    };
-
-    /* If Database Table fails to update data in mysql table */
-    const sendUIError = function (error) {
-        console.log("Database Table did not load", error);
-    };
-
-    const handleSaveErrors = function (response) {
-        if (!response.ok) {
-            throw (response.status + ' : ' + response.statusText);
-        }
-        return response.json();
-    };
-
-
-    const saveRequest = (sendUrl, succeed, fail) => {
-        //console.log(sendEmail);
-        fetch(sendUrl, {
-            method: 'POST', // or 'PUT'
-            body: JSON.stringify(sendEmail)
-
-        })
-            .then((response) => handleSaveErrors(response))
-            .then((data) => succeed(data))
-            .catch((error) => fail(error));
-    };
-
-    submit.addEventListener('click', (e) => {
-
-        e.preventDefault();
-
-        sendEmail.phone = phone.value;
-        sendEmail.website = website.value;
-        sendEmail.response = submit.getAttribute('data-response');
-        if (email.value === '') {
-            email.placeholder = "Email Address is Invalid!";
-            email.style.borderColor = "red";
-            email.focus();
-        }
-        if (sendStatus.name && sendStatus.email && sendStatus.comments) {
-            submit.style.display = "none";
-            notice.style.display = "grid";
-
-            d.querySelector('.pen').setAttribute('src', 'assets/images/hour-glass.png');
-            message.style.display = "flex";
-            //console.log(sendEmail);
-            saveRequest(sendUrl, sendUISuccess, sendUIError);
-        } else {
-            notice.style.display = "block";
-            notice.textContent = "Name, Email, and Message Required!";
-        }
-    }, false);
-
-
+    }
 };
 
 
-contact();
+/* If Database Table fails to update data in mysql table */
+const sendUIError = function (error) {
+    console.log("Database Table did not load", error);
+
+    // Change graphic to indicate an error
+    document.querySelector('.pen').setAttribute('src', 'assets/images/error.png');
+};
+
+
+const saveRequest = (sendUrl, succeed, fail) => {
+    //console.log('sendEmail', sendEmail);
+    fetch(sendUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(sendEmail)
+    })
+        .then((response) => {
+            //console.log('Response:', response); // Add this line to log the response object
+            return handleSaveErrors(response);
+        })
+
+        .then((data) => {
+            //console.log('Data:', data); // Add this line to log the data object
+            if (data.status === 'success') {
+                succeed(data);
+            } else {
+                fail(data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            fail(error);
+        });
+};
+
+
+submit.addEventListener('click', (e) => {
+
+    e.preventDefault();
+
+    sendEmail.phone = phone.value;
+    sendEmail.website = website.value;
+    sendEmail.response = submit.getAttribute('data-response');
+    if (email.value === '') {
+        email.placeholder = "Email Address is Invalid!";
+        email.style.borderColor = "red";
+        email.focus();
+    }
+    if (sendStatus.name && sendStatus.email && sendStatus.comments) {
+        submit.style.display = "none";
+        notice.style.display = "grid";
+
+        // Change graphic to indicate sending in progress
+        document.querySelector('.pen').setAttribute('src', 'assets/images/hour-glass.png');
+
+        message.style.display = "flex";
+        saveRequest(sendUrl, sendUISuccess, sendUIError);
+    } else {
+        notice.style.display = "block";
+        notice.textContent = "Name, Email, and Message Required!";
+    }
+}, false);
+
+

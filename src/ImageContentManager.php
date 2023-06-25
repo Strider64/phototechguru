@@ -106,6 +106,10 @@ class ImageContentManager implements ImageContentManagerInterface
         return $stmt->fetchColumn();
 
     }
+    // Fetch Headings
+    public function headings() {
+         return $this->pdo->query('SELECT id, heading FROM gallery')->fetchAlL(PDO::FETCH_ASSOC);
+    }
 
     // Display Record(s) by Pagination
     public function page($perPage, $offset, $page = "index", $category = "wildlife"): array

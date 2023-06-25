@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $category = $_GET['category'];
     } else {
         error_log('Category is not set in the GET data');
-        $category = 'general';
+        $category = 'wildlife';
     }
     $total_count = $gallery->countAllPage($category);
 } else {
@@ -201,48 +201,45 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
 </head>
 <body class="site">
 
-<div class="nav">
+<header class="nav">
 
-
-    <div class="nav-btn" onclick="toggleNavMenu()">
+    <button class="nav-btn" onclick="toggleNavMenu()">
         <label>
             <span></span>
             <span></span>
             <span></span>
         </label>
-    </div>
+    </button>
 
-
-    <div class="nav-links" id="nav-links">
+    <nav class="nav-links" id="nav-links">
         <?php $database->regular_navigation(); ?>
-    </div>
+    </nav>
 
     <div class="name-website">
         <h1 class="webtitle">The Photo Tech Guru</h1>
     </div>
 
-</div>
+</header>
 
-<div class="main_container">
-    <div class="home_article">
-
+<main class="main_container">
+    <section class="home_article">
         <?php
-
         foreach ($records as $record) {
-
-            echo '<div class="home_info">';
-            echo '<h1 class="home_heading">' . $record['heading'] . '</h1>';
-            echo '<img src="' . $record['image_path'] . '" alt="' . $record['heading'] . '">';
-            echo '<p class="home_paragraph">' . nl2br($record['content']) . '</p>';
-            echo '</div>';
-
+            echo '<article class="home_info" itemscope itemtype="http://schema.org/BlogPosting">';
+            echo '<meta itemprop="author" content="' . $record['author'] . '">';
+            echo '<meta itemprop="datePublished" content="' . $record['date_added'] . '">';
+            echo '<meta itemprop="dateModified" content="' . $record['date_updated'] . '">';
+            echo '<h2 itemprop="headline" class="home_heading">' . $record['heading'] . '</h2>';
+            echo '<img itemprop="image" class="home_image" src="' . $record['image_path'] . '" title="' . $record['heading'] . '" alt="' . $record['heading'] . '">';
+            echo '<div itemprop="articleBody" class="home_paragraph">' . nl2br($record['content']) . '</div>';
+            echo '</article>';
         }
         ?>
+    </section>
 
-    </div>
-    <div class="home_sidebar">
+    <aside class="home_sidebar">
         <form id="myForm" action="index.php" method="GET">
-            <label for="category"></label>
+            <label for="category">Category:</label>
             <select id="category" class="select-css" name="category" tabindex="1">
                 <option selected value="<?= $category ?>"><?= ucfirst($category) ?></option>
                 <option value="general">General</option>
@@ -256,8 +253,8 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
         </form>
 
         <?php echo $links->display_links(); ?>
-    </div>
-</div>
+    </aside>
+</main>
 
 
 <aside class="sidebar">

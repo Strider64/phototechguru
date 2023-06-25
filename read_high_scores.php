@@ -3,11 +3,21 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
-use PhotoTech\Trivia;
+use PhotoTech\ErrorHandler;
+use PhotoTech\Database;
+use PhotoTech\TriviaDatabaseOBJ as Trivia;
 
-$trivia = new Trivia();
+$errorHandler = new ErrorHandler();
 
-Trivia::clearTable(); // Clear Data if New Day
+// Register the exception handler method
+set_exception_handler([$errorHandler, 'handleException']);
+
+$database = new Database();
+$pdo = $database->createPDO();
+
+$trivia = new Trivia($pdo);
+
+
 try {
     $todays_data = new DateTime("now", new DateTimeZone("America/Detroit"));
 } catch (Exception $e) {
@@ -21,11 +31,11 @@ header('Content-type: application/json');
  * The below must be used in order for the json to be decoded properly.
  */
 try {
-    $maximum = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
+    $data = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
 } catch (JsonException $e) {
 }
 
-$output = $trivia->readHighScores($maximum);
+$output = $trivia->fetch_today_top_5_scores();
 if (isset($output)) {
     output($output);
 }

@@ -35,7 +35,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
     $data = $_POST['gallery'];
     $errors = array();
     $exif_data = [];
-    $file_name = $_FILES['image']['name']; // Temporary file for thumbnails directory:
+    $file_name = $_FILES['image']['name']; // Temporary file:
     $file_size = $_FILES['image']['size'];
     $file_tmp = $_FILES['image']['tmp_name'];
     $thumb_tmp = $_FILES['image']['tmp_name'];
@@ -129,11 +129,6 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
     $image->save($thumb_path, 100);
 
 
-    $today = $todayDate = new DateTime('today', new DateTimeZone("America/Detroit"));
-
-
-    $data['date_updated'] = $data['date_added'] = $today->format("Y-m-d H:i:s");
-
     $data['image_path'] = $image_path;
     $data['thumb_path'] = $thumb_path;
 
@@ -144,7 +139,8 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && isset($_FILES['image'])) {
      */
     if (empty($errors) === true) {
         // Save to Database Table CMS
-        $today = $todayDate = new DateTime('today', new DateTimeZone("America/Detroit"));
+        $timezone = new DateTimeZone('America/Detroit'); // Use your timezone here
+        $today = new DateTime('now', $timezone);
         $data['date_updated'] = $data['date_added'] = $today->format("Y-m-d H:i:s");
         $gallery = new ImageContentManager($pdo, $data);
         $result = $gallery->create();

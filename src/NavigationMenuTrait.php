@@ -12,8 +12,9 @@ trait NavigationMenuTrait
         $navItems = [
             'Home' => 'index.php',
             'Can You See?' => 'hangman/can_you_solve.php',
+            'Trivia' => 'trivia.php',
             'Gallery' => 'gallery.php',
-            //'Contact' => 'contact.php',
+            'Contact' => 'contact.php',
         ];
 
         foreach ($navItems as $title => $path) {
@@ -57,6 +58,8 @@ trait NavigationMenuTrait
             'Edit Game' => '/hangman/edit_question.php',
             'Add Blog' => '/create_blog.php',
             'Edit Blog' => '/edit_blog.php',
+            'New Quest' => '/new_questions.php',
+            'Edit Quest' => '/edit_questions.php',
             'Register' => '/register.php',
             'Logout' => '/admin/logout.php',
         ];

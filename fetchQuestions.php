@@ -4,7 +4,7 @@ require_once "vendor/autoload.php";
 
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
-use PhotoTech\Trivia;
+use PhotoTech\TriviaDatabaseOBJ as Trivia;
 
 $errorHandler = new ErrorHandler();
 
@@ -15,23 +15,21 @@ $database = new Database();
 $pdo = $database->createPDO();
 
 $trivia = new Trivia($pdo);
+$category = htmlspecialchars($_GET['category']);
 
-/*
- * The below must be used in order for the json to be decoded properly.
- */
-try {
-    $data = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
-    $result = $trivia->fetch_correct_answer($data['id']);
-    output($result);
-} catch (JsonException $e) {
-}
+$data = $trivia->fetchQuestions($category);
+
+//echo "<pre>" . print_r($data, 1) . "</pre>";
+
+
+output($data);
 
 /*
  * After converting data array to JSON send back to javascript using
  * this function.
  */
 
-function output($output)
+function output($output): void
 {
     http_response_code(200);
     try {
@@ -39,4 +37,3 @@ function output($output)
     } catch (JsonException) {
     }
 }
-

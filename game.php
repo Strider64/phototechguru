@@ -2,18 +2,18 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
-use PhotoTech\LoginRepository;
+use PhotoTech\{
+    ErrorHandler,
+    Database,
+};
+$errorHandler = new ErrorHandler();
 
-try {
-    $today = new DateTime("Now", new DateTimeZone("America/Detroit"));
-} catch (Exception $e) {
-}
-if (isset($_SESSION['id'])) {
-    $username = LoginRepository::username();
-} else {
-    $username = "Guest Player";
-}
+// Register the exception handler method
+set_exception_handler([$errorHandler, 'handleException']);
 
+$database = new Database();
+$pdo = $database->createPDO();
+$username = "Strider";
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,80 +21,50 @@ if (isset($_SESSION['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
-    <title>Photography Trivia</title>
-    <link rel="stylesheet" media="all" href="assets/css/game.css">
-    <style>
-        .button {
-            display: block;
-            width: 115px;
-            height: 25px;
-            background-color: #4E9CAF;
-            padding: 10px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-            line-height: 25px;
-            margin: 20px 10px;
-        }
-        .button:hover {
-            background-color: #0C2C56;
-        }
-    </style>
+    <title>Trivia Game</title>
+    <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
     <script src="assets/js/game.js" defer></script>
 </head>
 <body class="site">
-<div id="skip"><a href="#content">Skip to Main Content</a></div>
-
 <div class="nav">
-    <input type="checkbox" id="nav-check">
 
-    <h3 class="nav-title">
-      <?= $username ?>
-    </h3>
 
-    <div class="nav-btn">
-        <label for="nav-check">
+    <div class="nav-btn" onclick="toggleNavMenu()">
+        <label>
             <span></span>
             <span></span>
             <span></span>
         </label>
     </div>
 
-    <div class="nav-links">
-        <a href="index.php">Home</a>
-        <a href="gallery.php">Gallery</a>
-        <a href="/admin/index.php">Admin</a>
-        <a href="game.php">Quiz</a>
-        <a href="contact.php">Contact</a>
-        <?php
-        if (isset($_SESSION['id'])) {
-            echo '<a href="/admin/logout.php">Logout</a>';
-        }
-        ?>
+
+    <div class="nav-links" id="nav-links">
+        <?php $database->regular_navigation(); ?>
     </div>
+
+    <div class="name-website">
+        <h1 class="webtitle">The Photo Tech Guru</h1>
+    </div>
+
 </div>
 
 <main id="content" class="checkStyle">
-    <div class="displayStatus select-css">
-        <span id="clock"></span>
-        <h4 class="displayTitle">Pepster's Online Trivia</h4>
-        <p class="triviaInfo">I'm adding more categories to my online trivia game and hopefully make it appeal to more people! I am still keeping the photography category,
-        but I am adding two new categories (movie and space). I am going to make a better scoring feature and have daily challenges as well a monthly challenges!</p>
-        <p>I'm still keeping the feature where a member can add questions to the online trivia database and be able to select the category of their liking, but the questions/answers will have to be approved by me first.</p>
-        <p>You must register to become a Member and validate your email address before you can add questions. You don't have to add questions as you username will show up on the high scores table.</p>
-        <div id="startBtn">
-            <form id="game_category" action="game.php" method="post">
-                <select id="category" class="select-css" name="category" tabindex="1">
-                    <option selected disabled>Select a Category</option>
-                    <option value="photography">Photography</option>
-                    <option value="movie">Movie</option>
-                    <option value="space">Space</option>
-                    <option value="sport">Sports</option>
-                </select>
-            </form>
-        </div>
+
+    <div class="addTriviaInfo">
+        <table id="scoreboard" class="styled-table">
+            <thead>
+            <tr class="tableTitle">
+                <th colspan="2">High Scores - <?= $today->format("F j, Y") ?></th>
+            </tr>
+            <tr class="subTitle">
+                <th>Name</th>
+                <th>Points</th>
+            </tr>
+            </thead>
+            <tbody class="anchor">
+
+            </tbody>
+        </table>
     </div>
 
     <div id="quiz" class="displayMessage" data-username="<?= $username ?>">
@@ -128,53 +98,56 @@ if (isset($_SESSION['id'])) {
     <div id="finalResult">
         <h2>Game Over!</h2>
         <p><?= $username ?> ended up with <span class="totalScore"></span> points and answered <span
-                class="answeredRight"></span> right.</p>
+                    class="answeredRight"></span> right.</p>
         <a class="btn1" href="game.php" title="Quiz">Play Again?</a>
     </div>
 </main>
+<aside class="sidebar">
+    <div class="displayStatus select-css">
+        <div id="startBtn">
+            <form id="game_category" action="game.php" method="post">
+                <label style="color: #2E2E2E" class="form-control">
+                    <input type="radio" name="category" value="lego" checked>
+                    LEGO
+                </label>
 
-<div class="sidebar">
-    <div class="addTriviaInfo">
-        <table id="scoreboard" class="styled-table">
-            <thead>
-            <tr class="tableTitle">
-                <th colspan="2">High Scores - <?= $today->format("F j, Y") ?></th>
-            </tr>
-            <tr class="subTitle">
-                <th>Name</th>
-                <th>Points</th>
-            </tr>
-            </thead>
-            <tbody class="anchor">
+                <label style="color: #2E2E2E" class="form-control">
+                    <input type="radio" name="category" value="photography">
+                    Photography
+                </label>
 
-            </tbody>
-        </table>
-    </div>
-    <?php if (!isset($_SESSION['id'])) { ?>
-        <div class="info">
-            <form id="gameForm" class="login" method="post" action="admin/login.php">
-                <label class="text_username" for="username">Username</label>
-                <input id="username" class="io_username" type="text" name="user[username]" value="" required>
-                <label class="text_password" for="password">Password</label>
-                <input id="password" class="io_password" type="password" name="user[hashed_password]" required>
-                <button class="form_button" type="submit" name="submit" value="login">Login</button>
-                <a href="register.php" title="register">register</a>
+                <label style="color: #2E2E2E" class="form-control">
+                    <input type="radio" name="category" value="movie">
+                    Movie
+                </label>
+
+                <label style="color: #2E2E2E" class="form-control">
+                    <input type="radio" name="category" value="sports">
+                    Sports
+                </label>
+
+                <label style="color: #2E2E2E" class="form-control">
+                    <input type="radio" name="category" value="space">
+                    Space
+                </label>
+                <p class="show">
+                    <button id="btn" class="button">Select Game Category</button>
+                </p>
             </form>
         </div>
-    <?php } else if (LoginRepository::gameSecurityCheck()) {
-        echo '<a class="button" href="addQuiz.php">Add Question</a>';
-        if (LoginRepository::adminCheck()) {
-            echo '<a class="button" href="admin/editQuiz.php">Edit Question</a>';
-        }
-    }
-    ?>
+        <span id="clock"></span>
+        <h4 class="displayTitle">The Coolest LEGO Trivia</h4>
+        <p class="triviaInfo">This trivia game I have been developing for over 10 years and I first wrote the game in Adobe Flash when I was taking a college course in computer graphics design. I plan on add LEGO questions as well as adding images to the quiz to bring more pizzazz to the online trivia game. </p>
+        <p>Some features I will be adding back to the game will be the ability for members to add questions to the online quiz this will enable a broader range of questions.</p>
+        <p>Only members will be allowed to add questions as I want to keep tight control of what is put into the database table. I will still have to approve the question(s) and before I do the question(s) will be hidden.</p>
+
+    </div>
 
 
-</div>
 
-<footer class="colophon">
-    <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
-</footer>
+</aside>
+
+
 <script>
     const gaugeElement = document.querySelector(".gauge");
 

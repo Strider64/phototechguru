@@ -1,19 +1,10 @@
 <?php
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
-
-/*
- * The Photo Tech Guru
- * Created by John R. Pepp
- * Date Created: July, 12, 2021
- * Last Revision: September 6, 2022 @ 8:00 AM
- * Version: 3.50 ßeta
- *
- */
-
-use PhotoTech\ErrorHandler;
-use PhotoTech\Database;
-
+use PhotoTech\{
+    ErrorHandler,
+    Database,
+};
 
 $errorHandler = new ErrorHandler();
 
@@ -22,7 +13,6 @@ set_exception_handler([$errorHandler, 'handleException']);
 
 $database = new Database();
 $pdo = $database->createPDO();
-
 
 ?>
 <!doctype html>
@@ -33,6 +23,7 @@ $pdo = $database->createPDO();
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>Contact Form</title>
     <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
+
 
 </head>
 <body class="site">
@@ -62,7 +53,7 @@ $pdo = $database->createPDO();
         <div class="home_article">
             <form class="contact" name="contact" action="contact.php" method="post" autocomplete="on">
 
-                <input id="token" type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                <!--                <input id="token" type="hidden" name="token" value="--><!--">-->
                 <input type="hidden" name="reason" value="message">
                 <figure class="owner">
                     <img src="assets/images/img-john-pepp-150-150-001.jpg" alt="John Pepp" width="150" height="150">
@@ -72,12 +63,12 @@ $pdo = $database->createPDO();
                 <div class="contact_name">
                     <label class="labelstyle" for="name" accesskey="U">Contact Name</label>
                     <input name="name" type="text" id="name" tabindex="1" placeholder="Full Name" autofocus
-                           required="required"/>
+                           required="required">
                 </div>
 
                 <div class="contact_email">
                     <label class="labelstyle" for="email" accesskey="E">Email</label>
-                    <input name="email" type="email" id="email" placeholder="Email" tabindex="2" required="required"/>
+                    <input name="email" type="email" id="email" placeholder="Email" tabindex="2" required="required">
                 </div>
 
                 <div class="contact_phone">
@@ -112,6 +103,7 @@ $pdo = $database->createPDO();
             </form>
         </div>
         <div class="home_sidebar">
+            <div id="successMessage" class="successStyle" style="display: none;">Your email has been sent successfully!</div>
             <ul class="cards">
                 <li class="card-item">
                     <a href="https://flickr.com/photos/pepster/">
@@ -159,14 +151,7 @@ $pdo = $database->createPDO();
     </p>
 
 </footer>
-<script src="assets/js/contact.js" async defer></script>
-<!-- Fetch the g-response using a callback function -->
-<script>
-    function correctCaptcha(response) {
-        document.querySelector('#submitForm').setAttribute('data-response', response);
-    }
-</script>
 
-<script src='https://www.google.com/recaptcha/api.js' async defer></script>
+<script src="assets/js/contact.js"></script>
 </body>
 </html>

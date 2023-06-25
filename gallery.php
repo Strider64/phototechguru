@@ -90,7 +90,7 @@ $login = new Login($pdo);
             }
             ?>
             <form id="gallery_category" action="gallery.php" method="post">
-                <label for="category"></label>
+                <label for="category">Category:</label>
                 <select id="category" class="select-css" name="category" tabindex="1">
 
                     <option value="general">General</option>

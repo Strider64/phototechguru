@@ -11,7 +11,7 @@
      * Constants & Variables Initialization Section.
      */
 
-    const quizUrl = 'trivia_database_table.php?'; // PHP database script
+    const quizUrl = 'read_questions_trivia_game.php?'; // PHP database script
     const d = document; // Shorten document function::
     d.querySelector('#photography');
     d.querySelector('.gameTitle');
@@ -33,7 +33,7 @@
         answeredWrong = 0,
         totalQuestions = 0,
         shotsRemaining = 5,
-        username = d.querySelector('.displayMessage').getAttribute('data-username'),
+        username = 'Strider',
         finalResult = d.querySelector('#finalResult'),
         highScoresDisplay = d.querySelector('.addTriviaInfo'),
         hs_table = {};
@@ -277,7 +277,7 @@
 
         if (info) {
             removeHighScores();
-            createHSTable('retrieveHighScore.php', retrieveHSTableUISuccess, retrieveHSTableUIError);
+            createHSTable('read_high_scores.php', retrieveHSTableUISuccess, retrieveHSTableUIError);
         }
 
     };
@@ -326,7 +326,7 @@
             .catch((error) => fail(error));
     };
 
-    createHSTable('retrieveHighScore.php', retrieveHSTableUISuccess, retrieveHSTableUIError);
+    createHSTable('read_high_scores.php', retrieveHSTableUISuccess, retrieveHSTableUIError);
 
 
     /*
@@ -347,7 +347,7 @@
         hs_table.correct = answeredRight;
         hs_table.totalQuestions = totalQuestions;
         question.textContent = 'Game Over';
-        saveHSTableRequest('hs_table.php', saveHSTableSuccess, saveHSTableUIError);
+        saveHSTableRequest('save_high_scores.php', saveHSTableSuccess, saveHSTableUIError);
     }
     /* Remove Question & Answers */
     const removeQuiz = () => {
@@ -367,12 +367,9 @@
     /* Populate Question, Create Answer Buttons */
     const createQuiz = (gameData) => {
 
-        //console.log('replace', temp[0].replace("\\n", "\n"));
-        //console.log('replace', gameData.question.replace("\\n", "\n"));
         startTimer(dSec);
 
         question.textContent = gameData.question;
-
 
         /*
          * Create Buttons then insert answers into buttons that were
@@ -400,9 +397,7 @@
 
     /* Success function utilizing FETCH */
     const quizUISuccess = (parsedData) => {
-
-
-        console.log('trivia data', parsedData);;
+        console.log('trivia data', parsedData.answers);
         mainGame.style.display = 'grid';
         d.getElementById('content').scrollIntoView();
 
@@ -483,7 +478,7 @@
         e.preventDefault();
         selectCat('photography');
         d.querySelector('.displayStatus').style.display = 'none';
-        d.querySelector('#customBtn').style.display = 'none';
+        d.querySelector('.addTriviaInfo').style.display = 'none';
         d.querySelector('#quiz').style.display = 'block';
     };
 
@@ -496,12 +491,26 @@
         d.querySelector('#quiz').style.display = "none";
         selectCat(category);
         d.querySelector('.displayStatus').style.display = 'none';
+        d.querySelector('.addTriviaInfo').style.display = 'none';
 
         d.querySelector('#quiz').style.display = 'block';
     }
     d.querySelector('#quiz').style.display = 'none';
-    let category = d.querySelector('#category');
-    category.addEventListener('change', () => { selection(category.value) } , false);
+    let btn = document.querySelector("#btn");
+    const radioButtons = document.querySelectorAll('input[name="category"]');
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        let category;
+        for (const radioButton of radioButtons) {
+            if (radioButton.checked) {
+                category= radioButton.value;
+                selection(category);
+            }
+        }
+    }, false);
+
+    //let category = d.querySelector('#category');
+    //category.addEventListener('change', () => { selection(category.value) } , false);
     //console.log('category', category.value);
 
 })();

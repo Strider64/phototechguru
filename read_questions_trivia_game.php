@@ -3,7 +3,19 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
+use PhotoTech\ErrorHandler;
+use PhotoTech\Database;
 use PhotoTech\Trivia;
+
+$errorHandler = new ErrorHandler();
+
+// Register the exception handler method
+set_exception_handler([$errorHandler, 'handleException']);
+
+$database = new Database();
+$pdo = $database->createPDO();
+
+$trivia = new Trivia($pdo);
 
 /*
  * Get Category from the FETCH statement from javascript
@@ -13,7 +25,7 @@ $category = htmlspecialchars($_GET['category']);
 
 if (isset($category)) { // Get rid of $api_key if not using:
 
-    $data = Trivia::fetch_data($category); // Fetch the data from the Database Table:
+    $data = $trivia->fetch_data($category); // Fetch the data from the Database Table:
 
     $finalOutput = []; // Final Output:
     $ansColumns = []; // Answer Columns from Table Array:

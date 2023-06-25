@@ -4,7 +4,7 @@ require_once "vendor/autoload.php";
 
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
-use PhotoTech\Trivia;
+use PhotoTech\TriviaDatabaseOBJ as Trivia;
 
 $errorHandler = new ErrorHandler();
 

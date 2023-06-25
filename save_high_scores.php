@@ -3,9 +3,19 @@
 require_once 'assets/config/config.php';
 require_once "vendor/autoload.php";
 
-use PhotoTech\Trivia;
+use PhotoTech\ErrorHandler;
+use PhotoTech\Database;
+use PhotoTech\TriviaDatabaseOBJ as Trivia;
 
-$trivia = new Trivia();
+$errorHandler = new ErrorHandler();
+
+// Register the exception handler method
+set_exception_handler([$errorHandler, 'handleException']);
+
+$database = new Database();
+$pdo = $database->createPDO();
+
+$trivia = new Trivia($pdo);
 
 try {
     $todays_data = new DateTime("now", new DateTimeZone("America/Detroit"));
@@ -29,7 +39,7 @@ try {
 }
 $data['day_of_year'] = $todays_data->format('z');
 
-$result = $trivia::insertHighScores($data);
+$result = $trivia->save_scores($data);
 
 
 if ($result) {
@@ -44,7 +54,8 @@ if ($result) {
 /**
  * @throws JsonException
  */
-function errorOutput($output, $code = 500) {
+function errorOutput($output, $code = 500): void
+{
     http_response_code($code);
     echo json_encode($output, JSON_THROW_ON_ERROR);
 }

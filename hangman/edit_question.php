@@ -1,10 +1,10 @@
 <?php
-require_once 'assets/config/config.php';
-require_once "vendor/autoload.php";
+require_once '../assets/config/config.php';
+require_once "../vendor/autoload.php";
+
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
 use PhotoTech\LoginRepository as Login;
-use PhotoTech\ImageContentManager as CMS;
 
 $errorHandler = new ErrorHandler();
 
@@ -18,24 +18,19 @@ if (!$login->check_login_token()) {
     header('location: index.php');
     exit();
 }
-$cms = new CMS($pdo);
-
-$records = $cms->headings();
-
-
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
-    <title>Edit Page</title>
-    <link rel="stylesheet" media="all" href="assets/css/stylesheet.css">
+    <title>Edit Questions</title>
+    <link rel="stylesheet" media="all" href="../assets/css/stylesheet.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="site">
-
 <header class="headerStyle">
 
 
@@ -61,44 +56,26 @@ $records = $cms->headings();
         <h1 class="webtitle">The Photo Tech Guru</h1>
     </div>
 
-</div>>
-
+</div>
 <main class="main_container">
     <div class="home_article">
-        <form id="data_entry_form" class="checkStyle" action="edit_blog.php" method="post" enctype="multipart/form-data">
-
+        <form id="edit_record" method="post" enctype="multipart/form-data">
             <input id="id" type="hidden" name="id" value="">
-            <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
-            <input type="hidden" name="author" value="John Pepp>">
-            <input type="hidden" name="page" value="gallery">
-            <input type="hidden" name="action" value="upload">
-            <div id="image_display_area">
-                <img id="image_for_edited_record" src="" alt="">
-            </div>
-            <div id="file_grid_area">
+            <input type="hidden" name="points" value="15">
+            <div class="file_grid_area">
                 <input id="file" class="file-input-style" type="file" name="image">
                 <label for="file">Select file</label>
             </div>
-            <label id="select_grid_category_area">
-                <select class="select-css" name="category">
-                    <option id="category" value=""></option>
-                    <option value="general">General</option>
-                    <option value="lego">LEGO</option>
-                    <option value="halloween">Halloween</option>
-                    <option value="landscape">Landscape</option>
-                    <option value="wildlife">Wildlife</option>
-                </select>
-            </label>
-            <div id="heading_heading_grid_area">
-                <label class="heading_label_style" for="heading">Heading</label>
-                <input class="heading" class="enter_input_style"  type="text" name="heading" value="" tabindex="1" required >
+            <div class="question_grid_area">
+                <label for="question_style">Question</label>
+                <textarea id="question_style" name="question" tabindex=""></textarea>
             </div>
-            <div id="content_style_grid_area">
-                <label class="text_label_style" for="content">Content</label>
-                <textarea class="text_input_style" id="content" name="content" tabindex="2"></textarea>
+            <div class="answer_grid_area">
+                <label for="answer_style">Answer</label>
+                <input id="answer_style" type="text" name="answer" value="">
             </div>
-            <div id="submit_picture_grid_area">
-                <button class="form-button" type="submit" name="submit" value="enter">submit</button>
+            <div class="submit_grid_area">
+                <button class="button_style" type="submit" name="submit" value="enter">submit</button>
             </div>
         </form>
     </div>
@@ -126,8 +103,6 @@ $records = $cms->headings();
         <?php $database->showAdminNavigation(); ?>
     </div>
 
-
-
 </main>
 <aside class="sidebar">
 
@@ -135,6 +110,6 @@ $records = $cms->headings();
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
-<script src="assets/js/edit_blog.js"></script>
+<script src="update_record.js"></script>
 </body>
 </html>

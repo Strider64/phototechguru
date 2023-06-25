@@ -30,6 +30,9 @@ try {
     $category = $_POST['category'];
     $heading= $_POST['heading'];
     $content = $_POST['content'];
+    $timezone = new DateTimeZone('America/Detroit'); // Use your timezone here
+    $today = new DateTime('now', $timezone);
+    $date_updated = $today->format("Y-m-d H:i:s");
 
     // Handle image upload
     if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
@@ -85,7 +88,7 @@ try {
         }
 
         // Prepare the SQL query with placeholders
-        $sql = "UPDATE gallery SET category = :category, heading = :heading, content = :content, image_path = :image_path, thumb_path = :thumb_path WHERE id = :id";
+        $sql = "UPDATE gallery SET category = :category, heading = :heading, content = :content, image_path = :image_path, thumb_path = :thumb_path, date_updated = :date_updated WHERE id = :id";
         $stmt = $pdo->prepare($sql);
 
         // Bind the values to the placeholders
@@ -95,7 +98,7 @@ try {
 
     } else {
         // Prepare the SQL query with placeholders
-        $sql = "UPDATE gallery SET category = :category, heading = :heading, content = :content WHERE id = :id";
+        $sql = "UPDATE gallery SET category = :category, heading = :heading, content = :content, date_updated = :date_updated WHERE id = :id";
         $stmt = $pdo->prepare($sql);
     }
 
@@ -104,6 +107,7 @@ try {
     $stmt->bindParam(':category', $category);
     $stmt->bindParam(':heading', $heading);
     $stmt->bindParam(':content', $content);
+    $stmt->bindParam(':date_updated', $date_updated);
 
     // Execute the prepared statement
     $stmt->execute();

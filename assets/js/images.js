@@ -29,7 +29,6 @@
      * FETCH for New Category
      */
     const categoryUISuccess = async (parsedData) => {
-        //console.log(parsedData, database_data.total_count);
         /* Remove Image For Screen (cleanup) */
         //console.log('parsedData', parsedData, 'database_data', database_data);
         while (container.firstChild) {
@@ -114,7 +113,6 @@
                 galleryImage.width = 800;
                 galleryImage.height = 534;
                 galleryImage.src = image.src // image path
-                //console.log(image.src);
 
                 /*
                  * Create EXIF portion of LightBox
@@ -139,7 +137,7 @@
                 galleryText.classList.add('galleryText');
 
                 galleryText.textContent = nextSibling.textContent;
-                console.log('galleryText', galleryText);
+                //console.log('galleryText', galleryText);
                 /* Remove large Image For Screen (cleanup) */
                 while (lightbox.firstChild) {
                     lightbox.removeChild(lightbox.firstChild)
@@ -148,12 +146,8 @@
                 /* Add Image to Screen */
                 lightbox.appendChild(galleryImage);
 
-
-
-                    /* Add EXIF to Screen */
-                    lightbox.appendChild(galleryExif);
-
-
+                /* Add EXIF to Screen */
+                lightbox.appendChild(galleryExif);
 
                 /* Add Content to Screen */
                 lightbox.appendChild(galleryText);

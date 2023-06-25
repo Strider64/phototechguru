@@ -4,6 +4,7 @@ CSS Reset
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;1,500&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,500;1,600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 html {
   font-family: sans-serif; }
 
@@ -208,6 +209,7 @@ th {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
+    width: 12.50em;
     background-color: #cccccc;
     box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
     padding: 1.250em;
@@ -255,7 +257,7 @@ th {
     .contact {
       display: grid;
       grid-template-columns: 2fr;
-      grid-template-areas: "owner owner" "horizontal_line horizontal_line" "contact_name  contact_email" "contact_phone contact_website" "contact_comment contact_comment" "recaptcha message" "submit_comment submit_comment";
+      grid-template-areas: "owner owner" "horizontal_line horizontal_line" "contact_name  contact_email" "contact_phone contact_website" "contact_comment contact_comment" "message message" "submit_comment submit_comment";
       grid-column-gap: 1.250em; }
       .contact .owner {
         grid-area: owner;
@@ -295,6 +297,11 @@ th {
     position: static;
     width: auto;
     height: auto; }
+
+.successStyle {
+  font-family: 'Shadows Into Light', cursive;
+  color: #00b28d;
+  margin-left: 1.250em; }
 
 #qr-code-container {
   position: relative;
@@ -482,14 +489,76 @@ p, label, textarea {
   font-size: 1.0em;
   line-height: 1.0; }
 
+.home_article {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2em; }
+
+.home_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 2em; }
+  .home_info:last-child {
+    border-bottom: none; }
+
+.home_heading {
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+  font-size: 2.2em;
+  color: #4d4d4d;
+  margin-bottom: 1em; }
+
+.home_image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+
+.home_paragraph {
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+  font-size: 1.2em;
+  line-height: 1.5;
+  color: #4d4d4d;
+  text-align: justify; }
+
+/* Responsive styles for mobile devices */
+@media (max-width: 767px) {
+  .home_article {
+    padding: 1em; }
+
+  .home_heading {
+    font-size: 1.8em; }
+
+  .home_paragraph {
+    font-size: 1.1em; } }
+/* Search form */
 #searchForm {
-  display: block;
-  height: 6.750em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
   background-color: #8dbd93;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 1.250em;
   margin: 2.500em auto; }
+
+#searchTerm {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px;
+  margin-bottom: 10px; }
+
+.input-group {
+  margin-bottom: 20px; }
 
 label {
   font-weight: 600;
@@ -497,16 +566,14 @@ label {
   font-family: 'Poppins', sans-serif;
   margin-bottom: 5px; }
 
-#searchTerm {
-  width: 90%;
+.input-field, .select-css {
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  font-size: 14px;
-  margin-bottom: 10px; }
+  font-size: 14px; }
 
 .search_button {
-  float: right;
   background-color: #007BFF;
   border: none;
   font-family: 'Poppins', sans-serif;
@@ -515,9 +582,10 @@ label {
   font-weight: 600;
   font-size: 14px;
   border-radius: 3px;
-  cursor: pointer; }
+  cursor: pointer;
+  align-self: flex-end; }
 
-button:hover {
+.search_button:hover {
   background-color: #0056b3; }
 
 /* lightbox */
@@ -559,7 +627,7 @@ button:hover {
   position: relative;
   width: 100%;
   height: 2.700em;
-  border-bottom: 1px solid #9a9a9a;
+  border-bottom: 1px solid #4b81f8;
   padding-bottom: 0.625em; }
 
 .nav-title {
@@ -577,7 +645,7 @@ button:hover {
   .name-website .webtitle {
     font-family: 'Shadows Into Light', cursive;
     font-size: 1.8em;
-    color: #b3b3b3; }
+    color: #4b81f8; }
 
 .nav > .nav-btn {
   display: none; }
@@ -593,7 +661,7 @@ button:hover {
   line-height: 1.875em;
   text-decoration: none;
   text-transform: capitalize;
-  color: #b3b3b3;
+  color: #4b81f8;
   padding: 0.313em 0.625em; }
 
 .nav > .nav-links > a:hover {
@@ -629,7 +697,7 @@ button:hover {
     display: block;
     width: 100%;
     z-index: 30000;
-    background-color: #333;
+    background-color: rgba(51, 51, 51, 0.7);
     height: 0;
     transition: all 0.3s ease-in;
     overflow-y: hidden;
@@ -638,7 +706,8 @@ button:hover {
 
   .nav > .nav-links > a {
     display: block;
-    width: 100%; }
+    width: 100%;
+    color: #fff; }
 
   /* Add this to your CSS file */
   .nav-links {
@@ -689,7 +758,7 @@ button:hover {
   .colophon p {
     font-family: 'Rubik', sans-serif;
     font-size: 1.0em;
-    color: #000; }
+    color: #4b81f8; }
 
 /*
  * Hangman Game CSS
@@ -940,13 +1009,15 @@ button:hover {
       grid-area: main;
       display: grid;
       grid-template-columns: minmax(40em, 50em) 1fr;
-      grid-template-areas: "lightboxImage lightboxText" "lightboxExif lightboxText";
+      grid-template-areas: "lightboxImage lightboxText" "lightboxExif lightboxText" "lightboxExif lightboxText";
       justify-content: center;
       margin-top: 1.250em;
       z-index: 2000; }
 
     .galleryImage {
-      grid-area: lightboxImage; }
+      grid-area: lightboxImage;
+      width: 100%;
+      object-fit: contain; }
 
     .galleryExif {
       grid-area: lightboxExif;
@@ -977,12 +1048,12 @@ button:hover {
     .main_container {
       grid-area: main;
       display: grid;
-      grid-template-columns: 1fr 58em;
+      grid-template-columns: 1fr 50em;
       grid-template-areas: "home_sidebar home_main"; }
       .main_container #data_entry_form {
         grid-area: home_main;
         display: grid;
-        grid-template-columns: 50em;
+        grid-template-columns: 45em;
         grid-template-areas: "progress_bar_container" "image_display_area" "file_grid_area" "select_grid_category_area" "heading_heading_grid_area" "content_style_grid_area" "submit_picture_grid_area";
         column-gap: 1.250em;
         justify-content: center;
@@ -1116,14 +1187,15 @@ button:hover {
       .main_container #add_to_db_table, .main_container #edit_record {
         grid-area: home_main;
         display: grid;
-        grid-template-columns: 50em;
+        grid-template-columns: 40em;
         grid-template-areas: "file_grid_area" "question_grid_area" "answer_grid_area" "submit_grid_area";
         column-gap: 1.250em;
-        justify-content: center; }
+        justify-content: center;
+        background-color: #8dbd93;
+        margin-top: 1.250em; }
         .main_container #add_to_db_table .file_grid_area, .main_container #edit_record .file_grid_area {
           grid-area: file_grid_area;
           display: flex;
-          background-color: aliceblue;
           padding: 1.250em; }
           .main_container #add_to_db_table .file_grid_area [type="file"], .main_container #edit_record .file_grid_area [type="file"] {
             border: 0;
@@ -1144,7 +1216,6 @@ button:hover {
             margin-bottom: 1.25em; }
         .main_container #add_to_db_table .question_grid_area, .main_container #edit_record .question_grid_area {
           grid-area: question_grid_area;
-          background-color: cadetblue;
           padding: 1.250em; }
           .main_container #add_to_db_table .question_grid_area label, .main_container #edit_record .question_grid_area label {
             font-family: "Rubik", sans-serif;
@@ -1160,7 +1231,6 @@ button:hover {
             padding: 0.625em; }
         .main_container #add_to_db_table .answer_grid_area, .main_container #edit_record .answer_grid_area {
           grid-area: answer_grid_area;
-          background-color: aliceblue;
           padding: 1.250em; }
           .main_container #add_to_db_table .answer_grid_area label, .main_container #edit_record .answer_grid_area label {
             font-family: "Rubik", sans-serif;
@@ -1260,17 +1330,38 @@ button:hover {
             text-align: center; }
             .main_container .home_article .registerStyle .submitForm button:hover {
               background-color: #8ebd94; }
-        .main_container .home_article h1 {
-          font-family: Georgia, serif;
+        .main_container .home_article .home_article {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 2em; }
+        .main_container .home_article .home_info {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 3em;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          padding-bottom: 2em; }
+          .main_container .home_article .home_info:last-child {
+            border-bottom: none; }
+        .main_container .home_article .home_heading {
+          font-family: 'Lato', sans-serif;
           font-weight: normal;
-          font-size: 1.8em;
-          color: #4d4d4d; }
-        .main_container .home_article p {
-          font-family: Helvetica, Arial, sans-serif;
+          font-size: 2.2em;
+          color: #4d4d4d;
+          margin-bottom: 1em; }
+        .main_container .home_article .home_image {
+          max-width: 100%;
+          height: auto;
+          margin-bottom: 1em;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .main_container .home_article .home_paragraph {
+          font-family: 'Lato', sans-serif;
           font-weight: normal;
           font-size: 1.2em;
           line-height: 1.5;
-          color: #4d4d4d; }
+          color: #4d4d4d;
+          text-align: justify; }
       .main_container .home_sidebar {
         grid-area: home_sidebar; } } }
 /* animation instructions for move-down in text */

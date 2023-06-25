@@ -1,7 +1,7 @@
 # Website Development & Design
 Created by John Pepp on February 1, 2021
 
-Updated on April 20, 2024
+Updated on June 25, 2023
 
 A responsive website that deals with photography and website development using the latest coding practices.
 

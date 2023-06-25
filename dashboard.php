@@ -219,22 +219,22 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
 
 <div class="main_container">
     <div class="home_article">
-        <?php
+        <div class="home_article">
+            <?php
+            foreach ($records as $record) {
+                echo '<a id="myButton" href="delete.php?id=' . $record['id'] . '" class="delete-link">Delete</a>';
+                echo '<div class="home_info" itemscope itemtype="http://schema.org/BlogPosting">';
+                echo '<meta itemprop="author" content="' . $record['author'] . '">';
+                echo '<meta itemprop="datePublished" content="' . $record['date_added'] . '">';
+                echo '<meta itemprop="dateModified" content="' . $record['date_updated'] . '">';
+                echo '<h2 itemprop="headline" class="home_heading">' . $record['heading'] . '</h2>';
+                echo '<img itemprop="image" class="home_image" src="' . $record['image_path'] . '" title="' . $record['heading'] . '" alt="' . $record['heading'] . '">';
+                echo '<div itemprop="articleBody" class="home_paragraph">' . nl2br($record['content']) . '</div>';
+                echo '</div>';
+            }
+            ?>
+        </div>
 
-        foreach ($records as $record) {
-            echo '<a id="myButton" href="delete.php?id=' . $record['id'] . '" class="delete-link">Delete</a>';
-            echo '<div class="home_info">';
-            echo '<h1 class="home_heading">' . $record['heading'] . '</h1>';
-
-            echo '<img src="' . $record['image_path'] . '" alt="' . $record['heading'] . '">';
-            echo '<p class="home_paragraph">' . nl2br($record['content']) . '</p>';
-
-
-            echo '</div>';
-            echo '<br>';
-
-        }
-        ?>
     </div>
     <div class="home_sidebar">
         <form action="dashboard..php" method="GET">
