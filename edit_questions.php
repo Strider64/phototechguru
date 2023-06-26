@@ -140,6 +140,70 @@ if (!$login->check_login_token()) {
 </div>
 <section class="main_container">
     <div class="home_article">
+        <form id="editTrivia" class="checkStyle" action="edit_questions.php" method="post" data-key="">
+            <input id="id" type="hidden" name="id" value="">
+            <input id="user_id" type="hidden" name="user_id" value="">
+            <div class="remote">
+                <a id="ePrev" class="btn" title="Previous Button" href="#">Prev</a>
+                <h2 id="status">Record No. <span id="position"></span></h2>
+                <a id="eNext" class="btn" title="Next Button" href="#">Next</a>
+            </div>
+
+            <div class="select-hidden">
+                <select class="select-css" name="hidden" tabindex="1">
+                    <option value="yes">Hide Question: Yes</option>
+                    <option value="no" selected>Hide Question: No</option>
+                </select>
+            </div>
+            <div class="select-category">
+                <select id="category" class="select-css" name="category" tabindex="">
+                    <option value="lego">LEGO</option>
+                    <option value="photography">Photography</option>
+                    <option value="movie">Movie</option>
+                    <option value="space">Space</option>
+                    <option value="sport">Sports</option>
+                </select>
+            </div>
+            <div class="question">
+                <label class="question_label" for="addQuestion">Content</label>
+                <textarea id="addQuestion" class="question_input" name="question" tabindex="2"
+                          placeholder="Add question here..."
+                          autofocus>
+            </textarea>
+            </div>
+            <div class="answer1">
+                <label class="answer_one_label" for="addAnswer1">Answer 1</label>
+                <input id="addAnswer1" class="answer_one_input" type="text" name="ans1" value="" tabindex="3">
+            </div>
+            <div class="answer2">
+                <label class="answer_two_label" for="addAnswer2">Answer 2</label>
+                <input class="answer_two_input" id="addAnswer2" type="text" name="ans2" value="" tabindex="4">
+            </div>
+
+            <div class="answer3">
+                <label class="answer_three_label" for="addAnswer3">Answer 3</label>
+                <input class="answer_three_input" id="addAnswer3" type="text" name="ans3" value="" tabindex="5">
+            </div>
+
+            <div class="answer4">
+                <label class="answer_four_label" for="addAnswer4">Answer 4</label>
+                <input class="answer_four_input" id="addAnswer4" type="text" name="ans4" value="" tabindex="6">
+            </div>
+
+            <div class="correct">
+                <label class="correct_answer_label" for="addCorrect">Answer</label>
+                <input class="correct_answer_input" id="addCorrect" type="text" name="correct" value="" tabindex="7">
+            </div>
+
+            <div class="submit-button">
+                <button class="form-button" type="submit" name="submit" value="enter">submit</button>
+                <button id="delete_quiz_record" class="form-button" formaction=""
+                        onclick="return confirm('Are you sure you want to delete this item?');">Delete
+                </button>
+            </div>
+
+
+        </form>
     </div>
     <div class="home_sidebar">
         <?php $database->showAdminNavigation(); ?>
