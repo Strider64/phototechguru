@@ -1,197 +1,107 @@
-'use strict';
+(() => {
+    // Select DOM elements
+    const ePrev = document.querySelector('#ePrev');
+    const status = document.querySelector('#status');
+    const position = document.querySelector('#position');
+    const eNext = document.querySelector('#eNext');
+    const submitBtn = document.querySelector('#submit_button');
+    const form = document.querySelector('#editTrivia');
+    const deleteRecord = document.querySelector('#delete_quiz_record');
 
-const d = document; // Shorten document to d:
-const ePrev = d.querySelector('#ePrev');
-const status = d.querySelector('#status');
-const position = d.querySelector('#position');
-const eNext = d.querySelector('#eNext');
-const submitBtn = d.querySelector('.form-button');
+    // Set up variables
+    let tableIndex = 0;
+    let totalRecords = 0;
+    let records = null;
 
-const id = d.querySelector('#id');
-const user_id = d.querySelector('#user_id');
-const hidden = d.querySelector('.select-css');
-const question = d.querySelector('#addQuestion');
+    // Set up event listeners
+    eNext.addEventListener('click', forward);
+    ePrev.addEventListener('click', reverse);
+    submitBtn.addEventListener('click', sendToTable);
 
-const answer1 = d.querySelector('#addAnswer1');
-const answer2 = d.querySelector('#addAnswer2');
-const answer3 = d.querySelector('#addAnswer3');
-const answer4 = d.querySelector('#addAnswer4');
+    // Retrieve data from server and initialize UI
+    retrieveTable();
 
-const correct = d.querySelector('#addCorrect');
-const category = d.querySelector('#category');
-const saveUrl = "saveRecord.php";
-const deleteRecord = d.querySelector('#delete_quiz_record');
-
-//console.log(deleteRecord);
-let saveRecord = null;
-
-//var api_key = d.querySelector('#editTrivia').getAttribute('data-key');
-
-let tableIndex = 0,
-    totalRecords = 0,
-    records = null,
-    record = null;
-
-const insertData = (data) => {
-
-    record = data;
-    //console.log(record);
-
-    position.textContent = record.id;
-    id.value = parseInt(record.id);
-    deleteRecord.setAttribute("formaction", "delete_quiz_record.php?id=" + id.value);
-    user_id.value = parseInt(record.user_id);
-
-    hidden.value = record.hidden;
-    question.value = record.question;
-    answer1.value = record.answer1;
-    answer2.value = record.answer2;
-    answer3.value = record.answer3;
-    answer4.value = record.answer4;
-    category.value = record.category;
-
-
-    correct.value = record.correct;
-};
-
-const forward = (e) => {
-    status.style.color = "#fff";
-    e.preventDefault();
-    if (tableIndex < totalRecords - 1) {
-
-        tableIndex += 1;
-        insertData(records[tableIndex]);
-    } else {
-        tableIndex = 0;
-        insertData(records[tableIndex]);
+    // Define event handlers
+    function forward(e) {
+        e.preventDefault();
+        tableIndex = (tableIndex + 1) % totalRecords;
+        updateUI();
     }
-};
 
-eNext.addEventListener("click", forward, false);
-
-const reverse = (e) => {
-    status.style.color = "#fff";
-    e.preventDefault();
-
-    if (tableIndex > 0) {
-        tableIndex -= 1;
-        insertData(records[tableIndex]);
-    } else {
-        tableIndex = totalRecords - 1;
-        insertData(records[tableIndex]);
-
+    function reverse(e) {
+        e.preventDefault();
+        tableIndex = (tableIndex - 1 + totalRecords) % totalRecords;
+        updateUI();
     }
-};
 
-ePrev.addEventListener("click", reverse, false);
-
-let requestUrl = "retrieve_table.php";
-
-/* Success function utilizing FETCH */
-const tableUISuccess = function (parsedData) {
-    totalRecords = parsedData.length;
-    records = parsedData;
-    console.log(records);
-    insertData(records[tableIndex]);
-};
-
-/* If Database Table fails */
-const tableUIError = function (error) {
-    console.log("Database Table did not load", error);
-};
-
-/*
- * Throw error response if something is wrong:
- */
-const handleErrors = function (response) {
-    if (!response.ok) {
-        throw (response.status + ' : ' + response.statusText);
+    // Fetches the table data from the server and sets up the UI
+    function retrieveTable() {
+        // Fetch the table data from the server
+        fetch('retrieve_record.php')
+            .then(response => response.json())
+            .then(parsedData => {
+                // Store the parsed data in the 'records' array and update the UI
+                totalRecords = parsedData.length;
+                records = parsedData;
+                updateUI();
+                //deleteRec();
+            })
+            .catch(error => console.log('Database table did not load', error));
     }
-    return response.json();
-};
-
-/* FETCH request */
-const createRequest = function (url, succeed, fail) {
-    fetch(url)
-        .then((response) => handleErrors(response))
-        .then((data) => succeed(data))
-        .catch((error) => fail(error));
-};
-
-createRequest(requestUrl, tableUISuccess, tableUIError);
-
-
-/* Success function utilizing FETCH */
-const saveUISuccess = function () {
-    status.style.color = "#45A049";
-    setTimeout(function () { status.style.color = "#fff" ; }, 4000);
-};
-
-/* If Database Table fails to update data in mysql table */
-const saveUIError = function (error) {
-    console.log("Database Table did not load", error);
-};
-
-const handleSaveErrors = function (response) {
-    if (!response.ok) {
-        throw (response.status + ' : ' + response.statusText);
+    function deleteRec() {
+        const record = records[tableIndex];
+        console.log(record.id)
+        document.querySelector('#delete_quiz_record').setAttribute('formaction', `delete_quiz_record.php?id=${record.id}`);
     }
-    return response.json();
-};
+// Updates the UI with the currently selected record
+    function updateUI() {
 
-const saveRequest = (saveUrl, succeed, fail) => {
-    //const data = {username: 'example'};
+        // Get the current record from the 'records' array
+        const record = records[tableIndex];
+        position.textContent = record.id;
+        // Update the form fields with the current record's data
+        form.elements.id.value = record.id;
+        form.elements.user_id.value = record.user_id;
+        form.elements.hidden.value = record.hidden;
+        form.elements.question.value = record.question;
+        form.elements.ans1.value = record.ans1;
+        form.elements.ans2.value = record.ans2;
+        form.elements.ans3.value = record.ans3;
+        form.elements.ans4.value = record.ans4;
+        form.elements.correct.value = record.correct;
+        form.elements.category.value = record.category;
+    }
 
-    fetch(saveUrl, {
-        method: 'POST', // or 'PUT'
-        body: JSON.stringify(saveRecord)
-    })
-        .then((response) => handleSaveErrors(response))
-        .then((data) => succeed(data))
-        .catch((error) => fail(error));
-};
+// Sends the current form data to the server to be saved
+    function sendToTable(e) {
+        e.preventDefault();
 
-const serializeArray = function () {
+        // Create a FormData object from the form and convert it to an array
+        const formData = new FormData(form);
+        const dataArray = Array.from(formData.entries());
 
-    const serialized = {
+        // Convert the array of key/value pairs to an object with properties based on the field names
+        const dataObject = dataArray.reduce((obj, [key, value]) => {
+            if (key === 'id' || key === 'user_id' || key === 'correct') {
+                obj[key] = parseInt(value); // Convert 'id', 'user_id', and 'correct' fields to integers
+            } else {
+                obj[key] = value;
+            }
+            return obj;
+        }, {});
 
-        id: parseInt(record.id),
-        user_id: parseInt(record.user_id),
-        hidden: hidden.value,
-        question: question.value,
-        answer1: answer1.value,
-        answer2: answer2.value,
-        answer3: answer3.value,
-        answer4: answer4.value,
-        correct: parseInt(correct.value),
-        category: category.value
-    };
+        // Send the data to the server using fetch
+        const saveUrl = 'save_record.php';
+        fetch(saveUrl, { method: 'POST', body: JSON.stringify(dataObject) })
+            .then(response => response.json())
+            .then(() => {
+                // If the save was successful, update the UI to show a success message
+                status.style.color = '#45A049';
+                // Refresh the table data from the server
+                retrieveTable();
+                setTimeout(() => { status.style.color = '#2e2e2e'; }, 4000);
+            })
+            .catch(error => console.log('Database table did not save', error));
+    }
 
-
-    record.id = id.value;
-    record.user_id = user_id.value;
-    record.hidden = hidden.value;
-    record.question = question.value;
-    record.answer1 = answer1.value;
-    record.answer2 = answer2.value;
-    record.answer3 = answer3.value;
-    record.answer4 = answer4.value;
-    record.correct = correct.value;
-    record.category = category.value;
-    insertData(record);
-    return serialized;
-
-};
-
-
-const sendToTable = (e) => {
-    e.preventDefault();
-    let form = d.querySelector('#editTrivia');
-    saveRecord = serializeArray(form);
-    saveRequest(saveUrl, saveUISuccess, saveUIError);
-};
-
-submitBtn.addEventListener('click', sendToTable, false);
-
-
-createRequest("retrieve_table.php", tableUISuccess, tableUIError);
+})();

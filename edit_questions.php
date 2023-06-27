@@ -36,19 +36,56 @@ if (!$login->check_login_token()) {
             font-family: Arial, sans-serif;
         }
 
-        #addTrivia {
-            margin: 1.250em auto;
-            width: 80%;
-            background-color: #f8f8f8;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
         .checkStyle {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
+            width: 80%;
+            border-radius: 8px;
+            background-color: #f8f8f8;
+            padding: 20px;
+            margin: 1.250em auto;
         }
+
+        .remote {
+            display: flex;
+            grid-column: span 3; /* added this line */
+            justify-content: space-between;
+            width: 100%; /* added this line */
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .remote_item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #007B9A;
+        }
+
+        #status {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        #status #position {
+            font-weight: bold;
+        }
+
 
         input, select, textarea {
             padding: 10px;
@@ -60,8 +97,18 @@ if (!$login->check_login_token()) {
             width: 100%;
         }
 
-        .question_hidden, .category_grid_area, .question_grid_area, .answer1, .answer2, .answer3, .answer4, .correct, .submit_button_grid_area {
+        .question_hidden,
+        .select-css,
+        .question_grid_area,
+        .answer1,
+        .answer2,
+        .answer3,
+        .answer4,
+        .correct,
+        .submit_button_grid_area {
             grid-column: span 3;
+            box-sizing: border-box;
+            color: #2E2E2E;
         }
 
         .answerStyle {
@@ -91,7 +138,7 @@ if (!$login->check_login_token()) {
         }
 
         button.button_style {
-            background-color: #008CBA;
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
@@ -143,30 +190,37 @@ if (!$login->check_login_token()) {
         <form id="editTrivia" class="checkStyle" action="edit_questions.php" method="post" data-key="">
             <input id="id" type="hidden" name="id" value="">
             <input id="user_id" type="hidden" name="user_id" value="">
+
             <div class="remote">
-                <a id="ePrev" class="btn" title="Previous Button" href="#">Prev</a>
-                <h2 id="status">Record No. <span id="position"></span></h2>
-                <a id="eNext" class="btn" title="Next Button" href="#">Next</a>
+                <div class="remote_item">
+                    <a id="ePrev" class="btn" title="Previous Button" href="#">Prev</a>
+                </div>
+                <div class="remote_item">
+                    <h2 id="status">Record No. <span id="position"></span></h2>
+                </div>
+                <div class="remote_item">
+                    <a id="eNext" class="btn" title="Next Button" href="#">Next</a>
+                </div>
             </div>
 
-            <div class="select-hidden">
-                <select class="select-css" name="hidden" tabindex="1">
-                    <option value="yes">Hide Question: Yes</option>
-                    <option value="no" selected>Hide Question: No</option>
-                </select>
-            </div>
-            <div class="select-category">
-                <select id="category" class="select-css" name="category" tabindex="">
-                    <option value="lego">LEGO</option>
-                    <option value="photography">Photography</option>
-                    <option value="movie">Movie</option>
-                    <option value="space">Space</option>
-                    <option value="sport">Sports</option>
-                </select>
-            </div>
-            <div class="question">
+
+            <select class="select-css" name="hidden" tabindex="1">
+                <option value="yes">Hide Question: Yes</option>
+                <option value="no" selected>Hide Question: No</option>
+            </select>
+
+
+            <select id="category" class="select-css" name="category" tabindex="">
+                <option value="lego">LEGO</option>
+                <option value="photography">Photography</option>
+                <option value="movie">Movie</option>
+                <option value="space">Space</option>
+                <option value="sport">Sports</option>
+            </select>
+
+            <div class="question_grid_area">
                 <label class="question_label" for="addQuestion">Content</label>
-                <textarea id="addQuestion" class="question_input" name="question" tabindex="2"
+                <textarea id="addQuestion" class="question_entry" name="question" tabindex="2"
                           placeholder="Add question here..."
                           autofocus>
             </textarea>
@@ -195,11 +249,11 @@ if (!$login->check_login_token()) {
                 <input class="correct_answer_input" id="addCorrect" type="text" name="correct" value="" tabindex="7">
             </div>
 
-            <div class="submit-button">
-                <button class="form-button" type="submit" name="submit" value="enter">submit</button>
-                <button id="delete_quiz_record" class="form-button" formaction=""
+            <div class="submit_button_grid_area">
+                <button id="delete_quiz_record" class="button_style" formaction=""
                         onclick="return confirm('Are you sure you want to delete this item?');">Delete
                 </button>
+                <button id="submit_button" class="button_style" type="submit" name="submit" value="enter">submit</button>
             </div>
 
 
@@ -215,5 +269,6 @@ if (!$login->check_login_token()) {
 <footer class="colophon">
     <p>&copy; <?php echo date("Y") ?> The Photo Tech Guru</p>
 </footer>
+<script src="assets/js/edit.js"></script>
 </body>
 </html>

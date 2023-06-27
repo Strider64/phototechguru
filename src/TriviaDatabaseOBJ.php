@@ -47,6 +47,14 @@ class TriviaDatabaseOBJ
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function fetchAllQuestions() {
+        $sql = 'SELECT * FROM cool_trivia ORDER BY date_added DESC';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     /*
  * Fetch correct answer:
  */
@@ -99,7 +107,7 @@ class TriviaDatabaseOBJ
         $attribute_pairs = [];
 
         /* Create the prepared statement string */
-        foreach (static::$params as $key => $value)
+        foreach ($this->params as $key => $value)
         {
             if($key === 'id') { continue; } // Don't include the id:
             $attribute_pairs[] = "$key=:$key"; // Assign it to an array:
@@ -113,7 +121,7 @@ class TriviaDatabaseOBJ
         $sql .= implode(", ", $attribute_pairs) . ' WHERE id =:id';
 
         /* Normally in two lines, but you can daisy-chain pdo method calls */
-        $this->pdo->prepare($sql)->execute(static::$params);
+        $this->pdo->prepare($sql)->execute($this->params);
 
         return true;
 
