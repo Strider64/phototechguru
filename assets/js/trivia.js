@@ -18,7 +18,8 @@
     let next = document.querySelector('#next');
     next.style.pointerEvents = 'none';
     next.style.visibility = 'hidden';
-
+    let quit_button = document.querySelector('.quit-button');
+    quit_button.style.display = 'none';
     let dsec = 25; // Seconds
     let name = 'Guest Player';
     const points = 100;
@@ -40,8 +41,8 @@
     //let blueBackground = "#8eafed";
     let whiteColor = "#ffffff"
     let hs_table = {player: null};
-
-
+    let questions_url = "fetch_questions.php?category=";
+    let correct_answer_url = 'fetch_correct_answer.php';
     /* Calculate Percent */
     const calcPercent = (correct, total) => {
         hs_table.correct = correct;
@@ -446,7 +447,7 @@
     // Retrieve the correct answer from the database table
     const retrieveCorrectAnswer = (id) => {
         // Send a POST request to the server to check the correct answer
-        fetch('checkAnswer.php', {
+        fetch(correct_answer_url, {
             method: 'POST',
             body: JSON.stringify({ id: id })
         })
@@ -494,6 +495,7 @@
         startTimer(25);
         quiz.style.display = "block";
         opening.style.display = "none";
+        quit_button.style.display = "block";
         document.querySelector('.catHeading').style.display = 'none';
         document.getElementById('legoNav').style.display = 'none';
         // Disable menu click
@@ -523,7 +525,24 @@
 
     };
 
+    const quit_game = () => {
+        stopTimer();
+        saveHSTableRequest('save_high_scores.php', saveHSTableSuccess, saveHSTableUIError);
+        score = 0;
+        total = 1;
+        quiz.style.display = "none";
+        opening.style.display = "block";
+        document.querySelector('.catHeading').style.display = 'block';
+        document.getElementById('legoNav').style.display = 'block';
+        for (const elem of category) {
+            elem.classList.remove('disable');
+        }
+        resetButtons();
+        console.log('Quit Game');
+        quit_button.style.display = "none";
+    }
 
+    quit_button.addEventListener('click', quit_game, false);
     const initializeTrivia = (data) => {
         answeredRight = 0;
         total = 1;
@@ -550,6 +569,7 @@
         enableButtons();
         const response = await fetch(url);
         const data = await handleErrors(response);
+        console.log('data', data);
         initializeTrivia(data);
     };
 
@@ -559,7 +579,7 @@
             questionNumber = 1;
             score = 0;
             scoreboard.textContent = 'Points: ' + score;
-            fetchTiviaQuestionsAnswers(`fetchQuestions.php?category=${category}`);
+            fetchTiviaQuestionsAnswers(`${questions_url}${category}`);
         }
     };
 

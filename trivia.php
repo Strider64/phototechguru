@@ -63,6 +63,37 @@ try {
             color: #4CAF50;
         }
 
+        .quit-button {
+            float: right;
+            color: white;
+            background-color: red;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 0.625em 0.125em;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Add transition effect */
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Add box-shadow for 3D feel */
+            border-radius: 5px; /* Add border-radius for rounded corners */
+        }
+
+        /* Add hover effect */
+        .quit-button:hover {
+            background-color: darkred; /* Change background color on hover */
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5); /* Increase box-shadow on hover for more depth */
+            transform: scale(1.05); /* Slightly increase the size on hover */
+        }
+
+        /* Add active (clicked) effect */
+        .quit-button:active {
+            transform: scale(0.95); /* Slightly decrease the size when button is clicked */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Reduce box-shadow when button is clicked */
+        }
+
+
     </style>
 </head>
 <body class="site">
@@ -140,9 +171,9 @@ try {
             </tr>
             </thead>
             <tbody class="anchor">
-
             </tbody>
         </table>
+        <button id="quitButton" class="quit-button">Quit</button>
     </div>
     <div id="finalResult">
         <h2>Game Over!</h2>
