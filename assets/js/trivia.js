@@ -337,6 +337,28 @@
             }
         }
     }
+
+    const disableButtons = () => {
+        for (let i = 1; i <= 4; i++) {
+            switch (i) {
+                case 1:
+                    answer1.style.pointerEvents = 'none';
+                    break;
+                case 2:
+                    answer2.style.pointerEvents = 'none';
+                    break;
+                case 3:
+                    answer3.style.pointerEvents = 'none';
+                    break;
+                case 4:
+                    answer4.style.pointerEvents = 'none';
+                    break;
+                default:
+                    console.log('Error......');
+            }
+        }
+    }
+
     const startTimer = (duration) => {
         let seconds = duration;
 
@@ -373,26 +395,7 @@
         clearInterval(timer);
     };
 
-    const disableButtons = () => {
-        for (let i = 1; i <= 4; i++) {
-            switch (i) {
-                case 1:
-                    answer1.style.pointerEvents = 'none';
-                    break;
-                case 2:
-                    answer2.style.pointerEvents = 'none';
-                    break;
-                case 3:
-                    answer3.style.pointerEvents = 'none';
-                    break;
-                case 4:
-                    answer4.style.pointerEvents = 'none';
-                    break;
-                default:
-                    console.log('Error......');
-            }
-        }
-    }
+
 
 
     const checkAnswerAgainstTable = ({ correct }) => {

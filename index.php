@@ -202,14 +202,12 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
 <body class="site">
 
 <header class="nav">
-
-    <button class="nav-btn" onclick="toggleNavMenu()">
-        <label>
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-    </button>
+    <input type="checkbox" class="nav-btn" id="nav-btn">
+    <label for="nav-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
 
     <nav class="nav-links" id="nav-links">
         <?php $database->regular_navigation(); ?>
@@ -218,8 +216,8 @@ $records = $gallery->page($per_page, $offset, 'gallery', $category);
     <div class="name-website">
         <h1 class="webtitle">The Photo Tech Guru</h1>
     </div>
-
 </header>
+
 
 <main class="main_container">
     <section class="home_article">

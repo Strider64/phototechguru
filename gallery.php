@@ -55,27 +55,22 @@ $login = new Login($pdo);
 </head>
 <body class="site">
 
-<div class="nav">
+<header class="nav">
+    <input type="checkbox" class="nav-btn" id="nav-btn">
+    <label for="nav-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
 
-
-    <div class="nav-btn" onclick="toggleNavMenu()">
-        <label>
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-    </div>
-
-
-    <div class="nav-links" id="nav-links">
+    <nav class="nav-links" id="nav-links">
         <?php $database->regular_navigation(); ?>
-    </div>
+    </nav>
 
     <div class="name-website">
         <h1 class="webtitle">The Photo Tech Guru</h1>
     </div>
-
-</div>
+</header>
 <main class="content" data-count="<?= $total ?>">
     <div class="main_container">
         <div class="home_article">

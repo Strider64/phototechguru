@@ -19,8 +19,8 @@ $category = htmlspecialchars($_GET['category']);
 
 $data = $trivia->fetchQuestions($category);
 
-//echo "<pre>" . print_r($data, 1) . "</pre>";
-
+// Save data to JSON file
+file_put_contents('output.json', json_encode($data));
 
 output($data);
 

@@ -626,9 +626,10 @@ label {
 .nav {
   position: relative;
   width: 100%;
-  height: 2.700em;
-  border-bottom: 1px solid #4b81f8;
-  padding-bottom: 0.625em; }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #4b81f8; }
 
 .nav-title {
   display: none;
@@ -638,26 +639,60 @@ label {
   padding-left: 0.625em; }
 
 .name-website {
-  display: none;
-  position: absolute;
-  right: 0;
-  bottom: -0.9375em; }
-  .name-website .webtitle {
-    font-family: 'Shadows Into Light', cursive;
-    font-size: 1.8em;
-    color: #4b81f8; }
+  display: block;
+  /* show website name on larger screens */ }
+
+.name-website .webtitle {
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 1.8em;
+  color: #4b81f8; }
 
 .nav > .nav-btn {
   display: none; }
 
+/* Updated Hamburger Menu CSS */
+.nav > .nav-btn > label {
+  display: inline-block;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  color: #4b81f8;
+  /* New color for the hamburger */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  /* New shadow for the hamburger */
+  transition: transform 0.5s ease-in-out;
+  /* Added for animation */ }
+
+.nav > .nav-btn:hover > label {
+  transform: scale(1.1);
+  /* New hover effect for the hamburger */ }
+
+.nav > .nav-btn > label > span {
+  display: block;
+  width: 35px;
+  height: 5px;
+  background-color: #4b81f8;
+  /* New color for the hamburger lines */
+  margin: 6px 0; }
+
+.nav > .nav-btn > label::after {
+  content: 'Menu';
+  /* New label for the hamburger */
+  font-size: 14px;
+  position: absolute;
+  top: 60px;
+  /* Position of the new label */
+  right: -10px;
+  /* Position of the new label */ }
+
 .nav > .nav-links {
-  display: inline;
-  float: right;
-  font-size: 1.250em;
-  padding-right: 3.125em; }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px; }
 
 .nav > .nav-links > a {
-  display: inline-block;
   line-height: 1.875em;
   text-decoration: none;
   text-transform: capitalize;
@@ -671,37 +706,28 @@ label {
   display: none; }
 
 /* Navigation CSS Media Query */
-@media screen and (max-width: 77em) {
+@media screen and (max-width: 600px) {
+  .nav {
+    padding-bottom: 0; }
+
+  .name-website {
+    display: none;
+    /* hide website name on smaller screens */ }
+
   .nav > .nav-btn {
-    display: inline-block;
+    display: block;
     position: absolute;
     right: 0;
     top: 0;
     z-index: 10000; }
 
-  .nav > .nav-btn > label {
-    display: inline-block;
-    cursor: pointer;
-    width: 3.125em;
-    height: 3.125em;
-    padding: 0.875em; }
-
-  .nav > .nav-btn > label > span {
-    display: block;
-    width: 1.563em;
-    height: 0.500em;
-    border-top: 0.125em solid #9a9a9a; }
-
   .nav > .nav-links {
     position: absolute;
-    display: block;
+    display: none;
     width: 100%;
     z-index: 30000;
-    background-color: rgba(51, 51, 51, 0.7);
-    height: 0;
-    transition: all 0.3s ease-in;
-    overflow-y: hidden;
-    top: 3.125em;
+    background-color: #333;
+    top: 50px;
     left: 0; }
 
   .nav > .nav-links > a {
@@ -709,10 +735,8 @@ label {
     width: 100%;
     color: #fff; }
 
-  /* Add this to your CSS file */
-  .nav-links {
-    height: 0;
-    overflow-y: hidden; } }
+  .nav .nav-btn:checked ~ .nav-links {
+    display: block; } }
 /* Vertical Navigation */
 .admin-navigation {
   display: flex;
