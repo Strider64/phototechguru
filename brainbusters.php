@@ -5,6 +5,11 @@ require_once "vendor/autoload.php";
 use PhotoTech\ErrorHandler;
 use PhotoTech\Database;
 
+/*
+ * Brain Busters 1.0 βeta
+ * Created by John Pepp
+ * on June 30, 2023
+ */
 
 $errorHandler = new ErrorHandler();
 
@@ -20,7 +25,7 @@ $pdo = $database->createPDO();
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
-    <title>BrainBusters</title>
+    <title>Brain Busters</title>
     <link rel="stylesheet" media="all" href="assets/css/brainbusters.css">
 </head>
 <body>
