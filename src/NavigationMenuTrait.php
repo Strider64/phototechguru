@@ -11,7 +11,7 @@ trait NavigationMenuTrait
     {
         $navItems = [
             'Home' => 'index.php',
-            'BrainBusters' => 'brainbusters.php',
+            'Brain Busters' => 'brainbusters.php',
             'Can You See?' => 'hangman/can_you_solve.php',
             'Gallery' => 'gallery.php',
             'Contact' => 'contact.php',

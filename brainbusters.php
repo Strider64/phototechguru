@@ -62,7 +62,7 @@ $pdo = $database->createPDO();
                         <button class="buttonStyle" id="ans3"></button>
                         <button class="buttonStyle" id="ans4"></button>
                     </div>
-                    <p id="result"></p> <!-- Add this line -->
+                    <p id="result"></p>
                 </div>
                 <button id="next" class="nextBtn">Next</button>
             </div>

@@ -101,7 +101,7 @@ const checkAnswerAgainstTable = (data) => {
 
 
 // Function to start a question by updating the question and answers in the UI
-const startGame = ({ ans1, ans2, ans3, ans4, id, question, correct }) => {
+const startGame = ({ ans1, ans2, ans3, ans4, id, question }) => {
     document.querySelector("#currentQuestion").setAttribute("data-record", id);
     document.querySelector("#currentQuestion").textContent = (
         index + 1
@@ -156,8 +156,6 @@ const fetchTiviaQuestionsAnswers = async (url) => {
     initializeTrivia(data); // Initialize the trivia game after fetching the questions and answers
 };
 
-
-
 const categorySelect = document.querySelector("#category");
 const mainGame = document.querySelector("#mainGame");
 
@@ -167,9 +165,7 @@ categorySelect.addEventListener("change", () => {
     enableButtons();
     if (selectedCategory) {
         mainGame.style.display = "block";
-
         // Now call your trivia question fetching function
-        // You might want to modify this function to fetch questions based on category
         fetchTiviaQuestionsAnswers(`fetch_questions.php?category=${selectedCategory}`);
     } else {
         mainGame.style.display = "none";
