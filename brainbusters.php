@@ -11,6 +11,8 @@ use PhotoTech\Database;
  * Brain Busters 1.0 βeta
  * Created by John Pepp
  * on June 30, 2023
+ * Updated by John Pepp
+ * on July 2, 2023
  */
 
 // Instantiate the ErrorHandler class
